@@ -1,6 +1,10 @@
 :root {
   --color-main: #2aa6ad;
   --gray: #cccccc;
+  --background-banner: #d7e1e380;
+  --background-box-search: #62c1c526;
+  --search: #18898d;
+  --height-banner: 300px;
 }
 
 .ant-menu {
@@ -31,4 +35,55 @@
 
 .box-shadow-bottom {
   box-shadow: 0px 4px 4px #00000025;
+}
+
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-custom {
+  border-radius: 0px;
+  outline: none !important;
+  border: none !important;
+}
+
+.font-banner {
+  font-family: "Pacifico";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 49px;
+}
+
+.button-search {
+  background-color: var(--search);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 0;
+}
+
+.padding-home {
+  padding: 40px 6% 40px 6%;
+}
+
+.font-text-28 {
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: bold;
+  color: var(--color-main);
+}
+
+.text-center {
+  align-items: center;
+  display: flex;
+  text-align: center;
+}
+
+.button-job {
+  border-radius: 0 !important;
+  color: var(--color-main) !important;
+  border: 1px solid var(--color-main) !important;
 }

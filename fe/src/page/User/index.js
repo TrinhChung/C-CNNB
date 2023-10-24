@@ -29,12 +29,15 @@ const items = [
 const User = () => {
     return (
         <HomeLayout menu={items}>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/job" element={<Job />} />
-                <Route path="/company" element={<Company />} />
-                <Route path="/profile" element={<Profile />} />
-            </Routes>
+            <div style={{ paddingTop: 4 }}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/job" element={<Job />} />
+                    <Route path="/company" element={<Company />} />
+                    <Route path="/profile" element={<Profile />} />
+                </Routes>
+
+            </div>
         </HomeLayout>
     )
 }

@@ -1,6 +1,6 @@
-import Navbar from '../../component/Navbar';
-import { Layout } from 'antd';
-import FooterComponent from './Footer';
+import Navbar from "../../component/Navbar";
+import { Layout } from "antd";
+import FooterComponent from "./Footer";
 const { Content } = Layout;
 const HomeLayout = ({ children, menu }) => {
   return (
@@ -8,8 +8,7 @@ const HomeLayout = ({ children, menu }) => {
       <Navbar data={menu} />
       <Content
         style={{
-          minHeight: '30vh',
-          height: '80vh'
+          minHeight: "80vh",
         }}
       >
         {children}
