@@ -6,7 +6,7 @@ const WrapBox = ({ title }) => {
   const data = [
     {
       image:
-        "https://th.bing.com/th/id/R.e55418c5ec274f37932558763ddb3d4f?rik=MhY6a2fpVgpSRg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_70436.png&ehk=LSrpl7zuY4YLQgF88WlWhT%2bMx5alpNluLMpPvmswtDQ%3d&risl=&pid=ImgRaw&r=0",
+        "https://th.bing.com/th?id=OIP.0NrOm1z0xVQQy20AAc1VHQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
       mode: "string",
       position: "string",
       time: "string",
@@ -17,7 +17,7 @@ const WrapBox = ({ title }) => {
     },
     {
       image:
-        "https://th.bing.com/th/id/R.e55418c5ec274f37932558763ddb3d4f?rik=MhY6a2fpVgpSRg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_70436.png&ehk=LSrpl7zuY4YLQgF88WlWhT%2bMx5alpNluLMpPvmswtDQ%3d&risl=&pid=ImgRaw&r=0",
+        "https://th.bing.com/th?id=OIP.0NrOm1z0xVQQy20AAc1VHQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
       mode: "string",
       position: "string",
       time: "string",
@@ -28,7 +28,7 @@ const WrapBox = ({ title }) => {
     },
     {
       image:
-        "https://th.bing.com/th/id/R.e55418c5ec274f37932558763ddb3d4f?rik=MhY6a2fpVgpSRg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_70436.png&ehk=LSrpl7zuY4YLQgF88WlWhT%2bMx5alpNluLMpPvmswtDQ%3d&risl=&pid=ImgRaw&r=0",
+        "https://th.bing.com/th?id=OIP.0NrOm1z0xVQQy20AAc1VHQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
       mode: "string",
       position: "string",
       time: "string",
@@ -39,18 +39,7 @@ const WrapBox = ({ title }) => {
     },
     {
       image:
-        "https://th.bing.com/th/id/R.e55418c5ec274f37932558763ddb3d4f?rik=MhY6a2fpVgpSRg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_70436.png&ehk=LSrpl7zuY4YLQgF88WlWhT%2bMx5alpNluLMpPvmswtDQ%3d&risl=&pid=ImgRaw&r=0",
-      mode: "string",
-      position: "string",
-      time: "string",
-      company: "string",
-      location: "string",
-      maxCost: "string",
-      minCost: "string",
-    },
-    {
-      image:
-        "https://th.bing.com/th/id/R.e55418c5ec274f37932558763ddb3d4f?rik=MhY6a2fpVgpSRg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fimg_70436.png&ehk=LSrpl7zuY4YLQgF88WlWhT%2bMx5alpNluLMpPvmswtDQ%3d&risl=&pid=ImgRaw&r=0",
+        "https://th.bing.com/th?id=OIP.0NrOm1z0xVQQy20AAc1VHQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2",
       mode: "string",
       position: "string",
       time: "string",

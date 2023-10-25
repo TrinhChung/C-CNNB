@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Col, Row } from "antd";
 import Search from "./Search";
-const Banner = ({ role }) => {
+const Banner = ({ role, image }) => {
   return (
     <Col>
       <Row
@@ -37,7 +37,7 @@ const Banner = ({ role }) => {
         <Col span={role === 0 ? 8 : 24} className="center-flex">
           <Image
             height={"var(--height-banner)"}
-            src="https://th.bing.com/th/id/R.1c441b4605dc3fe87a01740c9c8d6ae4?rik=DUQoPEyqXdm%2fvA&riu=http%3a%2f%2finap.gouvernement.lu%2fdam-assets%2fimages%2fjobs.png%2f_jcr_content%2frenditions%2fthumb-mdpi.png&ehk=%2fNHsz89eih6i4eP1M6pIN218mvC1%2f%2bgM9alMHzt5GoA%3d&risl=&pid=ImgRaw&r=0"
+            src={image}
             preview={false}
             width={"100%"}
           />

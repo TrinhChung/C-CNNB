@@ -4,15 +4,9 @@ import FooterComponent from "./Footer";
 const { Content } = Layout;
 const HomeLayout = ({ children, menu }) => {
   return (
-    <Layout className="layout">
+    <Layout>
       <Navbar data={menu} />
-      <Content
-        style={{
-          minHeight: "80vh",
-        }}
-      >
-        {children}
-      </Content>
+      <Content style={{ minHeight: "calc(100vh - 64px)" }}>{children}</Content>
       <FooterComponent />
     </Layout>
   );
