@@ -5,7 +5,7 @@ import "../page/User/profile/Profile.scss";
 
 const BoxCV = ({ title, isEdit = false, children }) => {
   return (
-    <Row className="box-cv box-shadow-bottom">
+    <Row className="box-cv box-shadow-bottom" style={{ width: "100%" }}>
       <Col span={24}>
         <Row style={{ justifyContent: "space-between" }}>
           <Col span={22} className="font-text-28">

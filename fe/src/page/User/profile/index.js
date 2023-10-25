@@ -7,7 +7,9 @@ import {
 } from "@ant-design/icons";
 import SiderLayout from "../../../layout/SiderLayout";
 import { Routes, Route } from "react-router-dom";
-
+import JobBookmark from "./JobBookmark";
+import JobSubmitted from "./JobSubmitted";
+import MyCompany from "./MyCompany";
 import CV from "./CV";
 
 const menu = [
@@ -19,8 +21,8 @@ const menu = [
   },
   {
     label: "Việc làm đã lưu",
-    path: "/job-markdown",
-    key: "job-markdown",
+    path: "/job-bookmark",
+    key: "job-bookmark",
     icon: <FolderAddOutlined />,
   },
   {
@@ -41,6 +43,9 @@ const Profile = () => {
     <SiderLayout menuProps={{ items: menu, layout: "profile" }}>
       <Routes>
         <Route path="/" element={<CV />} />
+        <Route path="/job-bookmark" element={<JobBookmark />} />
+        <Route path="/job-submitted" element={<JobSubmitted />} />
+        <Route path="/my-company" element={<MyCompany />} />
       </Routes>
     </SiderLayout>
   );
