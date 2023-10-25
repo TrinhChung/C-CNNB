@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Menu, Layout } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-
+import "../page/User/profile/Profile.scss";
 const { Sider } = Layout;
 
 const SiderCustom = ({ menuProps = {} }) => {
@@ -27,13 +27,15 @@ const SiderCustom = ({ menuProps = {} }) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
+      className="sider-profile"
     >
       <Menu
         onClick={handleClickMenuOption}
-        style={{ height: "100%" }}
+        style={{ height: "100%", color: "white" }}
         defaultSelectedKeys={[pathname.split("/").reverse()[0]]}
         defaultOpenKeys={[pathname.split("/").reverse()[1]]}
         mode="inline"
+        theme="dark"
         items={menuProps.items}
       />
       <button

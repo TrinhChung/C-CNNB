@@ -1,10 +1,29 @@
 .box-cv {
     background-color: white;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 30px 25px 30px 25px;
     .box-title {
        color: var(--color-main);
        font-weight: bold;
        font-size: 20px;
-       padding: 30px 25px 30px 25px;
     }
+    margin-bottom: 20px;
+
+    .title-container {
+        font-weight: bold;
+        font-size: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.sider-profile {
+    .ant-menu-item-selected {
+        background-color: #BF8A00 !important;
+        color: white!important;
+    } 
+
+    .ant-menu-dark {
+        background-color: #072B4D;
+    }
+
 }
