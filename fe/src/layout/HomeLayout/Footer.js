@@ -30,7 +30,7 @@ const FooterComponent = () => {
         {data &&
           data.length > 0 &&
           data.map((item, index) => {
-            return <Row>{item}</Row>;
+            return <Row key={index}>{item}</Row>;
           })}
       </Col>
     );

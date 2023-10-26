@@ -5,7 +5,6 @@ import Home from "./home";
 import Job from "./job";
 import Company from "./company";
 import Profile from "./profile";
-import Search from "./home/search";
 
 const items = [
   {
@@ -32,9 +31,8 @@ const User = () => {
       <div style={{ paddingTop: 4 }}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/job" element={<Job />} />
-          <Route path="/company" element={<Company />} />
+          <Route path="/job/*" element={<Job />} />
+          <Route path="/company/*" element={<Company />} />
           <Route path="/profile/*" element={<Profile />} />
         </Routes>
       </div>

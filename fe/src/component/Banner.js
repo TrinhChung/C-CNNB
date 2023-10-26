@@ -1,7 +1,13 @@
 import React from "react";
 import { Image, Col, Row } from "antd";
-import Search from "./Search";
-const Banner = ({ role, image }) => {
+import BoxSearch from "./BoxSearch";
+const Banner = ({
+  role = 0,
+  image = "",
+  search,
+  placeholder = "Công việc, vị trí ứng tuyển",
+  title = "Chúng tôi đợi bạn ở đây",
+}) => {
   return (
     <Col>
       <Row
@@ -29,8 +35,8 @@ const Banner = ({ role, image }) => {
                 width: "80%",
               }}
             >
-              <Row className="font-banner">Chung toi doi ban o day</Row>
-              <Search />
+              <Row className="font-banner">{title}</Row>
+              <BoxSearch handleSearch={search} placeholder={placeholder} />
             </Col>
           </Col>
         ) : null}

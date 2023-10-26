@@ -6,6 +6,9 @@
   --search: #18898d;
   --height-banner: 300px;
   --color-image: #095a88;
+  --color-job-box: #62c2c53e;
+  --color-yellow: #F9BA19d6;
+  --color-gray-job: #898484;
 }
 
 .ant-menu {
@@ -102,6 +105,20 @@
   border: 1px solid var(--color-main) !important;
 }
 
+.button-color-inner {
+  background-color: var(--color-main);
+  color: white!important;
+}
+
 .ant-carousel .slick-slide {
   width: 100%;
+}
+
+.width-40 {
+  width: 40%;
+}
+
+.text-description {
+  font-size: 20px;
+  white-space: pre-line;
 }

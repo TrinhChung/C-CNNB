@@ -1,8 +1,9 @@
 import React from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Pagination } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import BoxJob from "../../component/BoxJob";
-const WrapBox = ({ title }) => {
+
+const WrapBox = ({ title, isShowAll = true, isPagination = false }) => {
   const data = [
     {
       image:
@@ -50,7 +51,7 @@ const WrapBox = ({ title }) => {
     },
   ];
   return (
-    <Col className="padding-home">
+    <Col style={{ padding: "40px 10% 40px 10%" }}>
       <Row
         style={{
           justifyContent: "space-between",
@@ -59,19 +60,26 @@ const WrapBox = ({ title }) => {
         }}
       >
         <Col className="font-text-28">{title}</Col>
-        <Col style={{ cursor: "pointer" }} className="font-text-28 ">
-          Xem tat ca <ArrowRightOutlined />
-        </Col>
+        {isShowAll && (
+          <Col style={{ cursor: "pointer" }} className="font-text-28 ">
+            Xem tat ca <ArrowRightOutlined />
+          </Col>
+        )}
       </Row>
       <Row>
         <Col span={24}>
           {data &&
             data.length > 0 &&
             data.map((item, index) => {
-              return <BoxJob data={item} size={140} />;
+              return <BoxJob data={item} size={140} key={index} />;
             })}
         </Col>
       </Row>
+      {isPagination && (
+        <Row style={{ justifyContent: "center" }}>
+          <Pagination defaultCurrent={1} total={50} />
+        </Row>
+      )}
     </Col>
   );
 };

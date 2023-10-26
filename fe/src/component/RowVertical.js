@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-const RowVertical = ({ title, data, children }) => {
+const RowVertical = ({ title, children }) => {
   return (
     <Row>
       <Col span={24}>

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout, Row, Col, Dropdown } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
   const [current, setCurrent] = useState("home");
+  const { pathname } = useLocation();
   const onClick = (e) => {
     console.log("click ", e);
     setCurrent(e.key);
   };
-
   const handleMenuClick = (e) => {
     console.log("click", e);
   };
+
+  useEffect(() => {
+    const pathArr = pathname.split("/");
+    if (pathArr[1] === "") {
+      pathArr[1] = "home";
+    }
+    setCurrent(pathArr[1]);
+  }, [pathname]);
+
   const items = [
     {
       label: "1st menu item",
@@ -40,6 +49,7 @@ const Navbar = ({ data }) => {
       disabled: true,
     },
   ];
+
   const menuProps = {
     items,
     onClick: handleMenuClick,

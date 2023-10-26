@@ -1,11 +1,14 @@
-import React from 'react';
-
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import JobDetail from "./detail";
+import Search from "./search";
 const Job = () => {
-    return (
-        <div>
-            Job
-        </div>
-    );
-}
+  return (
+    <Routes>
+      <Route path="/detail/*" element={<JobDetail />} />
+      <Route path="/" element={<Search />} />
+    </Routes>
+  );
+};
 
 export default Job;
