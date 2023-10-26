@@ -1,0 +1,45 @@
+.custom {
+  padding-top: 6px;
+  .ant-input {
+    border-bottom: 1px solid var(--color-main) !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    padding-left: 0;
+  }
+
+  .ant-input:focus {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-main) !important;
+  }
+
+  .ant-input:hover {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-main) !important;
+  }
+}
+
+.text-area {
+  .ant-input {
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--color-main);
+  }
+
+  .ant-input:focus {
+    border-color: var(--color-main);
+  }
+
+  .ant-input:hover {
+    border-color: var(--color-main);
+  }
+}

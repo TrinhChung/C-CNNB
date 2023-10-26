@@ -3,17 +3,20 @@ import { Layout, Row, Col, Dropdown } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
   const [current, setCurrent] = useState("home");
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const onClick = (e) => {
     console.log("click ", e);
     setCurrent(e.key);
   };
   const handleMenuClick = (e) => {
-    console.log("click", e);
+    navigate(`/profile/`);
   };
 
   useEffect(() => {

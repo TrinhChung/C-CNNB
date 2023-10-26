@@ -9,6 +9,8 @@
   --color-job-box: #62c2c53e;
   --color-yellow: #F9BA19d6;
   --color-gray-job: #898484;
+  --color-smoke:rgba(217, 217, 217, 0.13);
+  --color-gray-card-user:rgba(217, 217, 217, 0.47);
 }
 
 .ant-menu {
@@ -99,6 +101,14 @@
   color: var(--color-main);
 }
 
+.fs-20 {
+  font-size: 20px;
+}
+
+.fs-16 {
+  font-size: 16px;
+}
+
 .button-job {
   border-radius: 0 !important;
   color: var(--color-main) !important;
@@ -108,6 +118,7 @@
 .button-color-inner {
   background-color: var(--color-main);
   color: white!important;
+  border-radius: 0 !important;
 }
 
 .ant-carousel .slick-slide {
@@ -118,7 +129,39 @@
   width: 40%;
 }
 
+.pdx40 {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.border-right {
+  border-right: 1px solid white;
+}
+
 .text-description {
   font-size: 20px;
   white-space: pre-line;
+}
+
+.title-color-main {
+  color: var(--color-main);
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.h2-color-main {
+  color: var(--color-main);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.box-border-shadow {
+  border-radius: 20px;
+  box-shadow: 0 4px 4px #00000025;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

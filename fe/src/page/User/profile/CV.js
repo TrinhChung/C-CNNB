@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Switch, Select, Input, Radio } from "antd";
-import UploadImage from "../../../component/UploadImage";
 import RowHorizontal from "../../../component/RowHorizontal";
+import UploadImage from "../../../component/Card/UploadImage";
 import RowVertical from "../../../component/RowVertical";
 import BoxCV from "../../../component/BoxCV";
 import "./Profile.scss";

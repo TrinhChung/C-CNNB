@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Pagination } from "antd";
-import { ArrowRightOutlined } from "@ant-design/icons";
 import BoxJob from "../../component/BoxJob";
+import TitleViewAll from "../../component/TitleViewAll";
 
 const WrapBox = ({ title, isShowAll = true, isPagination = false }) => {
   const data = [
@@ -52,20 +52,10 @@ const WrapBox = ({ title, isShowAll = true, isPagination = false }) => {
   ];
   return (
     <Col style={{ padding: "40px 10% 40px 10%" }}>
-      <Row
-        style={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingBottom: 38,
-        }}
-      >
-        <Col className="font-text-28">{title}</Col>
-        {isShowAll && (
-          <Col style={{ cursor: "pointer" }} className="font-text-28 ">
-            Xem tat ca <ArrowRightOutlined />
-          </Col>
-        )}
-      </Row>
+      <TitleViewAll
+        title={"Tin tuyển dụng, việc làm tốt nhất"}
+        isShowAll={isShowAll}
+      />
       <Row>
         <Col span={24}>
           {data &&
