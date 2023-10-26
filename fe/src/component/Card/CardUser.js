@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Image, Button } from "antd";
-const CardUser = () => {
+const CardUser = ({ title, data }) => {
   return (
     <Col
       style={{
@@ -35,7 +35,7 @@ const CardUser = () => {
               paddingBottom: 8,
             }}
           >
-            Name
+            {data.name}
           </Row>
           <Row
             style={{
@@ -44,7 +44,7 @@ const CardUser = () => {
               paddingBottom: 24,
             }}
           >
-            Position
+            {data.position}
           </Row>
         </Col>
       </Row>
@@ -56,8 +56,8 @@ const CardUser = () => {
           color: "var(--color-gray-job)",
         }}
       >
-        <Row style={{ justifyContent: "center" }}>Title1</Row>
-        <Row style={{ justifyContent: "center" }}>Value1</Row>
+        <Row style={{ justifyContent: "center" }}>{title.title1}</Row>
+        <Row style={{ justifyContent: "center" }}>{data.value1}</Row>
       </Row>
       <Row
         style={{
@@ -66,8 +66,8 @@ const CardUser = () => {
           color: "var(--color-gray-job)",
         }}
       >
-        <Row style={{ justifyContent: "center" }}>title2</Row>
-        <Row style={{ justifyContent: "center" }}>Value2</Row>
+        <Row style={{ justifyContent: "center" }}>{title.title2}</Row>
+        <Row style={{ justifyContent: "center" }}>{data.value2}</Row>
       </Row>
       <Row style={{ padding: "0 32px 16px 32px" }}>
         <Button

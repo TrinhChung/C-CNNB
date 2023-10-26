@@ -51,11 +51,9 @@ const WrapBox = ({ title, isShowAll = true, isPagination = false }) => {
     },
   ];
   return (
-    <Col style={{ padding: "40px 10% 40px 10%" }}>
-      <TitleViewAll
-        title={"Tin tuyển dụng, việc làm tốt nhất"}
-        isShowAll={isShowAll}
-      />
+    // <Col style={{ padding: "40px 10% 40px 10%" }}>
+    <>
+      <TitleViewAll title={title} isShowAll={isShowAll} />
       <Row>
         <Col span={24}>
           {data &&
@@ -70,7 +68,8 @@ const WrapBox = ({ title, isShowAll = true, isPagination = false }) => {
           <Pagination defaultCurrent={1} total={50} />
         </Row>
       )}
-    </Col>
+    </>
+    // </Col>
   );
 };
 

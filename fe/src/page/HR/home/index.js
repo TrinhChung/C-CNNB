@@ -8,6 +8,33 @@ import CardIcon from "../../../component/Card/CardIcon";
 import { FileOutlined } from "@ant-design/icons";
 import "./Home.scss";
 const Home = () => {
+  const title = {
+    title1: "Lĩnh vực:",
+    title2: "Số năm kinh nghiệm",
+  };
+  const data = [
+    {
+      name: "Truong Tam Phong",
+      position: "leader",
+      value1: 3,
+      value2: 5,
+      id: 1,
+    },
+    {
+      name: "Truong Tam Phong",
+      position: "leader",
+      jobsCharge: 3,
+      value1: 5,
+      value2: 1,
+    },
+    {
+      name: "Truong Tam Phong",
+      position: "leader",
+      jobsCharge: 3,
+      value1: 5,
+      value2: 1,
+    },
+  ];
   return (
     <Col style={{ backgroundColor: "white" }}>
       <Banner role={1} image={banner} />
@@ -24,9 +51,11 @@ const Home = () => {
             padding: "0 0px 65px 0px",
           }}
         >
-          <CardUser />
-          <CardUser />
-          <CardUser />
+          {data &&
+            data.length > 0 &&
+            data.map((item, i) => {
+              return <CardUser title={title} data={item} />;
+            })}
         </Row>
       </Col>
       <Row>

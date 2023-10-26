@@ -4,8 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HR from "./page/HR";
+import Company from "./page/Company";
 function App() {
-  const role = 1;
+  const role = 2;
   return (
     <BrowserRouter>
       <Routes>
@@ -14,7 +15,7 @@ function App() {
         ) : role === 1 ? (
           <Route path="/*" element={<HR />} />
         ) : (
-          <></>
+          <Route path="/*" element={<Company />} />
         )}
       </Routes>
     </BrowserRouter>

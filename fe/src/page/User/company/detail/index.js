@@ -1,5 +1,5 @@
 import React from "react";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 import Card from "../search/Card";
 import DescriptionBox from "../../../../component/DescriptionBox";
 import WrapBox from "../../../../layout/HomeLayout/WrapBox";
@@ -42,7 +42,9 @@ Chúng tôi đang tìm kiếm những bạn trẻ tiềm năng và nhiệt huy�
             </Row>
           );
         })}
-      <WrapBox title={"Các vị trí công ty đang đăng tuyển"} />
+      <Col style={{ padding: "40px 10% 40px 10%" }}>
+        <WrapBox title={"Các vị trí công ty đang đăng tuyển"} />
+      </Col>
     </>
   );
 };

@@ -43,11 +43,13 @@ const Search = () => {
   return (
     <Col span={24}>
       <WrapBoxSearch />
-      <WrapBox
-        title={"Công việc đang có"}
-        isShowAll={false}
-        isPagination={true}
-      />
+      <Col style={{ padding: "40px 10% 40px 10%" }}>
+        <WrapBox
+          title={"Công việc đang có"}
+          isShowAll={false}
+          isPagination={true}
+        />
+      </Col>
     </Col>
   );
 };
