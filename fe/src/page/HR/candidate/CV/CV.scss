@@ -1,0 +1,21 @@
+.custom-detail {
+  .ant-timeline-item-tail {
+    background-color: var(--color-main);
+    width: 3px;
+    height: 100% !important;
+    top: 12px;
+    bottom: 0;
+  }
+  .ant-badge-status-dot {
+    height: 12px !important;
+    width: 12px !important;
+  }
+  .ant-timeline-item-head-custom {
+    padding-block: 0 !important;
+  }
+
+  .ant-timeline-item-head-custom {
+    inset-block-start: 18px;
+    inset-inline-start: -7px;
+  }
+}

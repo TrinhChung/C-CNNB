@@ -1,89 +1,175 @@
 import React from "react";
-import { Col, Row, Input, Select, DatePicker, Button, Pagination } from "antd";
-import WrapInput from "./WrapInput";
+import { Col, Row, Input, Select, DatePicker, Badge } from "antd";
 import "./Work.scss";
-import CardWork from "./CardWork";
+import BoxSearch from "./BoxSearch";
+import TableResult from "./TableResult";
+import {
+  DollarCircleOutlined,
+  EnvironmentOutlined,
+  LockOutlined,
+  EditOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 const Work = () => {
-  return (
-    <Col
-      style={{
-        margin: 40,
-        border: "1px solid var(--gray)",
-        paddingLeft: 60,
-        paddingBottom: 30,
-        paddingRight: 60,
-      }}
-      className="box-shadow-bottom"
-    >
-      <Row style={{ paddingTop: 30, alignItems: "end" }}>
-        <Col span={5}>
-          <WrapInput title={"Từ khóa tìm kiếm"}>
-            <Input style={{ width: "90%" }} />
-          </WrapInput>
-        </Col>
-        <Col span={5}>
-          <WrapInput title={"Tìm theo công ty"}>
-            <Select style={{ width: "90%" }} />
-          </WrapInput>
-        </Col>
-        <Col span={5}>
-          <WrapInput title={"Ngày đăng"}>
-            <DatePicker style={{ width: "90%" }} />
-          </WrapInput>
-        </Col>
-        <Col span={5}>
-          <WrapInput title={"Ngày tuyển dụng"}>
-            <DatePicker style={{ width: "90%" }} />
-          </WrapInput>
-        </Col>
-        <Col span={4}>
-          <Button
-            className="button-color-inner"
-            style={{ width: "90%", height: 40 }}
-          >
-            Tìm ngay
-          </Button>
-        </Col>
-      </Row>
-      <Row style={{ marginTop: 40 }}>
-        <Col span={24}>
-          <Row
-            className="background-color-main pdx40"
-            style={{ paddingTop: 15, paddingBottom: 15 }}
-          >
-            <Col className="cell-content border-right " span={8}>
-              Tiêu đề, tên công việc
-            </Col>
-            <Col className="cell-content border-right " span={4}>
-              Số người ứng tuyển
-            </Col>
+  const listInput = [
+    { title: "Từ khóa tìm kiếm", input: <Input style={{ width: "90%" }} /> },
+    { title: "Tìm theo công ty", input: <Select style={{ width: "90%" }} /> },
+    { title: "Ngày đăng", input: <DatePicker style={{ width: "90%" }} /> },
+    {
+      title: "Ngày tuyển dụng",
+      input: <DatePicker style={{ width: "90%" }} />,
+    },
+  ];
 
-            <Col className="cell-content border-right " span={4}>
-              Ngày đăng tin
-            </Col>
-            <Col className="cell-content border-right " span={4}>
-              Cập nhật lần cuối
-            </Col>
-            <Col className="cell-content" span={2}>
-              Thao tác
+  const handlerSearch = () => {
+    console.log("searching");
+  };
+
+  const data = [
+    {
+      position: "Vị trí việc làm",
+      status: "Trạng thái",
+      cost: "5.000.000 - 10.000.000",
+      address: "Hà nội",
+      numberRecruit: "10",
+      dateRecruit: "dd/mm/yy",
+      dateWork: "dd/mm/yy",
+    },
+    {
+      position: "Vị trí việc làm",
+      status: "Trạng thái",
+      cost: "5.000.000 - 10.000.000",
+      address: "Hà nội",
+      numberRecruit: "10",
+      dateRecruit: "dd/mm/yy",
+      dateWork: "dd/mm/yy",
+    },
+    {
+      position: "Vị trí việc làm",
+      status: "Trạng thái",
+      cost: "5.000.000 - 10.000.000",
+      address: "Hà nội",
+      numberRecruit: "10",
+      dateRecruit: "dd/mm/yy",
+      dateWork: "dd/mm/yy",
+    },
+    {
+      position: "Vị trí việc làm",
+      status: "Trạng thái",
+      cost: "5.000.000 - 10.000.000",
+      address: "Hà nội",
+      numberRecruit: "10",
+      dateRecruit: "dd/mm/yy",
+      dateWork: "dd/mm/yy",
+    },
+  ];
+
+  const listHead = [
+    {
+      title: "Tiêu đề, tên công việc",
+      col: 9,
+      render: (data) => {
+        return (
+          <Row style={{ paddingLeft: 30 }}>
+            <Col span={24} style={{ justifyContent: "center" }}>
+              <Row className="title-color-main">
+                <Col style={{ fontSize: 30, paddingRight: 22 }}>
+                  {data.position}
+                </Col>
+                <Col style={{ display: "flex", alignItems: "center" }}>
+                  <Badge
+                    color="#f50"
+                    text={data.status}
+                    style={{ color: "#f50" }}
+                  />
+                </Col>
+              </Row>
+              <Row style={{ paddingTop: 27 }} className="color-main">
+                <Col>
+                  <DollarCircleOutlined />
+                </Col>
+                <Col>Lương: {data.cost}</Col>
+              </Row>
+              <Row style={{ paddingTop: 9 }}>
+                <Col>
+                  <EnvironmentOutlined />
+                </Col>
+                <Col>Nơi làm việc: {data.address}</Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row
-        style={{ border: "1px solid var(--color-main)", marginBottom: 40 }}
-        className="pdx40"
-      >
-        <CardWork />
-        <CardWork />
-        <CardWork />
-        <CardWork />
-        <Row
-          style={{ justifyContent: "center", paddingBottom: 60, width: "100%" }}
-        >
-          <Pagination defaultCurrent={1} total={50} size="large" />
-        </Row>
-      </Row>
+        );
+      },
+    },
+    {
+      title: "Số người ứng tuyển",
+      col: 4,
+      render: (data) => {
+        return (
+          <Row>
+            <Col span={24}>
+              <Row style={{ justifyContent: "center" }} className="fs-16">
+                {data.numberRecruit}
+              </Row>
+              <Row
+                style={{ justifyContent: "center", fontWeight: "bold" }}
+                className="fs-16"
+              >
+                Người ứng tuyển
+              </Row>
+            </Col>
+          </Row>
+        );
+      },
+    },
+    {
+      title: "Ngày đăng tin",
+      col: 4,
+      render: (data) => {
+        return (
+          <Row style={{ justifyContent: "center" }} className="fs-16">
+            {data.dateRecruit}
+          </Row>
+        );
+      },
+    },
+    {
+      title: "Cập nhật lần cuối",
+      col: 4,
+      render: (data) => {
+        return (
+          <Row style={{ justifyContent: "center" }} className="fs-16">
+            {data.dateWork}
+          </Row>
+        );
+      },
+    },
+    {
+      title: "Thao tác",
+      col: 3,
+      borderRight: false,
+      render: () => {
+        return (
+          <Row style={{ justifyContent: "center" }}>
+            <Col span={8}>
+              <LockOutlined />
+            </Col>
+            <Col span={8}>
+              <EditOutlined />
+            </Col>
+            <Col span={8}>
+              <CloseOutlined />
+            </Col>
+          </Row>
+        );
+      },
+    },
+  ];
+
+  return (
+    <Col className="box-shadow-bottom layout-container">
+      <BoxSearch listInput={listInput} search={handlerSearch} />
+      <TableResult listHead={listHead} dataSource={data} />
     </Col>
   );
 };

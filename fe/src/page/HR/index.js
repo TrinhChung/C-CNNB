@@ -5,6 +5,7 @@ import Home from "./home";
 import Profile from "./profile";
 import Recruit from "./recruit";
 import Work from "./work";
+import Candidate from "./candidate";
 const HR = () => {
   const items = [
     {
@@ -33,6 +34,7 @@ const HR = () => {
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/recruit" element={<Recruit />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/candidate/*" element={<Candidate />} />
         </Routes>
       </div>
     </HomeLayout>
