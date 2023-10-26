@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Col, Row } from "antd";
 import BoxSearch from "./BoxSearch";
+import InfoBanner from "../page/HR/home/InfoBanner";
 const Banner = ({
   role = 0,
   image = "",
@@ -49,7 +50,7 @@ const Banner = ({
           />
         </Col>
       </Row>
-      {role === 1 && <Row>THong tin</Row>}
+      {role === 1 && <InfoBanner />}
     </Col>
   );
 };
