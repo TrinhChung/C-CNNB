@@ -5,20 +5,23 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HR from "./page/HR";
 import Company from "./page/Company";
+import AuthProvider from "./provider/authProvider";
 function App() {
-  const role = 2;
+  const role = 0;
   return (
-    <BrowserRouter>
-      <Routes>
-        {role === 0 ? (
-          <Route path="/*" element={<User />} />
-        ) : role === 1 ? (
-          <Route path="/*" element={<HR />} />
-        ) : (
-          <Route path="/*" element={<Company />} />
-        )}
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {role === 0 ? (
+            <Route path="/*" element={<User />} />
+          ) : role === 1 ? (
+            <Route path="/*" element={<HR />} />
+          ) : (
+            <Route path="/*" element={<Company />} />
+          )}
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

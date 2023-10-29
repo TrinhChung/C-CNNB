@@ -1,5 +1,5 @@
 import React from "react";
-import Banner from "../../../component/Banner";
+import Banner from "../../../component/home/Banner";
 import { Row, Col, Image } from "antd";
 import WrapBox from "../../../layout/HomeLayout/WrapBox";
 import TopJob from "./topJob";

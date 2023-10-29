@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Pagination } from "antd";
-import Banner from "../../../../component/Banner";
+import Banner from "../../../../component/home/Banner";
 import Card from "./Card";
 const SearchCompany = () => {
   const data = [

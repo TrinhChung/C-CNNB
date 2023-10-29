@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, Col, Row } from "antd";
-import BoxSearch from "./BoxSearch";
-import InfoBanner from "../page/HR/home/InfoBanner";
+import BoxSearch from "../BoxSearch";
+import InfoBanner from "../../page/HR/home/InfoBanner";
 const Banner = ({
   role = 0,
   image = "",

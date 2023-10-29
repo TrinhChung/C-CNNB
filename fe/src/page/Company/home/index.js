@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row, Image } from "antd";
-import Banner from "../../../component/Banner";
+import Banner from "../../../component/home/Banner";
 import imageBanner from "../../../assets/banner-company.jpeg";
 import imageBanner2 from "../../../assets/banner-company-2.jpeg";
 

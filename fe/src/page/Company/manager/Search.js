@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Input, Select, Badge, Button, Image } from "antd";
+import { Col, Row, Input, Select, Button, Image } from "antd";
 import BoxSearch from "../../HR/work/BoxSearch";
 import TableResult from "../../HR/work/TableResult";
 import {
