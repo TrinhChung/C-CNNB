@@ -65,7 +65,7 @@ class User extends Authenticatable
         });
     }
 
-    public function apply()
+    public function appliedTasks()
     {
         return $this->belongsToMany(Task::class, 'applier_task', 'applier_id', 'task_id')
             ->using(Applier_task::class)->withPivot('id', 'applier_id', 'task_id')->withTimestamps();
@@ -77,7 +77,7 @@ class User extends Authenticatable
             ->using(Save::class)->withPivot('id', 'applier_id', 'task_id')->withTimestamps();
     }
 
-    public function managedTask()
+    public function managedTasks()
     {
         return $this->hasMany(Task::class, 'hr_id', 'id');
     }

@@ -77,7 +77,8 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
 
     public function paginateTasks()
     {
-        return $this->_model->with('address')->with('types')->with('company')->with('hr')->paginate(10);
+        //dd(get_class($this->_model));
+        return $this->_model->with('address')->with('types')->with('company')->with('hr')->orderBy('created_at', 'DESC')->paginate(10);
     }
 
     public function editTask(Request $request)

@@ -3,8 +3,10 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -71,4 +73,17 @@ Route::prefix('company')->group(function () {
     Route::post('/search', [CompanyController::class, 'search']);
     Route::post('/new', [CompanyController::class, 'create']);
     Route::put('/update/{id}', [CompanyController::class, 'update']);
+});
+
+Route::prefix('user')->group(function () {
+    //Route::get('/all', [CompanyController::class, 'index']);
+    Route::get('/applier/info/{id}', [UserController::class, 'infoApplier']);
+    Route::get('/hr/info/{id}', [UserController::class, 'infoHr']);
+    //Route::post('/search', [UserController::class, 'search']);
+    Route::post('/new', [UserController::class, 'create']);
+    Route::put('/update/{id}', [UserController::class, 'update']);
+});
+
+Route::prefix('profile')->group(function () {
+    Route::get('/test', [ProfileController::class, 'crudPartition']);
 });

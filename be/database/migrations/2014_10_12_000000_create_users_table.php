@@ -20,7 +20,7 @@ return new class extends Migration
             $table->smallInteger('birth_year');
             $table->enum('gender', [1, 0, -1]);
             $table->enum('role', [1, 0]);
-            $table->integer('company_id')->nullable();
+            $table->uuid('company_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

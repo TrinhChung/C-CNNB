@@ -2,106 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class UserController extends Controller
 {
     //
-    protected $companyRepository;
+    protected $userRepository;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->companyRepository = $companyRepository;
-    }
-
-    public function index()
-    {
-        try {
-            $data = $this->companyRepository->getAllPaginate(10);
-            if ($data) {
-                return response()->json(
-                    [
-                        'data' => $data,
-                        'message' => 'get all companies',
-                        'success' => 1,
-                    ], 200
-                );
-            } else {
-                throw new Exception('companies not found');
-            }
-
-        } catch (Exception $err) {
-            return response()->json([
-                'success' => 0,
-                'message' => $err->getMessage(),
-            ]);
-        }
-    }
-
-    public function search(Request $request)
-    {
-        try {
-            $data = $this->companyRepository->search($request);
-            if ($data) {
-                return response()->json(
-                    [
-                        'data' => $data,
-                        'message' => 'searched companies',
-                        'success' => 1,
-                    ], 200
-                );
-            } else {
-                throw new Exception('no companies for requiment');
-            }
-        } catch (Exception $err) {
-            return response()->json(
-                [
-                    'message' => $err->getMessage(),
-                    'success' => 0,
-                ]
-            );
-        }
-    }
-
-    public function info(Request $request)
-    {
-        try {
-            $data = $this->companyRepository->getDetail($request);
-            if ($data) {
-                return response()->json(
-                    [
-                        'data' => $data,
-                        'message' => 'get info of company',
-                        'success' => 1,
-                    ], 200
-                );
-            } else {
-                throw new Exception('company not found');
-            }
-        } catch (Exception $err) {
-            return response()->json([
-                'success' => 0,
-                'message' => $err->getMessage(),
-            ]);
-        }
+        $this->userRepository = $userRepository;
     }
 
     public function create(Request $request)
     {
         try {
-            $data = $this->companyRepository->createCompany($request);
+            $data = $this->userRepository->createUser($request);
             if ($data) {
                 return response()->json(
                     [
                         'data' => $data,
-                        'message' => 'new task created',
+                        'message' => 'new user registered',
                         'success' => 1,
                     ], 200
                 );
             } else {
-                throw new Exception('your tax code is not valid');
+                throw new Exception('failed to create new user');
             }
         } catch (Exception $err) {
             return response()->json(
@@ -113,20 +41,95 @@ class CompanyController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function apply(Request $request)
     {
         try {
-            $data = $this->companyRepository->editCompany($request->id, $request->all());
+            $data = $this->userRepository->applyTask($request->user_id, $request->task_id);
             if ($data) {
                 return response()->json(
                     [
                         'data' => $data,
-                        'message' => 'task updated',
+                        'message' => 'applied',
                         'success' => 1,
                     ], 200
                 );
             } else {
-                throw new Exception('task not found / can not be updated');
+                throw new Exception('can not apply for task');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function save(Request $request)
+    {
+        try {
+            $data = $this->userRepository->saveTask($request->user_id, $request->task_id);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'task saved',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('can not save for task');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function infoApplier(Request $request)
+    {
+        try {
+            $data = $this->userRepository->applierInfo($request->id);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get info of applier',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('user not found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function infoHr(Request $request)
+    {
+        try {
+            $data = $this->userRepository->hrInfo($request->id);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get info of hr',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('user not found');
             }
         } catch (Exception $err) {
             return response()->json(
