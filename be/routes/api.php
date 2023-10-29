@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +36,39 @@ Route::get('/greeting', function () {
     $data = json_decode($data);
 
     return $data[0]->content;
+});
+
+Route::prefix('address')->group(function () {
+    Route::get('/all', [AddressController::class, 'index']);
+    Route::get('/jobs/{id}', [AddressController::class, 'allJobs']);
+});
+
+Route::prefix('category')->group(function () {
+    Route::get('/all', [CategoryController::class, 'index']);
+    //Route::get('/jobs/{id}', [AddressController::class, 'allJobs']);
+});
+
+Route::prefix('skill')->group(function () {
+    Route::get('/all', [SkillController::class, 'index']);
+    //Route::get('/jobs/{id}', [AddressController::class, 'allJobs']);
+});
+
+Route::prefix('exp')->group(function () {
+    Route::get('/all', [ExpController::class, 'index']);
+});
+
+Route::prefix('task')->group(function () {
+    Route::get('/all', [TaskController::class, 'index']);
+    Route::get('/info/{id}', [TaskController::class, 'info']);
+    Route::post('/search', [TaskController::class, 'search']);
+    Route::post('/new', [TaskController::class, 'create']);
+    Route::put('/update/{id}', [TaskController::class, 'update']);
+});
+
+Route::prefix('company')->group(function () {
+    Route::get('/all', [CompanyController::class, 'index']);
+    Route::get('/info/{id}', [CompanyController::class, 'info']);
+    Route::post('/search', [CompanyController::class, 'search']);
+    Route::post('/new', [CompanyController::class, 'create']);
+    Route::put('/update/{id}', [CompanyController::class, 'update']);
 });

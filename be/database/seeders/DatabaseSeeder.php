@@ -17,5 +17,7 @@ class DatabaseSeeder extends Seeder
         LevelSeeder::run();
         SkillSeeder::run();
         YearOfDateSeeder::run();
+        ExpSeeder::run();
+        TypeSeeder::run();
     }
 }

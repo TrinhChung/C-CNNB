@@ -15,11 +15,12 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('fullname')->unique();
             $table->string('email')->unique();
+            $table->string('image')->nullable();
             $table->string('password');
             $table->smallInteger('birth_year');
             $table->enum('gender', [1, 0, -1]);
             $table->enum('role', [1, 0]);
-            $table->integer('company_id');
+            $table->integer('company_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

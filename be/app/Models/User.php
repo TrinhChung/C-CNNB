@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'fullname',
         'email',
+        'image',
         'password',
         'company_id',
         'birth_year',
@@ -67,7 +68,13 @@ class User extends Authenticatable
     public function apply()
     {
         return $this->belongsToMany(Task::class, 'applier_task', 'applier_id', 'task_id')
-            ->using(Applier_task::class)->withPivot('id', 'applier_id', 'task_id', 'fail')->withTimestamps();
+            ->using(Applier_task::class)->withPivot('id', 'applier_id', 'task_id')->withTimestamps();
+    }
+
+    public function savedTasks()
+    {
+        return $this->belongsToMany(Task::class, 'save', 'applier_id', 'task_id')
+            ->using(Save::class)->withPivot('id', 'applier_id', 'task_id')->withTimestamps();
     }
 
     public function managedTask()
