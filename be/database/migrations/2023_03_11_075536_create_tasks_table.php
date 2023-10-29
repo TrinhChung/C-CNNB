@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('category_id')->nullable(false);
             $table->integer('amount')->nullable(false);
             $table->string('detail_address')->nullable(false);
+            $table->string('description')->nullable(false);
+            $table->string('requiment')->nullable(false);
             $table->string('method')->nullable(false);
             $table->integer('salary_min')->nullable(true);
             $table->integer('salary_max')->nullable(true);
@@ -27,7 +29,7 @@ return new class extends Migration
             $table->date('start')->nullable(false);
             $table->date('end')->nullable(false);
             $table->enum('status', [1, 0])->default(1);
-            $table->smallInteger('type_id')->nullable(true);
+            $table->enum('gender', [1, 0, -1])->default(-1);
             $table->timestamps();
         });
     }
