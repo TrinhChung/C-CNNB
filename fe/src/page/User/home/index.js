@@ -6,8 +6,10 @@ import TopJob from "./topJob";
 import logo from "../../../assets/blob.jpeg";
 import banner2 from "../../../assets/banner-home-2.jpeg";
 import { useNavigate } from "react-router-dom";
+
 const Home = () => {
   const navigate = useNavigate();
+
   const handleSearch = (key) => {
     navigate(`/job/${key}`);
   };

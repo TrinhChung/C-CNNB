@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Layout, Row, Col, Dropdown } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { loginMe } from "../service/Auth";
+import { toast } from "react-toastify";
+import { AuthContext } from "../provider/authProvider";
 
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
+  const { authUser } = useContext(AuthContext);
   const [current, setCurrent] = useState("home");
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -15,10 +19,6 @@ const Navbar = ({ data }) => {
     console.log("click ", e);
     setCurrent(e.key);
   };
-  const handleMenuClick = (e) => {
-    navigate(`/profile/`);
-  };
-
   useEffect(() => {
     const pathArr = pathname.split("/");
     if (pathArr[1] === "") {
@@ -29,34 +29,38 @@ const Navbar = ({ data }) => {
 
   const items = [
     {
-      label: "1st menu item",
-      key: "1",
+      label: "Profile",
+      key: "profile",
       icon: <UserOutlined />,
     },
     {
       label: "2nd menu item",
-      key: "2",
+      key: "profile",
       icon: <UserOutlined />,
     },
     {
       label: "3rd menu item",
-      key: "3",
+      key: "profile",
       icon: <UserOutlined />,
-      danger: true,
     },
     {
-      label: "4rd menu item",
-      key: "4",
+      label: "Đăng xuất",
+      key: "logout",
       icon: <UserOutlined />,
       danger: true,
-      disabled: true,
     },
   ];
+
+  const handleMenuClick = (e) => {
+    console.log(e);
+    navigate(`/${e.key}/`);
+  };
 
   const menuProps = {
     items,
     onClick: handleMenuClick,
   };
+
   return (
     <Header
       style={{
@@ -116,7 +120,7 @@ const Navbar = ({ data }) => {
                   <UserOutlined style={{ fontSize: "20px" }} />
                 </Col>
                 <Col>
-                  <div>Name</div>
+                  <div>{authUser?.fullname}</div>
                 </Col>
               </Row>
             </Dropdown>

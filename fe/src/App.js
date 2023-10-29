@@ -1,27 +1,46 @@
 import "./App.css";
 import User from "./page/User";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HR from "./page/HR";
 import Company from "./page/Company";
-import AuthProvider from "./provider/authProvider";
+import Auth from "./page/Auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "./provider/authProvider";
+import React, { useContext } from "react";
+import { loginMe } from "./service/Auth";
+
 function App() {
-  const role = 0;
+  const { authUser, setAuthUser } = useContext(AuthContext);
+
+  const role = authUser && authUser.role ? authUser.role : null;
+
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {role === 0 ? (
-            <Route path="/*" element={<User />} />
-          ) : role === 1 ? (
-            <Route path="/*" element={<HR />} />
-          ) : (
-            <Route path="/*" element={<Company />} />
-          )}
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        {role === "0" ? (
+          <Route path="/*" element={<User />} />
+        ) : role === "1" ? (
+          <Route path="/*" element={<HR />} />
+        ) : role === "2" ? (
+          <Route path="/*" element={<Company />} />
+        ) : (
+          <Route path="/*" element={<Auth />} />
+        )}
+      </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        draggable
+        style={{ textAlign: "left" }}
+      />
+    </BrowserRouter>
   );
 }
 
