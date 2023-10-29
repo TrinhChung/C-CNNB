@@ -1,0 +1,65 @@
+name: Be Workflow
+
+on:
+  pull_request:
+    paths:
+      - "be/**"
+      - ".github/workflows/**"
+    branches: [main]
+
+jobs:
+  laravel-pint:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./be
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Lint Laravel with Pint
+        run: ./vendor/bin/pint --test
+  laravel-test-with-coverage:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./be
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: "xdebug"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Set up Redis
+        run: |
+          sudo apt-get install redis-server
+          sudo systemctl start redis-server
+      - name: Test Laravel
+        run: |
+          touch database/database.testing.sqlite
+          php artisan config:clear
+          php artisan test --path-coverage --coverage-cobertura=coverage.xml
+      - name: Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: be/coverage.xml
+          badge: true
+          fail_below_min: false
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          path: code-coverage-results.md
