@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row } from "antd";
 import BannerJob from "./BannerJob";
 import "./Job.scss";
@@ -8,7 +8,17 @@ import Card from "./Card";
 import HRInfo from "./HRInfo";
 import ButtonSub from "./ButtonSub";
 import DescriptionBox from "../../../../component/DescriptionBox";
+import { useParams } from "react-router-dom";
+import { getInfoTask } from "../../../../service/User/index";
+import { useState } from "react";
+import moment from "moment";
+import { buildSalary } from "../../../../const/BuildSalaray";
+import { arrayToString } from "../../../../const/arrayToString";
+
 const JobDetail = () => {
+  const { id } = useParams();
+  const [info, setInfo] = useState({});
+
   const data = [
     {
       name: "Mô tả công việc",
@@ -51,9 +61,22 @@ Chúng tôi đang tìm kiếm những bạn trẻ tiềm năng và nhiệt huy�
     },
   ];
 
+  const getDetail = async (id) => {
+    const res = await getInfoTask(id);
+    if (res.success && res.data) {
+      setInfo(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getDetail(id);
+  }, []);
+
+  console.log("detail", info);
+
   return (
     <Col span={24}>
-      <BannerJob />
+      <BannerJob data={info} />
       <Row>
         <Col span={16} style={{ paddingLeft: 80 }}>
           {data &&
@@ -76,44 +99,50 @@ Chúng tôi đang tìm kiếm những bạn trẻ tiềm năng và nhiệt huy�
                 <Card
                   icon={<CalendarOutlined />}
                   title="Ngày đăng "
-                  des={"dd/mm/yy"}
+                  des={moment(info.updated_at).calendar()}
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Địa chỉ "
-                  des={"Hà Nội "}
+                  des={info?.address?.name}
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Mức lương"
-                  des={"dd/mm/yy"}
+                  des={buildSalary(info.salary_min, info.salary_max)}
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Kinh nghiệm "
-                  des={"Không yêu cầu kinh nghiệm"}
+                  des={
+                    info && info.exp_year && info.exp_year.content
+                      ? info.exp_year.content
+                      : "Không yêu cầu kinh nghiệm"
+                  }
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Loại hình làm việc "
-                  des={"Thực tập"}
+                  des={
+                    info.types ? arrayToString(info.types) : "Chưa có dữ liệu"
+                  }
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Thời gian bắt đầu"
-                  des={"dd/mm/yy"}
+                  des={info.start}
                 />
                 <Card
                   icon={<CalendarOutlined />}
                   title="Thời gian kết thúc"
-                  des={"dd/mm/yy"}
+                  des={info.end}
                 />
               </Col>
             </BoxJobSider>
           </Row>
           <Row>
             <BoxJobSider title={"Thông tin quản lý nhân sự"}>
-              <HRInfo />
+              <HRInfo data={info.hr ? info.hr : null} />
             </BoxJobSider>
           </Row>
         </Col>

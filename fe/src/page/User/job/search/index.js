@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BoxSearch from "../../../../component/BoxSearch";
 import { Col, Row, Select } from "antd";
 import "./Search.scss";
 import WrapBox from "../../../../layout/HomeLayout/WrapBox";
+
 const Search = () => {
   const WrapBoxSearch = () => {
     return (

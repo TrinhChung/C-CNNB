@@ -5,7 +5,7 @@ import Search from "./search";
 const Job = () => {
   return (
     <Routes>
-      <Route path="/detail/*" element={<JobDetail />} />
+      <Route path="/detail/:id" element={<JobDetail />} />
       <Route path="/" element={<Search />} />
     </Routes>
   );
