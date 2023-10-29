@@ -1,0 +1,47 @@
+name: Backend Workflow
+
+on:
+  pull_request:
+    paths:
+      - "be/**"
+      - ".github/workflows/**"
+    branches: [main]
+
+jobs:
+  laravel-pint:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./be
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Lint Laravel with Pint
+        run: ./vendor/bin/pint --test
+  laravel-test:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./be
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Set up Redis
+        run: |
+          sudo apt-get install redis-server
+          sudo systemctl start redis-server
+      - name: Test Laravel
+        run: |
+          touch database/database.testing.sqlite
+          php artisan config:clear
+          php artisan test

@@ -1,0 +1,33 @@
+name: Backend Test Coverage
+
+on:
+  push:
+    paths:
+      - "be/**"
+      - ".github/workflows/**"
+    branches: [main]
+
+jobs:
+  laravel-test-with-coverage:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./be
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: "xdebug"
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Set up Redis
+        run: |
+          sudo apt-get install redis-server
+          sudo systemctl start redis-server
+      - name: Test Laravel
+        run: |
+          touch database/database.testing.sqlite
+          php artisan config:clear
+          php artisan test --path-coverage --coverage-html coverage
