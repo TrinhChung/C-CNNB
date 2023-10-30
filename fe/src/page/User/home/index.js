@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "../../../component/home/Banner";
 import { Row, Col, Image } from "antd";
 import WrapBox from "../../../layout/HomeLayout/WrapBox";
@@ -6,12 +6,30 @@ import TopJob from "./topJob";
 import logo from "../../../assets/blob.jpeg";
 import banner2 from "../../../assets/banner-home-2.jpeg";
 import { useNavigate } from "react-router-dom";
+import { taskRecommend } from "../../../service/User";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [task, setTasks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const getRecommend = async () => {
+    const res = await taskRecommend();
+    if (res.success === 1 && res.data) {
+      setTasks(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getRecommend();
+  }, [currentPage]);
 
   const handleSearch = (key) => {
-    navigate(`/job/${key}`);
+    if (!key) {
+      navigate(`/job/`);
+    } else {
+      navigate(`/job/?text=${key}`);
+    }
   };
 
   return (
@@ -22,7 +40,11 @@ const Home = () => {
         search={handleSearch}
       />
       <Col style={{ padding: "40px 10% 40px 10%" }}>
-        <WrapBox title={"Tin tuyển dụng, việc làm tốt nhất"} />
+        <WrapBox
+          currentPage={currentPage}
+          data={task}
+          title={"Tin tuyển dụng, việc làm tốt nhất"}
+        />
       </Col>
       <Row style={{ height: 200, justifyContent: "center" }}>
         <Image src={banner2} preview={false} style={{ height: 130 }} />

@@ -5,7 +5,7 @@ import CompanyDetail from "./detail";
 const Company = () => {
   return (
     <Routes>
-      <Route path="/detail/*" element={<CompanyDetail />} />
+      <Route path="/detail/:id" element={<CompanyDetail />} />
       <Route path="/" element={<SearchCompany />} />
     </Routes>
   );

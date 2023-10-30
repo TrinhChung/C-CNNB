@@ -1,22 +1,21 @@
 import { useState, useEffect, useContext } from "react";
-import { Layout, Row, Col, Dropdown } from "antd";
+import { Layout, Row, Col, Dropdown, Modal } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { loginMe } from "../service/Auth";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/authProvider";
 
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
-  const { authUser } = useContext(AuthContext);
+  const { authUser, setAuthUser } = useContext(AuthContext);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [current, setCurrent] = useState("home");
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const onClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
   useEffect(() => {
@@ -52,8 +51,11 @@ const Navbar = ({ data }) => {
   ];
 
   const handleMenuClick = (e) => {
-    console.log(e);
-    navigate(`/${e.key}/`);
+    if (e.key === "logout") {
+      setIsOpenModal(true);
+    } else {
+      navigate(`/${e.key}/`);
+    }
   };
 
   const menuProps = {
@@ -127,6 +129,19 @@ const Navbar = ({ data }) => {
           </Row>
         </Col>
       </Row>
+      <Modal
+        title="Đăng xuất"
+        open={isOpenModal}
+        centered={true}
+        onOk={() => {
+          setAuthUser(null);
+          localStorage.removeItem("accessToken");
+          navigate("login");
+        }}
+        onCancel={() => setIsOpenModal(false)}
+      >
+        <p>'Bạn có muốn đăng xuất không?'</p>
+      </Modal>
     </Header>
   );
 };
