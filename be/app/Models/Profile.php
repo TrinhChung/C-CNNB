@@ -32,6 +32,11 @@ class Profile extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function applier()
+    {
+        return $this->belongsTo(User::class, 'applier_id', 'id');
+    }
+
     public function projects()
     {
         return $this->hasMany(Project::class, 'profile_id', 'id');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DemoMail;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
+use Mail;
 
 class UserController extends Controller
 {
@@ -20,7 +22,10 @@ class UserController extends Controller
     {
         try {
             $data = $this->userRepository->createUser($request);
-            if ($data) {
+            if ($data && ! $data['error']) {
+                Mail::to($data->email)->send(new DemoMail($data));
+                unset($data['token']);
+
                 return response()->json(
                     [
                         'data' => $data,
@@ -28,6 +33,8 @@ class UserController extends Controller
                         'success' => 1,
                     ], 200
                 );
+            } elseif ($data['error']) {
+                throw new Exception($data['error']);
             } else {
                 throw new Exception('failed to create new user');
             }
@@ -44,14 +51,24 @@ class UserController extends Controller
     public function apply(Request $request)
     {
         try {
-            $data = $this->userRepository->applyTask($request->user_id, $request->task_id);
-            if ($data) {
+            $data = $this->userRepository->applyTask($request->applier_id, $request->task_id);
+            //dd($data);
+            if ($data && ! array_key_exists('error', $data)) {
                 return response()->json(
                     [
                         'data' => $data,
                         'message' => 'applied',
                         'success' => 1,
                     ], 200
+                );
+            } elseif (array_key_exists('error', $data)) {
+                return response()->json(
+                    [
+                        'message' => $data[
+                            'error'
+                        ],
+                        'success' => 0,
+                    ]
                 );
             } else {
                 throw new Exception('can not apply for task');
@@ -69,7 +86,7 @@ class UserController extends Controller
     public function save(Request $request)
     {
         try {
-            $data = $this->userRepository->saveTask($request->user_id, $request->task_id);
+            $data = $this->userRepository->saveTask($request->user_id, $request->task_id, $request->action);
             if ($data) {
                 return response()->json(
                     [
@@ -125,6 +142,31 @@ class UserController extends Controller
                     [
                         'data' => $data,
                         'message' => 'get info of hr',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('user not found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function update(Request $request)
+    {
+        try {
+            $data = $this->userRepository->editUser($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'user updated',
                         'success' => 1,
                     ], 200
                 );

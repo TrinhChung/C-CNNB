@@ -2,49 +2,87 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Profile\ProfileRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class ProfileController extends Controller
 {
     //
-    public function crudPartition(Request $request)
+
+    protected $profileRepository;
+
+    public function __construct(ProfileRepositoryInterface $profileRepository)
     {
-        // ids
-        //$oldIds = Arr::pluck($oldData, 'id');
-        $newData = json_decode('[{"id":2,"name":"TWO"},{"name":"three"}, {"id":4,"name":"four"}]');
-        $newIds = array_filter(Arr::pluck($newData, 'id'), function ($element) {
-            return $element;
-        });
-        dd($newIds);
-        /*// groups
-        $delete = collect($oldData)
-            ->filter(function ($model) use ($newIds) {
-                return !in_array($model->id, $newIds);
-            });
+        $this->profileRepository = $profileRepository;
+    }
 
-        $update = collect($newData)
-            ->filter(function ($model) use ($oldIds) {
-                return property_exists($model, 'id') && in_array($model->id, $oldIds);
-            });
+    public function info(Request $request)
+    {
+        try {
+            $data = $this->profileRepository->info($request->id);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get info of profile',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('profile not found');
+            }
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => 0,
+                'message' => $err->getMessage(),
+            ]);
+        }
+    }
 
-        $create = collect($newData)
-            ->filter(function ($model) {
-                return !property_exists($model, 'id');
-            });
+    public function update(Request $request)
+    {
+        try {
+            $data = $this->profileRepository->updateProfile($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'profile updated',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('profile not found');
+            }
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => 0,
+                'message' => $err->getMessage(),
+            ]);
+        }
+    }
 
-        // return
-        return compact('delete', 'update', 'create');
-        // data
-        $oldData = json_decode('[{"id":1,"name":"one"},{"id":2,"name":"two"}]');
-        $newData = json_decode('[{"id":2,"name":"TWO"},{"name":"three"}]');
-
-// results
-        $results = crudPartition($oldData, $newData);
-        print_r($results);
-
-// do something
-        $results['create']->each(...);
-        */
+    public function create(Request $request)
+    {
+        try {
+            $data = $this->profileRepository->createProfile($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'profile created',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('profile not found');
+            }
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => 0,
+                'message' => $err->getMessage(),
+            ]);
+        }
     }
 }

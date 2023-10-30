@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('applier_id')->nullable(false);
+            $table->integer('profile_id')->nullable(false);
             $table->integer('amount_of_member')->nullable(false);
             $table->date('start')->nullable(false);
             $table->date('end')->nullable(false);

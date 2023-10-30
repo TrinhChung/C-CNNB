@@ -4,21 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'name',
         'link',
+        'email',
         'image',
         'description',
         'address_id',
         'detail_address',
         'renumeration_policy',
         'tax_code',
+        'password',
     ];
 
     protected $primarykey = 'id';
@@ -51,5 +55,10 @@ class Company extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class, 'company_id', 'id');
+    }
+
+    public function activationToken()
+    {
+        return $this->hasOne(Activation::class, 'user_id', 'id');
     }
 }

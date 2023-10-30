@@ -2,9 +2,11 @@
 
 namespace App\Repositories\User;
 
+use App\Models\Activation;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class UserEloquentRepository extends EloquentRepository implements UserRepositoryInterface
@@ -19,8 +21,22 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return \App\Models\User::class;
     }
 
+    public function search(Request $request)
+    {
+        $data = $this->_model->where('name', 'like', '%'.$request->searchInput.'%');
+
+        return $data
+            ->with('managedHrs')
+            ->with('address')
+            ->with('tasks')->get();
+    }
+
     public function createUser(Request $request)
     {
+        $check = $this->_model->where(DB::raw('BINARY `email`'), $request->email)->exists();
+        if ($check) {
+            return ['error' => 'email has been taken'];
+        }
         $temp = Arr::except($request->all(), ['image']);
         if ($request->file('image')) {
             $image = $request->file('image');
@@ -28,7 +44,16 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $image->move(public_path('images/'), $imageName);
             $temp['image'] = asset('images/'.$imageName);
         }
+        if ($request->role == 1) {
+            $temp['hraccepted'] = -1;
+        }
         $data = $this->_model->create($temp);
+        $token = hash_hmac('sha256', Str::random(40), config('app.key'));
+        $data['token'] = $token;
+        Activation::create([
+            'user_id' => $data->id,
+            'token' => $token,
+        ]);
 
         return $data;
     }
@@ -36,7 +61,10 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function applyTask($applier_id, $task_id)
     {
         $user = $this->_model->find($applier_id);
-        $data = $user->appliedTasks()->sync($task_id);
+        if (! $user->profile) {
+            return ['error' => 'you need a profile to apply'];
+        }
+        $data = $user->appliedTasks()->toggle($task_id);
 
         return $data;
     }
@@ -44,7 +72,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function saveTask($applier_id, $task_id)
     {
         $user = $this->_model->find($applier_id);
-        $data = $user->savedTasks()->sync($task_id);
+        $data = $user->savedTasks()->toggle($task_id);
 
         return $data;
     }
@@ -69,6 +97,16 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         //dd(get_class($data->managedTasks()));
         $data['managedTasks'] = $data->managedTasks()->with(['category', 'expYear', 'types', 'address'])
             ->orderBy('created_at', 'DESC')->paginate(10);
+        $data['newAppliers'] = $this->newAppliers($id);
+
+        return $data;
+    }
+
+    public function newAppliers($hr_id)
+    {
+        $data = DB::select('select users.fullname, addresses.name, applier_task.created_at, categories.content, tasks.title from users join profiles 
+        on profiles.applier_id = users.id join addresses on profiles.address_id = addresses.id join categories on categories.id = profiles.category_id
+        join applier_task on users.id = applier_task.applier_id join tasks on tasks.id = applier_task.task_id where tasks.hr_id = ? group by users.id order by applier_task.created_at DESC', [$hr_id]);
 
         return $data;
     }
@@ -78,15 +116,16 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         $user = $this->_model->find($request->id);
         if ($user) {
             $temp = Arr::except($request->all(), ['image']);
-            if ($request->file('image') && Str::contains($request->file('image')->getClientOriginalName(), $user->image)) {
+            if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $user->image)) {
                 $image = $request->file('image');
                 $imageName = time().$image->getClientOriginalName();
                 $image->move(public_path('images/'), $imageName);
                 $temp['image'] = asset('images/'.$imageName);
             }
-            $data = $this->_model->update($temp);
+            $data = $user->update($temp);
 
             return $data;
+            //dd($data);
         } else {
             return null;
         }

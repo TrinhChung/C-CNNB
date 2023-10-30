@@ -137,4 +137,29 @@ class TaskController extends Controller
             );
         }
     }
+
+    public function recommend(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->recommendedTasks($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get recommendation',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('not found any recommend tasks');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }

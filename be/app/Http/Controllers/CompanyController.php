@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DemoMail;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
@@ -93,10 +94,13 @@ class CompanyController extends Controller
         try {
             $data = $this->companyRepository->createCompany($request);
             if ($data) {
+                Mail::to($data->email)->send(new DemoMail($data));
+                unset($data['token']);
+
                 return response()->json(
                     [
                         'data' => $data,
-                        'message' => 'new task created',
+                        'message' => 'new company created',
                         'success' => 1,
                     ], 200
                 );
@@ -116,17 +120,66 @@ class CompanyController extends Controller
     public function update(Request $request)
     {
         try {
-            $data = $this->companyRepository->editCompany($request->id, $request->all());
+            $data = $this->companyRepository->editCompany($request);
             if ($data) {
                 return response()->json(
                     [
                         'data' => $data,
-                        'message' => 'task updated',
+                        'message' => 'company updated',
                         'success' => 1,
                     ], 200
                 );
             } else {
-                throw new Exception('task not found / can not be updated');
+                throw new Exception('company not found / can not be updated');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function accept(Request $request)
+    {
+        try {
+            $data = $this->companyRepository->acceptHr($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'message' => $data['message'],
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('hr not found / can not accept or reject');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function companySelect()
+    {
+
+        try {
+            $data = $this->companyRepository->getAll();
+            if ($data) {
+                return response()->json(
+                    [
+                        'message' => $data['message'],
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('no company found');
             }
         } catch (Exception $err) {
             return response()->json(
