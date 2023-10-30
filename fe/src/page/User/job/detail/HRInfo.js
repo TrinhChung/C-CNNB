@@ -1,7 +1,8 @@
 import { Row, Image, Col } from "antd";
 import React from "react";
-
-const HRInfo = () => {
+import { gender } from "../../../../const";
+import avatarUser from "../../../../assets/avatar-user.png";
+const HRInfo = ({ data }) => {
   const RowHorizontal = ({ title, des }) => {
     return (
       <Row
@@ -21,21 +22,26 @@ const HRInfo = () => {
       <Row style={{ paddingBottom: 40 }}>
         <Col>
           <Image
-            src="https://th.bing.com/th/id/OIP.6hFKGbbvl63hqvVdWY7_pwHaFN?w=240&h=180&c=7&r=0&o=5&pid=1.7"
+            src={data && data.image ? data.image : avatarUser}
             style={{ height: 100, width: 100 }}
           />
         </Col>
         <Col style={{ paddingLeft: 13 }}>
           <Row style={{ fontSize: 24, fontWeight: "bold", paddingBottom: 10 }}>
-            Họ và tên quản lý
+            {data?.fullname}
           </Row>
           <Row>Tên công ty</Row>
         </Col>
       </Row>
-      <RowHorizontal title={"Ngày tháng năm sinh: "} des="dd/mm/yy" />
-      <RowHorizontal title={"Giới tính: : "} des="Nam" />
+      <RowHorizontal title={"Ngày tháng năm sinh: "} des={data?.birth_year} />
+      <RowHorizontal
+        title={"Giới tính: "}
+        des={
+          data?.gender ? gender[Number(data.gender) + 1].label : gender[0].label
+        }
+      />
       <RowHorizontal title={"Số điện thoại: "} des="dd/mm/yy" />
-      <RowHorizontal title={"Email: "} des="abc@gmail.com" />
+      <RowHorizontal title={"Email: "} des={data?.email} />
     </Col>
   );
 };
