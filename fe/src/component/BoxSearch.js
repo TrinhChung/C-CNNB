@@ -1,13 +1,18 @@
 import React, { useState, memo } from "react";
 import { Col, Row, Input, Button } from "antd";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BoxSearch = memo(
-  ({ handleSearch, placeholder = "Công việc, vị trí ứng tuyển" }) => {
+  ({
+    handleSearch,
+    placeholder = "Công việc, vị trí ứng tuyển",
+    layout = "job",
+  }) => {
+    const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const [key, setKey] = useState(
-      searchParams.get("text") ? searchParams.get("text") : ""
+      searchParams.get("searchInput") ? searchParams.get("searchInput") : ""
     );
 
     return (
@@ -16,11 +21,12 @@ const BoxSearch = memo(
           <Input
             placeholder={placeholder}
             className="input-custom"
-            defaultValue={key}
+            defaultValue={searchParams.get("searchInput")}
             size="large"
             onChange={(e) => {
               setKey(e.target.value);
             }}
+            allowClear={true}
           />
         </Col>
         <Col span={4}>
@@ -28,7 +34,9 @@ const BoxSearch = memo(
             className="button-search center-flex"
             style={{ height: "100%", width: "100%" }}
             onClick={() => {
-              handleSearch(key);
+              searchParams.set("searchInput", key);
+              navigate(`/${layout}/?` + searchParams.toString());
+              handleSearch();
             }}
           >
             Tìm ngay
