@@ -1,20 +1,24 @@
 import { useEffect, useState, useContext } from "react";
-import { Row, Col, Pagination } from "antd";
+import { Row, Col, Pagination, Empty } from "antd";
 import Banner from "../../../../component/home/Banner";
 import Card from "./Card";
 import { getCompaniesService } from "../../../../service/Company";
+import CardAnimated from "../../../../component/Animation/CardAnimated";
+import { useLocation } from "react-router-dom";
 
 const SearchCompany = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const [companies, setCompanies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(1);
 
-  const handleSearch = (key) => {
-    console.log("search company");
+  const handleSearch = () => {
+    getCompanies(currentPage, searchParams.toString());
   };
 
-  const getCompanies = async (currentPage) => {
-    const res = await getCompaniesService(currentPage);
+  const getCompanies = async (currentPage, query) => {
+    const res = await getCompaniesService(currentPage, query);
     if (res.success && res.data) {
       setCompanies(res.data.data);
       setTotal(res.data.total);
@@ -22,7 +26,7 @@ const SearchCompany = () => {
   };
 
   useEffect(() => {
-    getCompanies(currentPage);
+    getCompanies(currentPage, searchParams.toString());
   }, [currentPage]);
 
   return (
@@ -33,6 +37,7 @@ const SearchCompany = () => {
         placeholder="Hãy nhập tên công ty tại đây"
         search={handleSearch}
         title="Tra cứu thông tin công ty phù hợp nhất với bạn thôi nào!"
+        layout={"company"}
       />
       <Row
         style={{
@@ -43,29 +48,35 @@ const SearchCompany = () => {
           <Row className="font-text-28" style={{ paddingBottom: 53 }}>
             Tổng số công ty sử dụng web
           </Row>
-          {companies &&
-            companies.length > 0 &&
+          {companies && companies.length > 0 ? (
             companies.map((item, key) => {
               return (
-                <Card
-                  key={key}
-                  name={item.name}
-                  address={item.address}
-                  link={item.link}
-                  email={item.email}
-                  image={item.image}
-                  id={item.id}
-                />
+                <CardAnimated index={key}>
+                  <Card
+                    key={key}
+                    name={item?.name}
+                    address={item?.address?.name}
+                    link={item?.link}
+                    email={item?.email}
+                    image={item?.image}
+                    id={item?.id}
+                  />
+                </CardAnimated>
               );
-            })}
-          <Row style={{ paddingTop: 20, justifyContent: "center" }}>
-            <Pagination
-              defaultCurrent={1}
-              total={total}
-              size="large"
-              onChange={(page) => setCurrentPage(page)}
-            />
-          </Row>
+            })
+          ) : (
+            <Empty />
+          )}
+          {companies && companies.length > 0 && (
+            <Row style={{ paddingTop: 20, justifyContent: "center" }}>
+              <Pagination
+                defaultCurrent={1}
+                total={total}
+                size="large"
+                onChange={(page) => setCurrentPage(page)}
+              />
+            </Row>
+          )}
         </Col>
       </Row>
     </Col>

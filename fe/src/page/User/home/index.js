@@ -28,7 +28,7 @@ const Home = () => {
     if (!key) {
       navigate(`/job/`);
     } else {
-      navigate(`/job/?text=${key}`);
+      navigate(`/job/?searchInput=${key}`);
     }
   };
 

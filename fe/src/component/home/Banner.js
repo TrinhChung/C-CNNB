@@ -8,6 +8,7 @@ const Banner = ({
   search,
   placeholder = "Công việc, vị trí ứng tuyển",
   title = "Chúng tôi đợi bạn ở đây",
+  layout = "job",
 }) => {
   return (
     <Col>
@@ -37,7 +38,11 @@ const Banner = ({
               }}
             >
               <Row className="font-banner">{title}</Row>
-              <BoxSearch handleSearch={search} placeholder={placeholder} />
+              <BoxSearch
+                layout={layout}
+                handleSearch={search}
+                placeholder={placeholder}
+              />
             </Col>
           </Col>
         ) : null}

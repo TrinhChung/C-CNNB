@@ -3,7 +3,7 @@ import { Col, Row } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
-const TitleViewAll = ({ title, isShowAll = true, showAll }) => {
+const TitleViewAll = ({ title, isShowAll = true, query = {} }) => {
   const navigate = useNavigate();
 
   return (
@@ -21,7 +21,9 @@ const TitleViewAll = ({ title, isShowAll = true, showAll }) => {
           style={{ cursor: "pointer" }}
           className="font-text-28 text-name-click"
           onClick={() => {
-            navigate("/job");
+            navigate(
+              `/job/?company_id=${query?.companyId ? query?.companyId : ""}`
+            );
           }}
         >
           Xem tất cả <ArrowRightOutlined />
