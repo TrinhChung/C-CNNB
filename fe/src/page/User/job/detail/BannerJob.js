@@ -10,7 +10,7 @@ const BannerJob = ({ data }) => {
     <Row className="banner-job-detail">
       <Col>
         <Image
-          src="https://th.bing.com/th/id/OIP.BXIXu1wyoCCoO0l_JZuQPwAAAA?pid=ImgDet&w=195&h=182&c=7"
+          src={data?.company?.image}
           preview={false}
           style={{ width: 200, height: 200 }}
         />
@@ -23,7 +23,11 @@ const BannerJob = ({ data }) => {
             >
               {data.title}
             </Row>
-            <Row style={{ fontSize: 20, paddingBottom: 17 }}>Tên công ty</Row>
+            <Row
+              style={{ fontSize: 24, fontWeight: "bold", paddingBottom: 17 }}
+            >
+              {data?.company?.name}
+            </Row>
             <Row style={{ paddingBottom: 19 }}>
               <Col style={{ fontSize: 20 }}>
                 Nơi làm việc: {data.detail_address}

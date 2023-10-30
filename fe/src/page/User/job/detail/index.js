@@ -79,15 +79,21 @@ Chúng tôi đang tìm kiếm những bạn trẻ tiềm năng và nhiệt huy�
       <BannerJob data={info} />
       <Row>
         <Col span={16} style={{ paddingLeft: 80 }}>
-          {data &&
-            data.length > 0 &&
-            data.map((item, index) => {
-              return (
-                <Row key={index}>
-                  <DescriptionBox name={item.name} des={item.des} />
-                </Row>
-              );
-            })}
+          <Row>
+            <DescriptionBox name={"Mô tả công việc"} des={info?.description} />
+          </Row>
+          <Row>
+            <DescriptionBox name={"Yêu cầu"} des={info?.requiment} />
+          </Row>
+          <Row>
+            <DescriptionBox name={"Đãi nghộ"} des={info?.benefit} />
+          </Row>
+          <Row>
+            <DescriptionBox
+              name={"Giới thiệu công ty"}
+              des={info?.company?.description}
+            />
+          </Row>
           <Row style={{ gap: 16, paddingLeft: 20 }}>
             <ButtonSub isCol={false} />
           </Row>
@@ -99,7 +105,7 @@ Chúng tôi đang tìm kiếm những bạn trẻ tiềm năng và nhiệt huy�
                 <Card
                   icon={<CalendarOutlined />}
                   title="Ngày đăng "
-                  des={moment(info.updated_at).calendar()}
+                  des={moment(info?.updated_at).calendar()}
                 />
                 <Card
                   icon={<CalendarOutlined />}

@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Switch, Select, Input, Radio } from "antd";
 import RowHorizontal from "../../../component/RowHorizontal";
 import UploadImage from "../../../component/Card/UploadImage";
 import RowVertical from "../../../component/RowVertical";
 import BoxCV from "../../../component/BoxCV";
 import "./Profile.scss";
+import { getProfileUser as getProfileService } from "../../../service/User";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/authProvider";
 const { TextArea } = Input;
 const CV = () => {
+  const { authUser } = useContext(AuthContext);
+  const [user, setUser] = useState({});
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
+  };
+
+  useEffect(() => {
+    getInfoProfile(authUser.id);
+  }, []);
+
+  const getInfoProfile = async (id) => {
+    const res = await getProfileService(id);
+    if (res.success === 1 && res.data) {
+      setUser(res.data);
+    }
   };
 
   return (

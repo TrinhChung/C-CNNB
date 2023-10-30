@@ -14,7 +14,9 @@ const Card = ({
   link,
   total,
   key,
+  image = "https://th.bing.com/th/id/OIP.wbmSfjRC-sAo0uGpIRYn9gHaFi?w=226&h=180&c=7&r=0&o=5&pid=1.7",
   banner = false,
+  id,
 }) => {
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ const Card = ({
         <Image
           style={{ width: 215, height: 215 }}
           preview={false}
-          src="https://th.bing.com/th/id/OIP.wbmSfjRC-sAo0uGpIRYn9gHaFi?w=226&h=180&c=7&r=0&o=5&pid=1.7"
+          src={image}
         />
       </Col>
       <Col span={12}>
@@ -47,7 +49,7 @@ const Card = ({
           }}
           className="text-name-click"
           onClick={() => {
-            navigate(`/company/detail/${1}`);
+            navigate(`/company/detail/${id}`);
           }}
         >
           {name}
