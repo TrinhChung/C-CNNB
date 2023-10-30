@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->uuid('applier_id');
             $table->uuid('task_id');
-            $table->enum('fail', [1, 0])->default(0);
+            $table->enum('fail', [1, 0, -1])->default(-1);
             $table->timestamps();
         });
     }

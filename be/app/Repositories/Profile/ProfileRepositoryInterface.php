@@ -14,4 +14,8 @@ interface ProfileRepositoryInterface
     //public function getJobs(Request $request);
 
     public function updateProfile(Request $request);
+
+    public function info($id);
+
+    public function createProfile(Request $request);
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('detail_address')->nullable(false);
             $table->string('renumeration_policy');
             $table->string('tax_code')->unique()->nullable(false);
+            $table->string('email')->unique()->nullable(false);
+            $table->string('password');
             $table->timestamps();
         });
     }

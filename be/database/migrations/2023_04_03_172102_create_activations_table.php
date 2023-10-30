@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('e_x_pdetails', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('profile_id')->nullable(false);
-            $table->string('place')->nullable(false);
-            $table->string('content')->nullable(false);
+        Schema::create('activations', function (Blueprint $table) {
+            $table->id();
+            $table->uuid('user_id')->nullable(false);
+            $table->string('token')->nullable(false);
+            $table->boolean('active')->default(false);
+            $table->boolean('valid')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('e_x_pdetails');
+        Schema::dropIfExists('activations');
     }
 };

@@ -27,6 +27,7 @@ class User extends Authenticatable
         'birth_year',
         'gender',
         'role',
+        'hraccepted',
     ];
 
     /**
@@ -62,6 +63,21 @@ class User extends Authenticatable
             if (empty($model->id)) {
                 $model->id = (string) Str::uuid();
             }
+
+        });
+
+        static::updated(function ($model) {
+            if ($model->role != 1) {
+                $profile = Profile::where('applier_id', $model->id)->first();
+                if ($profile) {
+                    $profile->update([
+                        'birth_year' => $model->birth_year,
+                        'fullname' => $model->fullname,
+                        'gender' => $model->gender,
+                        'email' => $model->email,
+                    ]);
+                }
+            }
         });
     }
 
@@ -95,5 +111,10 @@ class User extends Authenticatable
     public function birthYear()
     {
         return $this->belongsTo(BirthYear::class, 'birth_year', 'id');
+    }
+
+    public function activationToken()
+    {
+        return $this->hasOne(Activation::class, 'user_id', 'id');
     }
 }

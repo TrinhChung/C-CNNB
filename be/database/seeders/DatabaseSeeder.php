@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         YearOfDateSeeder::run();
         ExpSeeder::run();
         TypeSeeder::run();
+        ApplierSeeder::run();
     }
 }

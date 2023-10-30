@@ -5,7 +5,6 @@ namespace App\Repositories\Profile;
 use App\Models\EXPdetail;
 use App\Models\Project;
 use App\Models\Skill;
-use App\Models\Work_address;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -57,14 +56,14 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             });
 
         $tempt = Arr::except($request->all(), ['projects', 'expDetail', 'workablePlaces', 'skills']);
-        $data = $this->_model->update($tempt);
+        $data = $profile->update($tempt);
 
         if ($data) {
             EXPdetail::query()->upsert($newExpDetail, ['id'], ['place', 'content']);
             Project::query()->upsert($newProjects, ['id'], ['amount_of_member', 'start', 'end', 'technology', 'description']);
 
-            EXPdetail::whereIn($deleteExpDetail)->delete();
-            Project::whereIn($deleteProjects)->delete();
+            EXPdetail::destroy($deleteExpDetail);
+            Project::destroy($deleteProjects);
 
             $profile->workablePlaces()->sync($request->workablePlaces);
             $profile->skills()->sync($request->skills);
@@ -82,7 +81,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
         if ($data) {
             EXPdetail::insert($request->expDetail);
             Project::insert($request->projects);
-            Work_address::insert($request->workablePlaces);
+            $data->workablePlaces()->attach($request->workablePlaces);
             Skill::insert($request->skills);
 
             return $data;

@@ -22,4 +22,6 @@ interface TaskRepositoryInterface
     public function editTask(Request $request);
 
     public function paginateTasks();
+
+    public function recommendedTasks(Request $request);
 }
