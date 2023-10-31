@@ -4,7 +4,7 @@ namespace App\Repositories\Profile;
 
 use App\Models\EXPdetail;
 use App\Models\Project;
-use App\Models\Skill;
+use App\Models\User;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -28,7 +28,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             'expDetail',
             'skills',
             'workablePlaces',
-            'addess',
+            'address',
             'expYear',
             'category',
             'level'])
@@ -77,12 +77,30 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
     public function createProfile(Request $request)
     {
         $tempt = Arr::except($request->all(), ['projects', 'expDetail', 'workablePlaces', 'skills']);
+        $user = User::find($request->user()->id);
+        if (! $user) {
+            return null;
+        }
+        $tempt['applier_id'] = $request->user()->id;
+        $tempt['email'] = $user->email;
+        $tempt['gender'] = $user->gender;
+        $tempt['fullname'] = $user->fullname;
+        $tempt['birth_year'] = $user->birth_year;
+
         $data = $this->_model->create($tempt);
         if ($data) {
-            EXPdetail::insert($request->expDetail);
-            Project::insert($request->projects);
-            $data->workablePlaces()->attach($request->workablePlaces);
-            Skill::insert($request->skills);
+            if ($request->expDetail) {
+                EXPdetail::insert($request->expDetail);
+            }
+            if ($request->projects) {
+                Project::insert($request->projects);
+            }
+            if ($request->workablePlaces) {
+                $data->workablePlaces()->attach($request->workablePlaces);
+            }
+            if ($request->skills) {
+                $data->skills()->attach($request->skills);
+            }
 
             return $data;
         } else {

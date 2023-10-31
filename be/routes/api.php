@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExpController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -104,7 +105,7 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('profile')->group(function () {
-    Route::middleware(['auth:sanctum'])->get('/applier/info/{id}', [UserController::class, 'info']);
-    Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/create', [UserController::class, 'create']);
-    Route::middleware(['auth:sanctum', 'abilities:role-user'])->put('/update', [UserController::class, 'update']);
+    Route::middleware(['auth:sanctum'])->get('/info/{id}', [ProfileController::class, 'info']);
+    Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/create', [ProfileController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'abilities:role-user'])->put('/update', [ProfileController::class, 'update']);
 });
