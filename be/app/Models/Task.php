@@ -45,6 +45,11 @@ class Task extends Model
                 $model->id = (string) Str::uuid();
             }
         });
+
+        static::deleting(function ($model) {
+            $model->appliedBy()->detach();
+            $model->savedBy()->detach();
+        });
     }
 
     public function category()

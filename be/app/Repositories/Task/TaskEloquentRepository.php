@@ -26,12 +26,15 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
             ->with('types')
             ->with('company')
             ->with('hr')
-            ->with('address')->find($request->id);
+            ->with('address')
+            ->with('appliedBy')
+            ->withCount('appliedBy')
+            ->find($request->id);
         if ($task->appliedBy->contains($request->user()->id)) {
             $task['applied'] = true;
         }
         //dd($request->user()->role);
-        if ($request->user()->role != 1) {
+        if ($request->user()->role != 1 && $request->user()->role != 2) {
             unset($task['appliedBy']);
         }
 
@@ -97,14 +100,29 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
 
     public function recommendedTasks(Request $request)
     {
-        $data = $this->_model->whereIn('address_id', $request->workablePlaces)->where('category_id', $request->categoryId)
-            ->with('category')
-            ->with('expYear')
-            ->with('types')
-            ->with('company')
-            ->with('address')
-            ->orderBy('created_at', 'DESC')
-            ->paginate(10);
+        //dd($request->user()->profi(le->workablePlaces);
+        //dd(Arr::pluck($request->user()->profile->workablePlaces, 'id'));
+        if ($request->user()->profile) {
+            $data = $this->_model->whereIn('address_id', Arr::pluck($request->user()->profile->workablePlaces, 'id'))->where('category_id', $request->user()->profile->category_id)
+                ->with('category')
+                ->with('expYear')
+                ->with('types')
+                ->with('company')
+                ->with('address')
+                ->orderBy('created_at', 'DESC')
+                ->limit(6)
+                ->get();
+        } else {
+            $data = $this->_model
+                ->with('category')
+                ->with('expYear')
+                ->with('types')
+                ->with('company')
+                ->with('address')
+                ->orderBy('created_at', 'DESC')
+                ->limit(6)
+                ->get();
+        }
 
         return $data;
     }
