@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('gender', [1, 0, -1]);
             $table->enum('role', [1, 0]);
             $table->uuid('company_id')->nullable();
-            $table->enum('hraccepted', [-1, 0, 1])->nullable();
+            $table->enum('hraccepted', [0, 1])->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
