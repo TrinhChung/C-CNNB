@@ -97,7 +97,11 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
 
     public function acceptHr(Request $request)
     {
-        $hr = User::find($request->id);
+        $hr = User::find($request->hr_id);
+        $company = $this->find($request->company_id);
+        if (! $company || ! $hr || ! $hr->company_id === $company->id) {
+            return null;
+        }
         if ($request->action == 'accept') {
             $data = $hr->update(['hraccepted' => 1]);
             if ($data) {

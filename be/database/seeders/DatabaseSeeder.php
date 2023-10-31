@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         ExpSeeder::run();
         TypeSeeder::run();
         ApplierSeeder::run();
+        CompanySeeder::run();
+        TaskSeeder::run();
     }
 }
