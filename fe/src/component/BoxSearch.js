@@ -3,11 +3,7 @@ import { Col, Row, Input, Button } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const BoxSearch = memo(
-  ({
-    handleSearch,
-    placeholder = "Công việc, vị trí ứng tuyển",
-    layout = "job",
-  }) => {
+  ({ handleSearch, placeholder = "Công việc, vị trí ứng tuyển" }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -26,7 +22,6 @@ const BoxSearch = memo(
             onChange={(e) => {
               setKey(e.target.value);
             }}
-            allowClear={true}
           />
         </Col>
         <Col span={4}>
@@ -35,7 +30,7 @@ const BoxSearch = memo(
             style={{ height: "100%", width: "100%" }}
             onClick={() => {
               searchParams.set("searchInput", key);
-              navigate(`/${layout}/?` + searchParams.toString());
+              navigate("/job/?" + searchParams.toString());
               handleSearch();
             }}
           >

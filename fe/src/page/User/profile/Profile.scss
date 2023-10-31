@@ -12,7 +12,7 @@
   .title-container {
     font-weight: bold;
     font-size: 20px;
-    // padding-bottom: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -50,17 +50,4 @@
   thead.ant-table-thead
   .ant-table-cell {
   background-color: var(--background-box-search);
-}
-
-.form-cv {
-  .ant-form-item-label {
-    text-align: start !important;
-  }
-
-  .input-form {
-    padding: 5px 10px 5px 10px;
-    border-radius: 5px;
-    border: 1px solid var(--gray);
-    width: 100%;
-  }
 }
