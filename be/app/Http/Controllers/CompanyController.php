@@ -174,9 +174,10 @@ class CompanyController extends Controller
             if ($data) {
                 return response()->json(
                     [
-                        'message' => $data['message'],
+                        'data' => $data,
+                        'message' => 'all company selection',
                         'success' => 1,
-                    ], 200
+                    ]
                 );
             } else {
                 throw new Exception('no company found');

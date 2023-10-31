@@ -77,25 +77,22 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
 
     public function editCompany(Request $request)
     {
-        if (Http::get('https://api.vietqr.io/v2/business/'.$request->tax_code)['data']) {
-            $company = $this->_model->find($request->id);
-            if ($company) {
-                $temp = Arr::except($request->all(), ['image']);
-                if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $company->image)) {
-                    $image = $request->file('image');
-                    $imageName = time().$image->getClientOriginalName();
-                    $image->move(public_path('images/'), $imageName);
-                    $temp['image'] = asset('images/'.$imageName);
-                }
-                $data = $company->update($temp);
-
-                return $data;
-            } else {
-                return null;
+        $company = $this->_model->find($request->id);
+        if ($company) {
+            $temp = Arr::except($request->all(), ['image']);
+            if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $company->image)) {
+                $image = $request->file('image');
+                $imageName = time().$image->getClientOriginalName();
+                $image->move(public_path('images/'), $imageName);
+                $temp['image'] = asset('images/'.$imageName);
             }
+            $data = $company->update($temp);
+
+            return $data;
         } else {
             return null;
         }
+
     }
 
     public function acceptHr(Request $request)

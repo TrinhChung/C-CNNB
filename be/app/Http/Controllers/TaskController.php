@@ -162,4 +162,29 @@ class TaskController extends Controller
             );
         }
     }
+
+    public function delete(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->delete($request->id);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'new task created',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('failed to create new task');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }
