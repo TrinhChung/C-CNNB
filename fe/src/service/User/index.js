@@ -31,11 +31,3 @@ export const getCompanies = () => {
 export const getExps = () => {
   return axios.get(`/api/exp/all`);
 };
-
-export const getSkills = () => {
-  return axios.get("/api/skill/all");
-};
-
-export const updateProfile = (data) => {
-  return axios.put("/api/profile/update", data);
-};

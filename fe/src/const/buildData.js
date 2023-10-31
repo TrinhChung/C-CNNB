@@ -27,11 +27,3 @@ export const buildAddress = (data, all = true) => {
     });
   }
 };
-
-export const filterId = (data) => {
-  return data.map((item) => item.id);
-};
-
-export const filterValue = (data) => {
-  return data.map((item) => item.value);
-};

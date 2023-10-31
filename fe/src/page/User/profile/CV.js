@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Select, Input, Radio, Form } from "antd";
+import {
+  Col,
+  Row,
+  Switch,
+  Select,
+  Input,
+  Radio,
+  Form,
+  Button,
+  InputNumber,
+} from "antd";
+import RowHorizontal from "../../../component/RowHorizontal";
 import UploadImage from "../../../component/Card/UploadImage";
 import RowVertical from "../../../component/RowVertical";
 import BoxCV from "../../../component/BoxCV";
@@ -8,28 +19,18 @@ import { getProfileUser as getProfileService } from "../../../service/User";
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/authProvider";
 import moment from "moment";
-import {
-  buildAddress,
-  buildCategories,
-  filterId,
-  filterValue,
-} from "../../../const/buildData";
+import { buildAddress, buildCategories } from "../../../const/buildData";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 import ExpAddField from "./ExpAddField";
-import Project from "./Project";
-import { updateProfile } from "../../../service/User";
-import { toast } from "react-toastify";
-import Skill from "./Skill";
-
 const { TextArea } = Input;
 
 const CV = () => {
   const { authUser, addresses, exps } = useContext(AuthContext);
   const [workablePlaces, setWorkablePlaces] = useState([]);
   const [user, setUser] = useState({});
+  const [description, setDescription] = useState("");
   const [form] = Form.useForm();
-  const [edit, setEdit] = useState(false);
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
@@ -39,35 +40,17 @@ const CV = () => {
     getInfoProfile(authUser.id);
   }, []);
 
-  useEffect(() => {
-    form.resetFields();
-  }, []);
-
-  const onSave = async () => {
-    await form.validateFields();
-    const data = form.getFieldsValue();
-    data.skills = filterId(data.skills);
-    data.workable_places = filterValue(data.workable_places);
-    const res = await updateProfile(data);
-    if (res.success === 1) {
-      toast.success("Update thành công");
-    } else {
-      toast.error("Update that bai");
-    }
-  };
-
   const getInfoProfile = async (id) => {
     const res = await getProfileService(id);
     if (res.success === 1 && res.data) {
-      setUser(res.data);
       form.resetFields();
 
+      setUser(res.data);
       if (res.data.workable_places) {
-        form.setFieldsValue({ ...res.data });
-        form.setFieldValue(
-          "workable_places",
-          buildAddress(res.data.workable_places, false)
-        );
+        setWorkablePlaces(buildAddress(res.data.workable_places, false));
+      }
+      if (res.data.description) {
+        setDescription(res.data.description);
       }
     }
   };
@@ -92,7 +75,7 @@ const CV = () => {
         backgroundColor: "var(--background-box-search)",
       }}
     >
-      <Form form={form} className="form-cv">
+      <Form className="form-cv" form={form}>
         <BoxCV title={"Profile"}>
           <Row style={{ paddingTop: 20 }}>
             <Col style={{ paddingRight: 40 }}>
@@ -118,55 +101,58 @@ const CV = () => {
                 ).format("l")}
               />
             </Col>
+            <Col span={6}>
+              <Row>
+                <Col
+                  style={{
+                    padding: 20,
+                    backgroundColor: "var(--background-box-search)",
+                    borderRadius: 10,
+                  }}
+                >
+                  <Row className="title-container">Bat trang thai tim viec</Row>
+                  <Row>
+                    <Switch
+                      defaultChecked
+                      onChange={onChange}
+                      checkedChildren="Bật"
+                      unCheckedChildren="Tắt"
+                    />
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
           </Row>
         </BoxCV>
 
-        <BoxCV
-          title={"Thông tin cá nhân"}
-          isEdit={true}
-          setEdit={setEdit}
-          edit={edit}
-          onSave={onSave}
-        >
+        <BoxCV title={"Thông tin cá nhân"} isEdit={true}>
           <Col>
-            <FormItemHorizontal name="fullname" label={"Họ và tên:"}>
-              <Input disabled={!edit} />
+            <FormItemHorizontal name={"fullname"} label={"Họ và tên:"}>
+              <Input defaultValue={user?.fullname} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"email"} label={"Email:"}>
-              <Input disabled={!edit} />
+              <Input defaultValue={user?.email} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"birth_year"} label={"Năm sinh:"}>
-              <Input disabled={!edit} />
+              <Input defaultValue={user?.birth_year} />
             </FormItemHorizontal>
-            <FormItemHorizontal
-              name={"gender"}
-              label={"Giới tính:"}
-              disabled={!edit}
-            >
-              <Radio.Group
-                onChange={onChange}
-                value={1}
-                size={"large"}
-                disabled={!edit}
-              >
-                <Radio value={"1"} disabled={!edit}>
-                  Nam
-                </Radio>
-                <Radio value={"2"} disabled={!edit}>
-                  Nu
-                </Radio>
+            <FormItemHorizontal name={"gender"} label={"Giới tính:"}>
+              <Radio.Group onChange={onChange} value={1} size={"large"}>
+                <Radio value={1}>Nam</Radio>
+                <Radio value={2}>Nu</Radio>
               </Radio.Group>
             </FormItemHorizontal>
             <FormItemHorizontal name={"address_id"} label={"Nơi sống:"}>
               <Select
                 style={{ minWidth: 200 }}
+                defaultValue={user?.address_id}
                 options={buildAddress(addresses, false)}
-                disabled={!edit}
               />
             </FormItemHorizontal>
 
             <FormItemVertical label="Mô tả về bản thân" name="description">
               <TextArea
+                defaultValue={user.description}
                 autoSize={{
                   minRows: 4,
                   maxRows: 6,
@@ -174,19 +160,12 @@ const CV = () => {
                 name="description"
                 allowClear={true}
                 style={{ width: "100%" }}
-                disabled={!edit}
               />
             </FormItemVertical>
           </Col>
         </BoxCV>
 
-        <BoxCV
-          title={"Thông tin nghề nghiệp"}
-          isEdit={true}
-          setEdit={setEdit}
-          edit={edit}
-          onSave={onSave}
-        >
+        <BoxCV title={"Thông tin nghề nghiệp"} isEdit={true}>
           <Col span={24}>
             {
               <FormItemHorizontal
@@ -196,15 +175,15 @@ const CV = () => {
                 <Select
                   mode="multiple"
                   style={{ minWidth: 200 }}
+                  defaultValue={workablePlaces}
                   value={workablePlaces}
                   onChange={setWorkablePlaces}
                   options={buildAddress(addresses, false)}
-                  disabled={!edit}
                 />
               </FormItemHorizontal>
             }
             <FormItemVertical
-              label="Mong muốn bản thân về công việc"
+              title="Mong muốn bản thân về công việc"
               name={"desire"}
             >
               <TextArea
@@ -212,19 +191,13 @@ const CV = () => {
                   minRows: 4,
                   maxRows: 6,
                 }}
+                defaultValue={user?.desire}
                 allowClear={true}
-                disabled={!edit}
               />
             </FormItemVertical>
           </Col>
         </BoxCV>
-        <BoxCV
-          isEdit={true}
-          title="Kinh nghiệm làm việc"
-          setEdit={setEdit}
-          edit={edit}
-          onSave={onSave}
-        >
+        <BoxCV isEdit={true} title="Kinh nghiệm làm việc">
           <Col span={24}>
             {
               <FormItemHorizontal
@@ -232,38 +205,43 @@ const CV = () => {
                 label="Số năm kinh nghiệm"
               >
                 <Select
+                  defaultValue={user?.year_of_experience}
                   style={{ minWidth: 200 }}
                   options={buildCategories(exps, false)}
-                  disabled={!edit}
                 />
               </FormItemHorizontal>
             }
             <RowVertical title="Chi tiết kinh nghiệm">
-              <ExpAddField exps={user?.exp_detail} form={form} edit={edit} />
+              <ExpAddField exps={user?.exp_detail} />
             </RowVertical>
           </Col>
         </BoxCV>
 
-        <BoxCV
-          title={"Dự án đã tham gia"}
-          isEdit={true}
-          setEdit={setEdit}
-          edit={edit}
-          onSave={onSave}
-        >
+        <BoxCV title={"Dự án đã tham gia"} isEdit={true}>
           <Col>
-            <Project projects={user?.projects} form={form} edit={edit} />
-          </Col>
-        </BoxCV>
-        <BoxCV
-          title={"Skill"}
-          isEdit={true}
-          setEdit={setEdit}
-          edit={edit}
-          onSave={onSave}
-        >
-          <Col>
-            <Skill mySkills={user?.skills} edit={edit} />
+            <RowHorizontal title={"Tên công ty:"}>
+              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
+            </RowHorizontal>
+            <RowHorizontal title={"Số lượng thành viên:"}>
+              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
+            </RowHorizontal>
+            <RowHorizontal title={"Thời gian bắt đầu"}>
+              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
+            </RowHorizontal>
+            <RowHorizontal title={"Thời gian kết thúc"}>
+              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
+            </RowHorizontal>
+            <RowHorizontal title={"Công nghệ sử dụng"}>
+              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
+            </RowHorizontal>
+            <RowVertical title="Mô tả chi tiết">
+              <TextArea
+                autoSize={{
+                  minRows: 4,
+                  maxRows: 6,
+                }}
+              />
+            </RowVertical>
           </Col>
         </BoxCV>
       </Form>
