@@ -4,6 +4,8 @@ import {
   getCategories as getCategoriesService,
   getAddress as getAddressService,
   getCompanies as getCompaniesService,
+  getExps as getExpsService,
+  getSkills as getSkillsService,
 } from "../../service/User";
 import { buildAddress } from "../../const/buildData";
 
@@ -14,6 +16,8 @@ export default function AuthProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [addresses, setAddress] = useState([]);
   const [companies, setCompanies] = useState([]);
+  const [exps, setExps] = useState([]);
+  const [skills, setSkills] = useState([]);
 
   const handlerLogin = async () => {
     const res = await loginMe();
@@ -26,6 +30,20 @@ export default function AuthProvider({ children }) {
     const res = await getCategoriesService();
     if (res.success === 1 && res.data) {
       setCategories(res.data);
+    }
+  };
+
+  const getExps = async () => {
+    const res = await getExpsService();
+    if (res.success === 1 && res.data) {
+      setExps(res.data);
+    }
+  };
+
+  const getSkills = async () => {
+    const res = await getSkillsService();
+    if (res.success === 1 && res.data) {
+      setSkills(res.data);
     }
   };
 
@@ -51,11 +69,21 @@ export default function AuthProvider({ children }) {
     getCategories();
     getAddress();
     getCompanies();
+    getExps();
+    getSkills();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ authUser, categories, addresses, companies, setAuthUser }}
+      value={{
+        authUser,
+        categories,
+        addresses,
+        companies,
+        exps,
+        skills,
+        setAuthUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

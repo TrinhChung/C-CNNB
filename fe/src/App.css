@@ -26,6 +26,7 @@
 }
 .ant-menu-item-selected {
   color: var(--color-main) !important;
+  transition: 0.5s;
 }
 
 .ant-menu-item-only-child:hover::after {
@@ -174,4 +175,22 @@
 
 .background-color-main {
   background-color: var(--color-main);
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
 }

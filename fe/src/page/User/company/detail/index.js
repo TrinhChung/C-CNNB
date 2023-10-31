@@ -26,7 +26,7 @@ const CompanyDetail = () => {
         name={data?.name}
         link={data?.link}
         address={data?.detail_address}
-        total={data?.tasks?.length}
+        total={data?.tasks_count}
         banner={true}
         email={data?.email}
         image={data?.image}
@@ -47,6 +47,7 @@ const CompanyDetail = () => {
           isShowAll={true}
           image={data?.image}
           isPagination={false}
+          query={{ companyId: id }}
         />
       </Col>
     </>
