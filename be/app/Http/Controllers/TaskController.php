@@ -187,4 +187,52 @@ class TaskController extends Controller
             );
         }
     }
+
+    public function accept(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->acceptApplier($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'message' => 'applier accepted',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('failed to accept');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function reject(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->acceptApplier($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'message' => 'applier rejected',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('failed to reject');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }

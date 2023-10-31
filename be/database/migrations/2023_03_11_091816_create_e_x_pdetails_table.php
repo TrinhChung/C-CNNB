@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('e_x_pdetails', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('profile_id')->nullable(false);
-            $table->string('place')->nullable(false);
-            $table->string('content')->nullable(false);
+            $table->text('place')->nullable(false);
+            $table->longText('content')->nullable(false);
             $table->timestamps();
         });
     }

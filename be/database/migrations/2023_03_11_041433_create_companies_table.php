@@ -15,12 +15,12 @@ return new class extends Migration
             $table->uuid('id')->primary()->nullable(false);
             $table->smallInteger('role')->default(2);
             $table->string('link')->unique();
-            $table->string('name')->unique();
+            $table->string('name', 100)->unique();
             $table->string('image')->nullable();
-            $table->string('description');
+            $table->longText('description');
             $table->integer('address_id')->nullable(false);
             $table->string('detail_address')->nullable(false);
-            $table->string('renumeration_policy');
+            $table->longText('renumeration_policy')->nullable();
             $table->string('tax_code')->unique()->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->string('password');

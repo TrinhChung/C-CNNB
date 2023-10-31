@@ -65,7 +65,6 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
             ->with('expYear')
             ->with('types')
             ->with('company')
-            ->with('hr')
             ->with('address')->paginate(10);
     }
 
@@ -125,5 +124,25 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         }
 
         return $data;
+    }
+
+    public function acceptApplier(Request $request)
+    {
+        $task = $this->find($request->task_id);
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 0])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function rejectApplier(Request $request)
+    {
+        $task = $this->find($request->task_id);
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 1])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

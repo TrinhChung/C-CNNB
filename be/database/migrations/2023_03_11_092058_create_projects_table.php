@@ -17,8 +17,8 @@ return new class extends Migration
             $table->integer('amount_of_member')->nullable(false);
             $table->date('start')->nullable(false);
             $table->date('end')->nullable(false);
-            $table->string('technology')->comment('a list of technology used in that project')->nullable(false);
-            $table->string('description')->nullable(false);
+            $table->longText('technology')->comment('a list of technology used in that project')->nullable(false);
+            $table->longText('description')->nullable(false);
             $table->timestamps();
         });
     }

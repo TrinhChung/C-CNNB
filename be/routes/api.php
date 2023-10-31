@@ -81,6 +81,8 @@ Route::prefix('task')->group(function () {
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/update/{id}', [TaskController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->delete('/delete/{id}', [TaskController::class, 'delete']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/recommend', [TaskController::class, 'recommend']);
+    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/accept', [TaslController::class, 'accept']);
+    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/reject', [TaslController::class, 'reject']);
 });
 
 Route::prefix('company')->group(function () {
@@ -91,7 +93,7 @@ Route::prefix('company')->group(function () {
     });
     Route::post('/new', [CompanyController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/update/{id}', [CompanyController::class, 'update']);
-    Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/accept/{id}', [CompanyController::class, 'accept']);
+    Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/accept', [CompanyController::class, 'accept']);
     Route::get('/selection', [CompanyController::class, 'companySelect']);
 });
 
