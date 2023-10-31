@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Col, Row, Pagination } from "antd";
+import React from "react";
+import { Col, Row, Pagination, Empty } from "antd";
 import BoxJob from "../../component/BoxJob";
 import TitleViewAll from "../../component/TitleViewAll";
-import { motion, Reorder, AnimatePresence } from "framer-motion";
-
+import { AnimatePresence } from "framer-motion";
+import CardAnimated from "../../component/Animation/CardAnimated";
 const WrapBox = ({
   data = [],
   title,
@@ -21,25 +21,21 @@ const WrapBox = ({
       <Row>
         <Col span={24}>
           <AnimatePresence initial={false}>
-            {data &&
-              data?.length > 0 &&
+            {data && data?.length > 0 ? (
               data.map((item, index) => {
                 return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ type: "spring", duration: 1 }}
-                  >
+                  <CardAnimated index={index}>
                     <BoxJob data={item} image={image} size={140} key={index} />
-                  </motion.div>
+                  </CardAnimated>
                 );
-              })}
+              })
+            ) : (
+              <Empty />
+            )}
           </AnimatePresence>
         </Col>
       </Row>
-      {isPagination && (
+      {isPagination && data && data?.length > 0 && (
         <Row style={{ justifyContent: "center" }}>
           <Pagination
             defaultCurrent={currentPage}

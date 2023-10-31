@@ -27,3 +27,15 @@ export const getAddress = () => {
 export const getCompanies = () => {
   return axios.get(`/api/company/selection/`);
 };
+
+export const getExps = () => {
+  return axios.get(`/api/exp/all`);
+};
+
+export const getSkills = () => {
+  return axios.get("/api/skill/all");
+};
+
+export const updateProfile = (data) => {
+  return axios.put("/api/profile/update", data);
+};
