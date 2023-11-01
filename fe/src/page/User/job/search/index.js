@@ -75,7 +75,7 @@ const Search = () => {
             <Select
               placeholder="Công ty"
               style={{ width: "100%" }}
-              options={companies}
+              options={buildAddress(companies)}
               onChange={(e) => {
                 searchParams.set("company_id", e);
                 navigate("/job/?" + searchParams.toString());
@@ -83,7 +83,7 @@ const Search = () => {
               defaultValue={
                 searchParams.get("company_id")
                   ? searchParams.get("company_id")
-                  : companies[0].value
+                  : 0
               }
             />
           </Col>

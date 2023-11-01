@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/authProvider";
-
+import { logoutService } from "../service/Auth";
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
@@ -26,19 +26,21 @@ const Navbar = ({ data }) => {
     setCurrent(pathArr[1]);
   }, [pathname]);
 
+  const onLogout = async () => {
+    const res = await logoutService();
+    if (res.success) {
+      setAuthUser(null);
+      localStorage.removeItem("accessToken");
+      navigate("login");
+      toast.success("Đã đăng xuất");
+    } else {
+      toast.error("Có lỗi xảy ra");
+    }
+  };
+
   const items = [
     {
       label: "Profile",
-      key: "profile",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "2nd menu item",
-      key: "profile",
-      icon: <UserOutlined />,
-    },
-    {
-      label: "3rd menu item",
       key: "profile",
       icon: <UserOutlined />,
     },
@@ -134,9 +136,7 @@ const Navbar = ({ data }) => {
         open={isOpenModal}
         centered={true}
         onOk={() => {
-          setAuthUser(null);
-          localStorage.removeItem("accessToken");
-          navigate("login");
+          onLogout();
         }}
         onCancel={() => setIsOpenModal(false)}
       >

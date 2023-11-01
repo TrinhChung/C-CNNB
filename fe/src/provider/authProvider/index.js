@@ -6,8 +6,8 @@ import {
   getCompanies as getCompaniesService,
   getExps as getExpsService,
   getSkills as getSkillsService,
+  getTypes as getTypesService,
 } from "../../service/User";
-import { buildAddress } from "../../const/buildData";
 
 export const AuthContext = createContext();
 
@@ -18,6 +18,7 @@ export default function AuthProvider({ children }) {
   const [companies, setCompanies] = useState([]);
   const [exps, setExps] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [types, setTypes] = useState([]);
 
   const handlerLogin = async () => {
     const res = await loginMe();
@@ -40,6 +41,13 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  const getTypes = async () => {
+    const res = await getTypesService();
+    if (res.success === 1 && res.data) {
+      setTypes(res.data);
+    }
+  };
+
   const getSkills = async () => {
     const res = await getSkillsService();
     if (res.success === 1 && res.data) {
@@ -50,8 +58,7 @@ export default function AuthProvider({ children }) {
   const getCompanies = async () => {
     const res = await getCompaniesService();
     if (res.success === 1 && res.data) {
-      const companies = await buildAddress(res.data);
-      setCompanies(companies);
+      setCompanies(res.data);
     }
   };
 
@@ -71,6 +78,7 @@ export default function AuthProvider({ children }) {
     getCompanies();
     getExps();
     getSkills();
+    getTypes();
   }, []);
 
   return (
@@ -82,6 +90,7 @@ export default function AuthProvider({ children }) {
         companies,
         exps,
         skills,
+        types,
         setAuthUser,
       }}
     >
