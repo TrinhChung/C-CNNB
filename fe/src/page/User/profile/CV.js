@@ -37,9 +37,6 @@ const CV = () => {
 
   useEffect(() => {
     getInfoProfile(authUser.id);
-  }, []);
-
-  useEffect(() => {
     form.resetFields();
   }, []);
 
@@ -129,17 +126,26 @@ const CV = () => {
           onSave={onSave}
         >
           <Col>
-            <FormItemHorizontal name="fullname" label={"Họ và tên:"}>
+            <FormItemHorizontal
+              name="fullname"
+              label={"Họ và tên:"}
+              required={true}
+            >
               <Input disabled={!edit} />
             </FormItemHorizontal>
-            <FormItemHorizontal name={"email"} label={"Email:"}>
+            <FormItemHorizontal required={true} name={"email"} label={"Email:"}>
               <Input disabled={!edit} />
             </FormItemHorizontal>
-            <FormItemHorizontal name={"birth_year"} label={"Năm sinh:"}>
+            <FormItemHorizontal
+              required={true}
+              name={"birth_year"}
+              label={"Năm sinh:"}
+            >
               <Input disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal
               name={"gender"}
+              required={true}
               label={"Giới tính:"}
               disabled={!edit}
             >
@@ -157,7 +163,11 @@ const CV = () => {
                 </Radio>
               </Radio.Group>
             </FormItemHorizontal>
-            <FormItemHorizontal name={"address_id"} label={"Nơi sống:"}>
+            <FormItemHorizontal
+              name={"address_id"}
+              label={"Nơi sống:"}
+              required={true}
+            >
               <Select
                 style={{ minWidth: 200 }}
                 options={buildAddress(addresses, false)}
@@ -165,7 +175,11 @@ const CV = () => {
               />
             </FormItemHorizontal>
 
-            <FormItemVertical label="Mô tả về bản thân" name="description">
+            <FormItemVertical
+              label="Mô tả về bản thân"
+              name="description"
+              required={true}
+            >
               <TextArea
                 autoSize={{
                   minRows: 4,
@@ -192,6 +206,7 @@ const CV = () => {
               <FormItemHorizontal
                 label={"Nơi có thể làm việc"}
                 name={"workable_places"}
+                required={true}
               >
                 <Select
                   mode="multiple"
@@ -206,6 +221,7 @@ const CV = () => {
             <FormItemVertical
               label="Mong muốn bản thân về công việc"
               name={"desire"}
+              required={true}
             >
               <TextArea
                 autoSize={{
@@ -230,6 +246,7 @@ const CV = () => {
               <FormItemHorizontal
                 name={"year_of_experience"}
                 label="Số năm kinh nghiệm"
+                required={true}
               >
                 <Select
                   style={{ minWidth: 200 }}

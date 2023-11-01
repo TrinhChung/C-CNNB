@@ -6,6 +6,7 @@ import FormRecruit from "./FormRecruit";
 const Recruit = () => {
   const [form] = Form.useForm();
   const handleSubmit = () => {
+    form.validateFields();
     console.log(form.getFieldsValue());
   };
   return (

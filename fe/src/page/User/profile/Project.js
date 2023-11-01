@@ -33,6 +33,7 @@ const Project = ({ projects = [], edit = false }) => {
                           message: "Số lượng thành viên",
                         },
                       ]}
+                      required={true}
                     >
                       <InputNumber
                         placeholder="Số lượng thành viên"
@@ -50,6 +51,7 @@ const Project = ({ projects = [], edit = false }) => {
                           message: "Missing Thời gian bắt đầu",
                         },
                       ]}
+                      required={true}
                     >
                       <Input placeholder="Place" disabled={!edit} />
                     </FormItemHorizontal>
@@ -62,6 +64,7 @@ const Project = ({ projects = [], edit = false }) => {
                           message: "Missing Thời gian kết thúc",
                         },
                       ]}
+                      required={true}
                     >
                       <Input placeholder="Place" disabled={!edit} />
                     </FormItemHorizontal>
@@ -74,6 +77,7 @@ const Project = ({ projects = [], edit = false }) => {
                           message: "Missing Công nghệ sử dụng",
                         },
                       ]}
+                      required={true}
                     >
                       <Input placeholder="Công nghệ sử dụng" disabled={!edit} />
                     </FormItemHorizontal>
@@ -95,12 +99,7 @@ const Project = ({ projects = [], edit = false }) => {
                   <FormItemVertical
                     name={[name, "description"]}
                     label="Kinh nghiệm, cống hiến"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Missing exp description",
-                      },
-                    ]}
+                    required={true}
                   >
                     <TextArea
                       placeholder="Kinh nghiệm, cống hiến"

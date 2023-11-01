@@ -11,6 +11,7 @@ const Info = () => {
 
   useEffect(() => {
     getInfoProfile(authUser.id);
+    form.resetFields();
   }, []);
 
   const getInfoProfile = async (id) => {
@@ -21,10 +22,14 @@ const Info = () => {
     }
   };
 
-  console.log(data);
+  const onSubmit = async () => {
+    await form.validateFields();
+    console.log(form.getFieldsValue());
+  };
+
   return (
     <Form form={form}>
-      <FormInfoHr />
+      <FormInfoHr onSubmit={onSubmit} />
     </Form>
   );
 };

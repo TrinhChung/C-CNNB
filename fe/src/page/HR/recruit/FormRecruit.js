@@ -44,51 +44,57 @@ const FormRecruit = ({ onSubmit }) => {
             border: "1px solid var(--color-main)",
           }}
         >
-          <FormItemVertical label="Tiêu đề:" name={"title"}>
-            <Col span={8} className="custom">
+          <Col span={8} className="custom">
+            <FormItemVertical label="Tiêu đề:" name={"title"} required={true}>
               <Input />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Công ty:" name={"company_id"}>
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Công ty:"
+              name={"company_id"}
+              required={true}
+            >
               <Select
                 style={{
                   width: "100%",
                   backgroundColor: "transparent!important",
                 }}
-                defaultValue={companiesSelect?.[0]?.value}
                 options={companiesSelect}
               />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical
-            label="Số năm kinh nghiệm yêu cầu:"
-            name={"year_of_experience"}
-          >
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Số năm kinh nghiệm yêu cầu:"
+              name={"year_of_experience"}
+              required={true}
+            >
               <Select
                 style={{
                   width: "100%",
                   backgroundColor: "transparent!important",
                 }}
-                defaultValue={1}
                 options={expsSelect}
               />
-            </Col>
-          </FormItemVertical>
+            </FormItemVertical>
+          </Col>
 
-          <FormItemVertical label="Loại công việc:" name={"category_id"}>
-            <Col span={8} className="custom">
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Loại công việc:"
+              name={"category_id"}
+              required={true}
+            >
               <Select
                 style={{
                   width: "100%",
                   backgroundColor: "transparent!important",
                 }}
-                defaultValue={1}
                 options={buildCategories(categories, false)}
               />
-            </Col>
-          </FormItemVertical>
+            </FormItemVertical>
+          </Col>
 
           <RowVertical title="Mức lương:" paddingBottom={30}>
             <Col span={8}>
@@ -97,7 +103,12 @@ const FormRecruit = ({ onSubmit }) => {
                 style={{ justifyContent: "space-between", width: "100%" }}
               >
                 <Col span={12}>
-                  <FormItemHorizontal label={"Tối thiểu"} wrapCol={16}>
+                  <FormItemHorizontal
+                    label={"Tối thiểu"}
+                    wrapCol={16}
+                    name={"salary_min"}
+                    required={true}
+                  >
                     <InputNumber
                       style={{ width: "100%" }}
                       min={0}
@@ -110,7 +121,12 @@ const FormRecruit = ({ onSubmit }) => {
                   </FormItemHorizontal>
                 </Col>
                 <Col span={12} style={{ paddingLeft: 20 }}>
-                  <FormItemHorizontal label={"Tối đa"} wrapCol={16}>
+                  <FormItemHorizontal
+                    label={"Tối đa"}
+                    wrapCol={16}
+                    name={"salary_max"}
+                    required={true}
+                  >
                     <InputNumber
                       style={{ width: "100%" }}
                       min={0}
@@ -125,44 +141,78 @@ const FormRecruit = ({ onSubmit }) => {
               </Row>
             </Col>
           </RowVertical>
-          <FormItemVertical label="Số lượng tuyển:" name={"amount"}>
-            <Col span={8} className="custom">
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Số lượng tuyển:"
+              name={"amount"}
+              required={true}
+            >
               <InputNumber style={{ width: "100%" }} />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Thời gian làm việc:" name={"start"}>
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Bắt đầu từ:"
+              name={"start"}
+              required={true}
+            >
               <DatePicker style={{ width: "100%" }} />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Địa điểm làm việc:" name={"address_id"}>
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Kết thúc vào:"
+              name={"end"}
+              required={true}
+            >
+              <DatePicker style={{ width: "100%" }} />
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Địa điểm làm việc:"
+              name={"address_id"}
+              required={true}
+            >
               <Select options={addressesSelect} />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical
-            label="Địa điểm làm việc chi tiết:"
-            name={"detail_address"}
-          >
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Địa điểm làm việc chi tiết:"
+              name={"detail_address"}
+              required={true}
+            >
               <Input />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Hình thức làm việc:" name={"method"}>
-            <Col span={8} className="custom">
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Hình thức làm việc:"
+              name={"method"}
+              required={true}
+            >
               <Input />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Mô tả công viêc:" name={"description"}>
-            <Col span={24} className="text-area">
+            </FormItemVertical>
+          </Col>
+          <Col span={24} className="text-area">
+            <FormItemVertical
+              label="Mô tả công viêc:"
+              name={"description"}
+              required={true}
+            >
               <TextArea style={{ width: "100%" }} />
-            </Col>
-          </FormItemVertical>
-          <FormItemVertical label="Yêu cầu:" name={"requiment"}>
-            <Col span={24} className="text-area">
+            </FormItemVertical>
+          </Col>
+          <Col span={24} className="text-area">
+            <FormItemVertical
+              label="Yêu cầu:"
+              name={"requiment"}
+              required={true}
+            >
               <TextArea style={{ width: "100%" }} />
-            </Col>
-          </FormItemVertical>
+            </FormItemVertical>
+          </Col>
 
           <Row style={{ width: "40%", gap: 20 }}>
             <Col span={10}>
