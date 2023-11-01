@@ -28,8 +28,8 @@ return new class extends Migration
             $table->integer('year_of_experience')->nullable(true);
             $table->date('start')->nullable(false);
             $table->date('end')->nullable(false);
-            $table->enum('status', [1, 0])->default(1);
-            $table->enum('gender', [1, 0, -1])->default(-1);
+            $table->enum('status', [0, 1])->default(1);
+            $table->enum('gender', [-1, 0, 1]);
             $table->timestamps();
         });
     }

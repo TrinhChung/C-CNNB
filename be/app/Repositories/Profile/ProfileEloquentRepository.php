@@ -39,7 +39,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
 
     public function updateProfile(Request $request)
     {
-        $profile = $this->_model->find($request->id);
+        $profile = $this->_model->where('applier_id', $request->user()->id)->first();
         $projectIds = Arr::pluck($profile->projects, 'id');
         $expDetailIds = Arr::pluck($profile->expDetail, 'id');
         $newProjects = $request->projects;
@@ -83,7 +83,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
         }
         $tempt['applier_id'] = $request->user()->id;
         $tempt['email'] = $user->email;
-        $tempt['gender'] = $user->gender;
+        $tempt['gender'] = (int) $user->gender + 2;
         $tempt['fullname'] = $user->fullname;
         $tempt['birth_year'] = $user->birth_year;
 

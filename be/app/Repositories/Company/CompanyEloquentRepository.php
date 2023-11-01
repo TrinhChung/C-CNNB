@@ -103,7 +103,7 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
             return null;
         }
         if ($request->action == 'accept') {
-            $data = $hr->update(['hraccepted' => 1]);
+            $data = $hr->update(['hraccepted' => 2]);
             if ($data) {
                 return ['message' => 'hr accepted'];
             } else {

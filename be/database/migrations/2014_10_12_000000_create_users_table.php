@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('password');
             $table->smallInteger('birth_year');
-            $table->enum('gender', [1, 0, -1]);
-            $table->enum('role', [1, 0]);
+            $table->enum('gender', [-1, 0, 1]);
+            $table->enum('role', [0, 1]);
             $table->uuid('company_id')->nullable();
-            $table->enum('hraccepted', [0, 1])->default(0);
+            $table->enum('hraccepted', [0, 1])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

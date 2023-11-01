@@ -61,7 +61,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [2],
                 ],
                 [
@@ -147,7 +147,9 @@ class TaskSeeder extends Seeder
                     -Xử lý xuyên suốt quá trình phát triển sản phẩm, chẩn đoán và sửa chữa các vấn đề gặp phải
                     -Quản trị hiệu năng, load testing và review code; đóng góp cho sự cải thiện của hệ thống kỹ thuật
                     -Các công việc khác theo chỉ đạo của quản lý dự án
-                    -Cập nhật, báo cáo công việc theo quy định và khi được yêu cầu.
+                    -Cập nhật, báo cáo công việc theo quy định và khi được yêu cầu.=> [
+                        => [=> [
+                            => [
                     -Tham gia đào tạo, huấn luyện trong toàn bộ quá trình làm việc.
                     -Yêu cầu chuẩn chỉnh về hình ảnh, tác phong đáp ứng tiêu chí đại sứ thương hiệu của Tập đoàn.
                     ',
@@ -189,7 +191,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => 1,
+                    'gender' => 3,
                     'types' => [1],
                 ],
                 [
@@ -243,7 +245,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [2],
                 ],
                 [
@@ -324,7 +326,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 2,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -397,7 +399,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -435,7 +437,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 3,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -480,7 +482,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 3,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -525,7 +527,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [3],
                 ],
                 [
@@ -580,7 +582,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -636,7 +638,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 3,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -685,7 +687,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -734,7 +736,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -774,7 +776,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -813,7 +815,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 5,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -865,7 +867,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 4,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -937,7 +939,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 3,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(4)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -987,7 +989,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 3,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(4)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -1041,7 +1043,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 8,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(6)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -1108,7 +1110,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(6)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -1164,7 +1166,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 2,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(6)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
                 [
@@ -1197,7 +1199,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(6)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [1],
                 ],
             ],
@@ -1237,7 +1239,7 @@ class TaskSeeder extends Seeder
                     'year_of_experience' => 1,
                     'start' => $dt->toDateTimeString(),
                     'end' => $dt->addMonths(3)->toDateTimeString(),
-                    'gender' => -1,
+                    'gender' => 1,
                     'types' => [3],
                 ],
             ],
