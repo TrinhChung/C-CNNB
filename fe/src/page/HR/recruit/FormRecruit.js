@@ -8,7 +8,8 @@ import { AuthContext } from "../../../provider/authProvider";
 import { buildAddress, buildCategories } from "../../../const/buildData";
 
 const FormRecruit = ({ onSubmit }) => {
-  const { exps, categories, companies, addresses } = useContext(AuthContext);
+  const { exps, categories, companies, addresses, types } =
+    useContext(AuthContext);
 
   const companiesSelect = useMemo(() => {
     return buildAddress(companies, false);
@@ -21,6 +22,12 @@ const FormRecruit = ({ onSubmit }) => {
   const expsSelect = useMemo(() => {
     return buildCategories(exps, false);
   }, [exps]);
+
+  const typesSelect = useMemo(() => {
+    return buildCategories(types, false);
+  }, [types]);
+
+  console.log(typesSelect);
 
   return (
     <Col
@@ -147,7 +154,7 @@ const FormRecruit = ({ onSubmit }) => {
               name={"amount"}
               required={true}
             >
-              <InputNumber style={{ width: "100%" }} />
+              <InputNumber min={1} step={1} style={{ width: "100%" }} />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">
@@ -189,6 +196,15 @@ const FormRecruit = ({ onSubmit }) => {
           <Col span={8} className="custom">
             <FormItemVertical
               label="Hình thức làm việc:"
+              name={"types"}
+              required={true}
+            >
+              <Select mode="multiple" options={typesSelect} />
+            </FormItemVertical>
+          </Col>
+          <Col span={8} className="custom">
+            <FormItemVertical
+              label="Phương thức làm việc:"
               name={"method"}
               required={true}
             >
