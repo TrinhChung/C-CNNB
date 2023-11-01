@@ -8,18 +8,27 @@ import { getProfileUser as getProfileService } from "../../../service/User";
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/authProvider";
 import moment from "moment";
-import { buildAddress, buildCategories } from "../../../const/buildData";
+import {
+  buildAddress,
+  buildCategories,
+  filterId,
+  filterValue,
+} from "../../../const/buildData";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 import ExpAddField from "./ExpAddField";
 import Project from "./Project";
+import { updateProfile } from "../../../service/User";
+import { toast } from "react-toastify";
+import Skill from "./Skill";
+
 const { TextArea } = Input;
 
 const CV = () => {
   const { authUser, addresses, exps } = useContext(AuthContext);
   const [workablePlaces, setWorkablePlaces] = useState([]);
   const [user, setUser] = useState({});
-  const [form, formExps, formProjects] = Form.useForm();
+  const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);
 
   const onChange = (checked) => {
@@ -28,27 +37,38 @@ const CV = () => {
 
   useEffect(() => {
     getInfoProfile(authUser.id);
-    return () => {
-      form.resetFields();
-    };
+  }, []);
+
+  useEffect(() => {
+    form.resetFields();
   }, []);
 
   const onSave = async () => {
     await form.validateFields();
-    form.resetFields();
-    console.log(form.getFieldsValue());
+    const data = form.getFieldsValue();
+    data.skills = filterId(data.skills);
+    data.workable_places = filterValue(data.workable_places);
+    const res = await updateProfile(data);
+    if (res.success === 1) {
+      toast.success("Update thành công");
+    } else {
+      toast.error("Update that bai");
+    }
   };
 
   const getInfoProfile = async (id) => {
     const res = await getProfileService(id);
     if (res.success === 1 && res.data) {
       setUser(res.data);
+      form.resetFields();
+
       if (res.data.workable_places) {
-        setWorkablePlaces(buildAddress(res.data.workable_places, false));
+        form.setFieldsValue({ ...res.data });
+        form.setFieldValue(
+          "workable_places",
+          buildAddress(res.data.workable_places, false)
+        );
       }
-      form.setFieldValue("fullname", user.fullname);
-      console.log("setFile");
-      ss;
     }
   };
 
@@ -72,7 +92,7 @@ const CV = () => {
         backgroundColor: "var(--background-box-search)",
       }}
     >
-      <Form className="form-cv" form={form}>
+      <Form form={form} className="form-cv">
         <BoxCV title={"Profile"}>
           <Row style={{ paddingTop: 20 }}>
             <Col style={{ paddingRight: 40 }}>
@@ -109,14 +129,14 @@ const CV = () => {
           onSave={onSave}
         >
           <Col>
-            <FormItemHorizontal name={"fullname"} label={"Họ và tên:"}>
+            <FormItemHorizontal name="fullname" label={"Họ và tên:"}>
               <Input disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"email"} label={"Email:"}>
-              <Input defaultValue={user?.email} disabled={!edit} />
+              <Input disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"birth_year"} label={"Năm sinh:"}>
-              <Input defaultValue={user?.birth_year} disabled={!edit} />
+              <Input disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal
               name={"gender"}
@@ -129,10 +149,10 @@ const CV = () => {
                 size={"large"}
                 disabled={!edit}
               >
-                <Radio value={1} disabled={!edit}>
+                <Radio value={"1"} disabled={!edit}>
                   Nam
                 </Radio>
-                <Radio value={2} disabled={!edit}>
+                <Radio value={"2"} disabled={!edit}>
                   Nu
                 </Radio>
               </Radio.Group>
@@ -140,7 +160,6 @@ const CV = () => {
             <FormItemHorizontal name={"address_id"} label={"Nơi sống:"}>
               <Select
                 style={{ minWidth: 200 }}
-                defaultValue={user?.address_id}
                 options={buildAddress(addresses, false)}
                 disabled={!edit}
               />
@@ -148,7 +167,6 @@ const CV = () => {
 
             <FormItemVertical label="Mô tả về bản thân" name="description">
               <TextArea
-                defaultValue={user.description}
                 autoSize={{
                   minRows: 4,
                   maxRows: 6,
@@ -178,7 +196,6 @@ const CV = () => {
                 <Select
                   mode="multiple"
                   style={{ minWidth: 200 }}
-                  defaultValue={workablePlaces}
                   value={workablePlaces}
                   onChange={setWorkablePlaces}
                   options={buildAddress(addresses, false)}
@@ -195,7 +212,6 @@ const CV = () => {
                   minRows: 4,
                   maxRows: 6,
                 }}
-                defaultValue={user?.desire}
                 allowClear={true}
                 disabled={!edit}
               />
@@ -216,7 +232,6 @@ const CV = () => {
                 label="Số năm kinh nghiệm"
               >
                 <Select
-                  defaultValue={user?.year_of_experience}
                   style={{ minWidth: 200 }}
                   options={buildCategories(exps, false)}
                   disabled={!edit}
@@ -238,6 +253,17 @@ const CV = () => {
         >
           <Col>
             <Project projects={user?.projects} form={form} edit={edit} />
+          </Col>
+        </BoxCV>
+        <BoxCV
+          title={"Skill"}
+          isEdit={true}
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
+          <Col>
+            <Skill mySkills={user?.skills} edit={edit} />
           </Col>
         </BoxCV>
       </Form>
