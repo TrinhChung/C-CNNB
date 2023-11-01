@@ -56,8 +56,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         }
         if ($request->salary) {
             $data = $data->where([
-                ['salary_max', '>=', $request->salary],
-                ['salary_min', '<=', $request->salary],
+                ['salary_min', '+>', $request->salary],
             ]);
         }
 
@@ -97,6 +96,13 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         return $task->update($temp);
     }
 
+    public function closeTask(Request $request)
+    {
+        $task = $this->_model->find($request->id);
+
+        return $task->update(['status' => 1]);
+    }
+
     public function recommendedTasks(Request $request)
     {
         //dd($request->user()->profi(le->workablePlaces);
@@ -129,7 +135,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function acceptApplier(Request $request)
     {
         $task = $this->find($request->task_id);
-        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 0])) {
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 1])) {
             return true;
         } else {
             return false;
@@ -139,7 +145,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function rejectApplier(Request $request)
     {
         $task = $this->find($request->task_id);
-        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 1])) {
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 2])) {
             return true;
         } else {
             return false;

@@ -285,10 +285,10 @@ class CompanySeeder extends Seeder
                 'email' => Str::random(5).'@gmail.com',
                 'password' => '123123123',
                 'birth_year' => 4,
-                'gender' => 1,
-                'role' => 1,
+                'gender' => 2,
+                'role' => 2,
                 'company_id' => $company->id,
-                'hraccepted' => true,
+                'hraccepted' => 2,
             ]);
             Activation::create([
                 'user_id' => $user->id,

@@ -22,7 +22,7 @@ class ApplierSeeder extends Seeder
                     'password' => '123123123',
                     'birth_year' => 5,
                     'gender' => 1,
-                    'role' => 0,
+                    'role' => 1,
                 ]
             );
         }

@@ -47,6 +47,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($request->role == 1) {
             $temp['hraccepted'] = -1;
         }
+        $temp['role'] += 1;
+        $temp['gender'] += 2;
         $data = $this->_model->create($temp);
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
         $data['token'] = $token;
@@ -121,6 +123,9 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 $imageName = time().$image->getClientOriginalName();
                 $image->move(public_path('images/'), $imageName);
                 $temp['image'] = asset('images/'.$imageName);
+            }
+            if ($request->gender) {
+                $temp['gender'] = $request->gender + 2;
             }
             $data = $user->update($temp);
 
