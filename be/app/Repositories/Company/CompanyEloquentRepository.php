@@ -28,8 +28,15 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
         $task = $this->_model
             ->with('managedHrs')
             ->with('address')
-            ->with('tasks')
+            ->with('tasks', function ($q) {
+                $q->limit(5);
+            })
+            ->withCount('tasks')
             ->find($request->id);
+        //$task->tasks()->limit(2);
+        if ($request->role == 0) {
+            unset($task['managedHrs']);
+        }
 
         return $task;
 
@@ -40,9 +47,8 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
         $data = $this->_model->where('name', 'like', '%'.$request->searchInput.'%');
 
         return $data
-            ->with('managedHrs')
             ->with('address')
-            ->with('tasks')->paginate(10);
+            ->with('tasks')->withCount('tasks')->paginate(10);
     }
 
     public function createCompany(Request $request)

@@ -90,21 +90,21 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             //dd($tempt);
             $data = $this->_model->create($tempt);
             if ($data) {
-                if ($request->expDetail) {
-                    $request->expDetail;
-                    foreach ($request->expDetail as &$item) {
-                        dd($item);
+                $expDetail = $request->expDetail;
+                $projects = $request->projects;
+                if ($expDetail) {
+                    foreach ($expDetail as &$item) {
                         $item['profile_id'] = $data->id;
                     }
                     //dd($data);
                     //dd($request->expDetail);
-                    EXPdetail::inset($request->expDetail);
+                    EXPdetail::insert($expDetail);
                 }
-                if ($request->projects) {
-                    foreach ($request->projects as &$item) {
+                if ($projects) {
+                    foreach ($projects as &$item) {
                         $item['profile_id'] = $data->id;
                     }
-                    Project::insert($request->projects);
+                    Project::insert($projects);
                 }
                 if ($request->workablePlaces) {
                     $data->workablePlaces()->attach($request->workablePlaces);
