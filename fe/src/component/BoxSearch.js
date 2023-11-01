@@ -35,7 +35,6 @@ const BoxSearch = memo(
             style={{ height: "100%", width: "100%" }}
             onClick={() => {
               searchParams.set("searchInput", key);
-              navigate("/job/?" + searchParams.toString());
               navigate(`/${layout}/?` + searchParams.toString());
               handleSearch();
             }}
