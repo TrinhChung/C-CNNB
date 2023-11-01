@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Form } from "antd";
 
-const FormItemVertical = ({ children, label, name }) => {
+const FormItemVertical = ({ children, label, name, rules }) => {
   return (
     <Row style={{ width: "100%" }}>
       <Col span={24}>
@@ -12,6 +12,7 @@ const FormItemVertical = ({ children, label, name }) => {
           wrapperCol={{ span: 24 }}
           name={name}
           style={{ width: "100%" }}
+          rules={rules}
         >
           {children}
         </Form.Item>

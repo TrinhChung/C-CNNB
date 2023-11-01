@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Form } from "antd";
 
-const FormItemHorizontal = ({ children, label, name }) => {
+const FormItemHorizontal = ({ children, label, name, rules }) => {
   return (
     <Row style={{ width: "100%" }}>
       <Form.Item
@@ -13,6 +13,7 @@ const FormItemHorizontal = ({ children, label, name }) => {
           </Col>
         }
         name={name}
+        rules={rules}
         style={{ width: "100%" }}
       >
         {children}

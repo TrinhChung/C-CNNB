@@ -1,23 +1,25 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Col, Row } from "antd";
+import { useEffect } from "react";
 
 const { TextArea } = Input;
-const ExpAddField = ({ exps = [] }) => {
-  const [form] = Form.useForm();
+const ExpAddField = ({ exps = [], form, edit }) => {
+  useEffect(() => {
+    form.resetFields();
+  }, [exps]);
 
   return (
     <Form form={form}>
       <Form.List
-        name="users"
+        name="exp_detail"
         style={{ width: "100%" }}
         initialValue={[...exps]}
       >
         {(data, { add, remove }) => {
-          console.log(data);
           return (
             <>
               {data.map(({ key, name, ...restField }) => (
-                <Col span={24} style={{ paddingBottom: 15 }}>
+                <Col span={24} style={{ paddingBottom: 15 }} key={key}>
                   <Row
                     style={{
                       justifyContent: "space-between",
@@ -38,16 +40,22 @@ const ExpAddField = ({ exps = [] }) => {
                           ]}
                           wrapperCol={{ span: 24 }}
                         >
-                          <Input placeholder="Place" />
+                          <Input placeholder="Place" disabled={!edit} />
                         </Form.Item>
                       </Row>
                     </Col>
-                    <Col>
-                      <MinusCircleOutlined
-                        style={{ fontSize: 30, color: "red" }}
-                        onClick={() => remove(name)}
-                      />
-                    </Col>
+                    {edit && (
+                      <Col>
+                        <MinusCircleOutlined
+                          style={{ fontSize: 30, color: "red" }}
+                          onClick={() => {
+                            if (edit) {
+                              remove(name);
+                            }
+                          }}
+                        />
+                      </Col>
+                    )}
                   </Row>
                   <Col>
                     <Row>Kinh nghiệm, cống hiến</Row>
@@ -72,22 +80,30 @@ const ExpAddField = ({ exps = [] }) => {
                             minRows: 4,
                             maxRows: 6,
                           }}
+                          disabled={!edit}
                         />
                       </Form.Item>
                     </Row>
                   </Col>
                 </Col>
               ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<PlusOutlined />}
-                >
-                  Add field
-                </Button>
-              </Form.Item>
+
+              {edit && (
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      if (edit) {
+                        add();
+                      }
+                    }}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add field
+                  </Button>
+                </Form.Item>
+              )}
             </>
           );
         }}

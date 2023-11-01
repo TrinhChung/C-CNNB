@@ -1,16 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Row,
-  Switch,
-  Select,
-  Input,
-  Radio,
-  Form,
-  Button,
-  InputNumber,
-} from "antd";
-import RowHorizontal from "../../../component/RowHorizontal";
+import { Col, Row, Select, Input, Radio, Form } from "antd";
 import UploadImage from "../../../component/Card/UploadImage";
 import RowVertical from "../../../component/RowVertical";
 import BoxCV from "../../../component/BoxCV";
@@ -23,14 +12,15 @@ import { buildAddress, buildCategories } from "../../../const/buildData";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 import ExpAddField from "./ExpAddField";
+import Project from "./Project";
 const { TextArea } = Input;
 
 const CV = () => {
   const { authUser, addresses, exps } = useContext(AuthContext);
   const [workablePlaces, setWorkablePlaces] = useState([]);
   const [user, setUser] = useState({});
-  const [description, setDescription] = useState("");
-  const [form] = Form.useForm();
+  const [form, formExps, formProjects] = Form.useForm();
+  const [edit, setEdit] = useState(false);
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
@@ -38,20 +28,27 @@ const CV = () => {
 
   useEffect(() => {
     getInfoProfile(authUser.id);
+    return () => {
+      form.resetFields();
+    };
   }, []);
+
+  const onSave = async () => {
+    await form.validateFields();
+    form.resetFields();
+    console.log(form.getFieldsValue());
+  };
 
   const getInfoProfile = async (id) => {
     const res = await getProfileService(id);
     if (res.success === 1 && res.data) {
-      form.resetFields();
-
       setUser(res.data);
       if (res.data.workable_places) {
         setWorkablePlaces(buildAddress(res.data.workable_places, false));
       }
-      if (res.data.description) {
-        setDescription(res.data.description);
-      }
+      form.setFieldValue("fullname", user.fullname);
+      console.log("setFile");
+      ss;
     }
   };
 
@@ -101,45 +98,43 @@ const CV = () => {
                 ).format("l")}
               />
             </Col>
-            <Col span={6}>
-              <Row>
-                <Col
-                  style={{
-                    padding: 20,
-                    backgroundColor: "var(--background-box-search)",
-                    borderRadius: 10,
-                  }}
-                >
-                  <Row className="title-container">Bat trang thai tim viec</Row>
-                  <Row>
-                    <Switch
-                      defaultChecked
-                      onChange={onChange}
-                      checkedChildren="Bật"
-                      unCheckedChildren="Tắt"
-                    />
-                  </Row>
-                </Col>
-              </Row>
-            </Col>
           </Row>
         </BoxCV>
 
-        <BoxCV title={"Thông tin cá nhân"} isEdit={true}>
+        <BoxCV
+          title={"Thông tin cá nhân"}
+          isEdit={true}
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
           <Col>
             <FormItemHorizontal name={"fullname"} label={"Họ và tên:"}>
-              <Input defaultValue={user?.fullname} />
+              <Input disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"email"} label={"Email:"}>
-              <Input defaultValue={user?.email} />
+              <Input defaultValue={user?.email} disabled={!edit} />
             </FormItemHorizontal>
             <FormItemHorizontal name={"birth_year"} label={"Năm sinh:"}>
-              <Input defaultValue={user?.birth_year} />
+              <Input defaultValue={user?.birth_year} disabled={!edit} />
             </FormItemHorizontal>
-            <FormItemHorizontal name={"gender"} label={"Giới tính:"}>
-              <Radio.Group onChange={onChange} value={1} size={"large"}>
-                <Radio value={1}>Nam</Radio>
-                <Radio value={2}>Nu</Radio>
+            <FormItemHorizontal
+              name={"gender"}
+              label={"Giới tính:"}
+              disabled={!edit}
+            >
+              <Radio.Group
+                onChange={onChange}
+                value={1}
+                size={"large"}
+                disabled={!edit}
+              >
+                <Radio value={1} disabled={!edit}>
+                  Nam
+                </Radio>
+                <Radio value={2} disabled={!edit}>
+                  Nu
+                </Radio>
               </Radio.Group>
             </FormItemHorizontal>
             <FormItemHorizontal name={"address_id"} label={"Nơi sống:"}>
@@ -147,6 +142,7 @@ const CV = () => {
                 style={{ minWidth: 200 }}
                 defaultValue={user?.address_id}
                 options={buildAddress(addresses, false)}
+                disabled={!edit}
               />
             </FormItemHorizontal>
 
@@ -160,12 +156,19 @@ const CV = () => {
                 name="description"
                 allowClear={true}
                 style={{ width: "100%" }}
+                disabled={!edit}
               />
             </FormItemVertical>
           </Col>
         </BoxCV>
 
-        <BoxCV title={"Thông tin nghề nghiệp"} isEdit={true}>
+        <BoxCV
+          title={"Thông tin nghề nghiệp"}
+          isEdit={true}
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
           <Col span={24}>
             {
               <FormItemHorizontal
@@ -179,11 +182,12 @@ const CV = () => {
                   value={workablePlaces}
                   onChange={setWorkablePlaces}
                   options={buildAddress(addresses, false)}
+                  disabled={!edit}
                 />
               </FormItemHorizontal>
             }
             <FormItemVertical
-              title="Mong muốn bản thân về công việc"
+              label="Mong muốn bản thân về công việc"
               name={"desire"}
             >
               <TextArea
@@ -193,11 +197,18 @@ const CV = () => {
                 }}
                 defaultValue={user?.desire}
                 allowClear={true}
+                disabled={!edit}
               />
             </FormItemVertical>
           </Col>
         </BoxCV>
-        <BoxCV isEdit={true} title="Kinh nghiệm làm việc">
+        <BoxCV
+          isEdit={true}
+          title="Kinh nghiệm làm việc"
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
           <Col span={24}>
             {
               <FormItemHorizontal
@@ -208,40 +219,25 @@ const CV = () => {
                   defaultValue={user?.year_of_experience}
                   style={{ minWidth: 200 }}
                   options={buildCategories(exps, false)}
+                  disabled={!edit}
                 />
               </FormItemHorizontal>
             }
             <RowVertical title="Chi tiết kinh nghiệm">
-              <ExpAddField exps={user?.exp_detail} />
+              <ExpAddField exps={user?.exp_detail} form={form} edit={edit} />
             </RowVertical>
           </Col>
         </BoxCV>
 
-        <BoxCV title={"Dự án đã tham gia"} isEdit={true}>
+        <BoxCV
+          title={"Dự án đã tham gia"}
+          isEdit={true}
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
           <Col>
-            <RowHorizontal title={"Tên công ty:"}>
-              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
-            </RowHorizontal>
-            <RowHorizontal title={"Số lượng thành viên:"}>
-              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
-            </RowHorizontal>
-            <RowHorizontal title={"Thời gian bắt đầu"}>
-              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
-            </RowHorizontal>
-            <RowHorizontal title={"Thời gian kết thúc"}>
-              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
-            </RowHorizontal>
-            <RowHorizontal title={"Công nghệ sử dụng"}>
-              <Row style={{ fontSize: 20 }}>Nguyen van A</Row>
-            </RowHorizontal>
-            <RowVertical title="Mô tả chi tiết">
-              <TextArea
-                autoSize={{
-                  minRows: 4,
-                  maxRows: 6,
-                }}
-              />
-            </RowVertical>
+            <Project projects={user?.projects} form={form} edit={edit} />
           </Col>
         </BoxCV>
       </Form>
