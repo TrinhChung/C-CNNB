@@ -60,21 +60,21 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         return $data;
     }
 
-    public function applyTask($applier_id, $task_id)
+    public function applyTask(Request $request)
     {
-        $user = $this->_model->find($applier_id);
+        $user = $request->user();
         if (! $user->profile) {
             return ['error' => 'you need a profile to apply'];
         }
-        $data = $user->appliedTasks()->toggle($task_id);
+        $data = $user->appliedTasks()->toggle($request->task_id);
 
         return $data;
     }
 
-    public function saveTask($applier_id, $task_id)
+    public function saveTask(Request $request)
     {
-        $user = $this->_model->find($applier_id);
-        $data = $user->savedTasks()->toggle($task_id);
+        $user = $request->user();
+        $data = $user->savedTasks()->toggle($request->task_id);
 
         return $data;
     }

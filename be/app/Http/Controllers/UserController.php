@@ -51,7 +51,7 @@ class UserController extends Controller
     public function apply(Request $request)
     {
         try {
-            $data = $this->userRepository->applyTask($request->applier_id, $request->task_id);
+            $data = $this->userRepository->applyTask($request);
             //dd($data);
             if ($data && ! array_key_exists('error', $data)) {
                 return response()->json(

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable(false);
             $table->integer('address_id')->nullable(false);
             $table->integer('category_id')->nullable(false);
-            $table->string('fullname')->nullable(false);
+            $table->string('fullname', 50)->nullable(false);
             $table->enum('gender', [-1, 0, 1])->nullable(false);
             $table->longText('description')->nullable(false);
             $table->integer('year_of_experience')->nullable(false);
