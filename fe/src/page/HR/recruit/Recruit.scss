@@ -3,3 +3,9 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+.form-recruit {
+  .ant-form-item-label {
+    text-align: start !important;
+  }
+}

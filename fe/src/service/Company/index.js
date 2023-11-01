@@ -7,3 +7,7 @@ export const getCompaniesService = (page, query) => {
 export const detailCompany = (id) => {
   return axios.get(`/api/company/info/${id}`);
 };
+
+export const postTask = (data) => {
+  return axios.post("/api/task/new", data);
+};

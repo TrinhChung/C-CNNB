@@ -36,6 +36,14 @@ export const getSkills = () => {
   return axios.get("/api/skill/all");
 };
 
+export const getTypes = () => {
+  return axios.get("/api/type/all");
+};
+
 export const updateProfile = (data) => {
   return axios.put("/api/profile/update", data);
+};
+
+export const getInfoHr = (id) => {
+  return axios.get(`/api/user/hr/info/${id}`);
 };

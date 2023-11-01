@@ -30,12 +30,6 @@ const menu = [
     key: "passwd",
     icon: <FolderOutlined />,
   },
-  {
-    label: "Đăng xuất",
-    path: "/logout",
-    key: "logout",
-    icon: <EyeOutlined />,
-  },
 ];
 const Profile = () => {
   return (

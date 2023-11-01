@@ -152,6 +152,7 @@ const Detail = () => {
       children: <Col style={{ height: 20 }}></Col>,
     },
   ];
+
   return (
     <Row style={{ paddingLeft: 100 }} className="custom-detail">
       <Timeline items={items} style={{ width: "100%", paddingRight: 61 }} />

@@ -1,7 +1,22 @@
 import React from "react";
 import { Col, Row, Form } from "antd";
 
-const FormItemVertical = ({ children, label, name, rules }) => {
+const FormItemVertical = ({
+  children,
+  label,
+  name,
+  rules,
+  required = false,
+}) => {
+  let customRules = rules;
+  if (required === true && !rules) {
+    customRules = [
+      {
+        required: true,
+        message: `Missing ${label}`,
+      },
+    ];
+  }
   return (
     <Row style={{ width: "100%" }}>
       <Col span={24}>
@@ -12,7 +27,8 @@ const FormItemVertical = ({ children, label, name, rules }) => {
           wrapperCol={{ span: 24 }}
           name={name}
           style={{ width: "100%" }}
-          rules={rules}
+          rules={customRules}
+          required={required}
         >
           {children}
         </Form.Item>

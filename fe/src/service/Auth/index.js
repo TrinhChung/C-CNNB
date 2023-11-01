@@ -7,3 +7,7 @@ export const loginService = (data) => {
 export const loginMe = () => {
   return axios.get("/api/me");
 };
+
+export const logoutService = () => {
+  return axios.delete("/api/auth/logout");
+};

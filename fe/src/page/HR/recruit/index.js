@@ -1,131 +1,29 @@
 import React from "react";
-import { Col, Row, Input, Button, Select, DatePicker } from "antd";
-import RowVertical from "../../../component/RowVertical";
+import { Form } from "antd";
 import "./Recruit.scss";
-import TextArea from "antd/es/input/TextArea";
+import FormRecruit from "./FormRecruit";
+import { postTask } from "../../../service/Company";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/authProvider";
 const Recruit = () => {
+  const { authUser } = useContext(AuthContext);
+  const [form] = Form.useForm();
+  const handleSubmit = async () => {
+    await form.validateFields();
+    const data = form.getFieldsValue();
+    const res = await postTask({ hr_id: authUser?.id, ...data });
+    if (res.success === 1) {
+      toast.success("Đăng bài thành công");
+      form.resetFields();
+    } else {
+      toast.error("Có lỗi xảy ra");
+    }
+  };
   return (
-    <Col
-      style={{
-        margin: 40,
-        border: "1px solid var(--gray)",
-        paddingLeft: 60,
-        paddingBottom: 30,
-        paddingRight: 60,
-      }}
-      className="box-shadow-bottom"
-    >
-      <Row className="title-color-main" style={{ padding: "30px 0" }}>
-        Thông tin đăng tuyển
-      </Row>
-      <Row>
-        <Col
-          span={24}
-          style={{
-            padding: "35px 40px 35px 40px",
-            border: "1px solid var(--color-main)",
-          }}
-        >
-          <RowVertical title="Vị trí tuyển dụng:" paddingBottom={30}>
-            <Col span={8} className="custom">
-              <Input />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Số năm kinh nghiệm yêu cầu:" paddingBottom={30}>
-            <Col span={8} className="custom">
-              <Select
-                style={{
-                  width: "100%",
-                  backgroundColor: "transparent!important",
-                }}
-              />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Mức lương:" paddingBottom={30}>
-            <Col span={8}>
-              <Row
-                className="custom"
-                style={{ justifyContent: "space-between", width: "100%" }}
-              >
-                <Row
-                  style={{
-                    width: "50%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Col>Tối thiểu</Col>
-                  <Col span={12}>
-                    <Select style={{ width: "100%", paddingLeft: 20 }} />
-                  </Col>
-                </Row>
-                <Row
-                  style={{
-                    width: "50%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Col>Tối đa</Col>
-                  <Col span={12}>
-                    <Select style={{ width: "100%", paddingLeft: 20 }} />
-                  </Col>
-                </Row>
-              </Row>
-            </Col>
-          </RowVertical>
-          <RowVertical title="Thời gian làm việc" paddingBottom={30}>
-            <Col span={8} className="custom">
-              <DatePicker style={{ width: "100%" }} />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Địa điểm làm việc" paddingBottom={30}>
-            <Col span={8} className="custom">
-              <Input />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Hình thức làm việc" paddingBottom={30}>
-            <Col span={8} className="custom">
-              <Select style={{ width: "100%" }} />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Mô tả công viêc" paddingBottom={30}>
-            <Col span={24} className="text-area">
-              <TextArea style={{ width: "100%" }} />
-            </Col>
-          </RowVertical>
-          <RowVertical title="Mô tả công viêc" paddingBottom={30}>
-            <Col span={24} className="text-area">
-              <TextArea style={{ width: "100%" }} />
-            </Col>
-          </RowVertical>
-          <Row style={{ width: "40%", gap: 20 }}>
-            <Col span={10}>
-              <Button
-                className="button-job"
-                size="large"
-                style={{
-                  width: "100%",
-                  height: 60,
-                }}
-              >
-                Đăng tin
-              </Button>
-            </Col>
-            <Col span={10}>
-              <Button
-                className="button-color-inner"
-                size="large"
-                style={{
-                  width: "100%",
-                  height: 60,
-                }}
-              >
-                Hủy bỏ
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    </Col>
+    <Form className="form-recruit" form={form}>
+      <FormRecruit onSubmit={handleSubmit} />
+    </Form>
   );
 };
 

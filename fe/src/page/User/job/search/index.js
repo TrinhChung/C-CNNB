@@ -75,7 +75,7 @@ const Search = () => {
             <Select
               placeholder="Công ty"
               style={{ width: "100%" }}
-              options={companies}
+              options={buildAddress(companies)}
               onChange={(e) => {
                 searchParams.set("company_id", e);
                 navigate("/job/?" + searchParams.toString());
@@ -83,7 +83,7 @@ const Search = () => {
               defaultValue={
                 searchParams.get("company_id")
                   ? searchParams.get("company_id")
-                  : companies[0].value
+                  : 0
               }
             />
           </Col>
@@ -102,7 +102,7 @@ const Search = () => {
           <Col span={3}>
             <InputNumber
               defaultValue={
-                searchParams.get("salary") ? +searchParams.get("salary") : 0
+                searchParams.get("_salary") ? +searchParams.get("_salary") : 0
               }
               placeholder="Mức lương"
               formatter={(value) =>
@@ -110,7 +110,7 @@ const Search = () => {
               }
               parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               onChange={(e) => {
-                searchParams.set("salary", e);
+                searchParams.set("_salary", e);
                 navigate("/job/?" + searchParams.toString());
               }}
               style={{ width: "100%" }}

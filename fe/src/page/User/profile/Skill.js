@@ -27,12 +27,7 @@ const Skill = ({ mySkills = [], edit = false }) => {
                     <FormItemHorizontal
                       name={[name, "content"]}
                       label={"Kỹ năng:"}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Miss skill",
-                        },
-                      ]}
+                      required={true}
                     >
                       <Select
                         options={buildCategories(skills, false)}
