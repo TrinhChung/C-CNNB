@@ -4,7 +4,6 @@ namespace App\Repositories\Profile;
 
 use App\Models\EXPdetail;
 use App\Models\Project;
-use App\Models\User;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -77,34 +76,47 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
     public function createProfile(Request $request)
     {
         $tempt = Arr::except($request->all(), ['projects', 'expDetail', 'workablePlaces', 'skills']);
-        $user = User::find($request->user()->id);
+        $user = $request->user();
+        //dd($user->id);
         if (! $user) {
             return null;
-        }
-        $tempt['applier_id'] = $request->user()->id;
-        $tempt['email'] = $user->email;
-        $tempt['gender'] = (int) $user->gender + 2;
-        $tempt['fullname'] = $user->fullname;
-        $tempt['birth_year'] = $user->birth_year;
-
-        $data = $this->_model->create($tempt);
-        if ($data) {
-            if ($request->expDetail) {
-                EXPdetail::insert($request->expDetail);
-            }
-            if ($request->projects) {
-                Project::insert($request->projects);
-            }
-            if ($request->workablePlaces) {
-                $data->workablePlaces()->attach($request->workablePlaces);
-            }
-            if ($request->skills) {
-                $data->skills()->attach($request->skills);
-            }
-
-            return $data;
         } else {
-            return null;
+            //dd($tempt["applier_id"]);
+            $tempt['email'] = $user->email;
+            $tempt['gender'] = (int) $user->gender + 2;
+            $tempt['fullname'] = $user->fullname;
+            $tempt['birth_year'] = $user->birth_year;
+            $tempt['applier_id'] = $user->id;
+            //dd($tempt);
+            $data = $this->_model->create($tempt);
+            if ($data) {
+                if ($request->expDetail) {
+                    $request->expDetail;
+                    foreach ($request->expDetail as &$item) {
+                        dd($item);
+                        $item['profile_id'] = $data->id;
+                    }
+                    //dd($data);
+                    //dd($request->expDetail);
+                    EXPdetail::inset($request->expDetail);
+                }
+                if ($request->projects) {
+                    foreach ($request->projects as &$item) {
+                        $item['profile_id'] = $data->id;
+                    }
+                    Project::insert($request->projects);
+                }
+                if ($request->workablePlaces) {
+                    $data->workablePlaces()->attach($request->workablePlaces);
+                }
+                if ($request->skills) {
+                    $data->skills()->attach($request->skills);
+                }
+
+                return $data;
+            } else {
+                return null;
+            }
         }
     }
 }

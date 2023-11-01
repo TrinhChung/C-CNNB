@@ -15,9 +15,9 @@ interface UserRepositoryInterface
 
     public function createUser(Request $request);
 
-    public function applyTask(string $applier_id, string $task_id);
+    public function applyTask(Request $request);
 
-    public function saveTask(string $applier_id, string $task_id);
+    public function saveTask(Request $request);
 
     public function applierInfo(string $id);
 
