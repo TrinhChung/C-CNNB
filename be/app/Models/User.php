@@ -73,7 +73,7 @@ class User extends Authenticatable
                     $profile->update([
                         'birth_year' => $model->birth_year,
                         'fullname' => $model->fullname,
-                        'gender' => $model->gender,
+                        'gender' => (int) $model->gender + 2,
                         'email' => $model->email,
                     ]);
                 }
