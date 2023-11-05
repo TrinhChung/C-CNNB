@@ -20,7 +20,7 @@ class CompanyController extends Controller
     public function index()
     {
         try {
-            $data = $this->companyRepository->getAllPaginate(10);
+            $data = $this->companyRepository->index();
             if ($data) {
                 return response()->json(
                     [
