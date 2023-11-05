@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Col, Row, Input, Button, Radio } from "antd";
 import UploadImage from "../../../component/Card/UploadImage";
-import RowVertical from "../../../component/RowVertical";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 import { EditOutlined } from "@ant-design/icons";
 
@@ -55,7 +54,11 @@ const FormInfoHr = ({ onSubmit }) => {
               </FormItemVertical>
             </Col>
             <Col span={16} className="custom">
-              <FormItemVertical label="Giới tính" name={"gender"}>
+              <FormItemVertical
+                label="Giới tính"
+                name={"gender"}
+                required={true}
+              >
                 <Radio.Group size={"large"} disabled={!edit}>
                   <Radio value={"0"} disabled={!edit}>
                     Nam
@@ -67,20 +70,10 @@ const FormInfoHr = ({ onSubmit }) => {
               </FormItemVertical>
             </Col>
             <Col span={16} className="custom">
-              <FormItemVertical label="Email" name={"email"}>
-                <Input disabled={!edit} />
+              <FormItemVertical label="Email" name={"email"} required={true}>
+                <Input disabled={true} />
               </FormItemVertical>
             </Col>
-            <Col span={16} className="custom">
-              <FormItemVertical label="Số điện thoại" name={"phone"}>
-                <Input disabled={!edit} />
-              </FormItemVertical>
-            </Col>
-            <RowVertical title="Chức vụ" paddingBottom={30}>
-              <Col span={16} className="custom">
-                <Input disabled={!edit} />
-              </Col>
-            </RowVertical>
           </Col>
         </Col>
       </Row>

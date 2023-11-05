@@ -7,8 +7,8 @@ import { role as ROLE } from "../../const";
 import { loginService } from "../../service/Auth/index";
 import { AuthContext } from "../../provider/authProvider";
 import { toast } from "react-toastify";
-import { redirect, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import "./Auth.scss";
 const Login = () => {
   const { authUser, setAuthUser } = useContext(AuthContext);
   const [role, setRole] = useState(0);
@@ -39,14 +39,8 @@ const Login = () => {
   };
 
   return (
-    <Row
-      style={{
-        justifyContent: "center",
-        alignContent: "center",
-        paddingTop: 200,
-      }}
-    >
-      <Col>
+    <Row className="auth-container">
+      <Col className={"wrap-box"}>
         <Row style={{ paddingBottom: 20 }}>
           <Image height={80} preview={false} src={logoLogin} />
         </Row>
@@ -85,6 +79,19 @@ const Login = () => {
                 <Button className="button-job" onClick={() => handlerLogin()}>
                   Login
                 </Button>
+              </Col>
+            </Row>
+            <Row style={{ paddingTop: 40 }}>
+              <Col>
+                <Row className="fs-20">Bạn chưa có tài khoản?</Row>
+                <Row
+                  style={{ cursor: "pointer", color: "var(--color-main)" }}
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  Đăng ký tài khoản tại đây
+                </Row>
               </Col>
             </Row>
           </Col>

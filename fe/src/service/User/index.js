@@ -44,6 +44,10 @@ export const updateProfile = (data) => {
   return axios.put("/api/profile/update", data);
 };
 
+export const updateUser = (id, data) => {
+  return axios.put(`/api/user/update/${id}`, data);
+};
+
 export const getInfoHr = (id) => {
   return axios.get(`/api/user/hr/info/${id}`);
 };

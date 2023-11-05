@@ -8,15 +8,20 @@ import { useNavigate } from "react-router-dom";
 const Search = () => {
   const navigate = useNavigate();
   const listInput = [
-    { title: "Từ khóa tìm kiếm", input: <Input style={{ width: "90%" }} /> },
-    { title: "Tìm theo công việc", input: <Select style={{ width: "90%" }} /> },
     {
-      title: "Địa chỉ nơi sống",
+      title: "Từ khóa tìm kiếm",
+      input: <Input style={{ width: "90%" }} />,
+      col: 10,
+    },
+    {
+      title: "Công việc ứng tuyển",
       input: <Select style={{ width: "90%" }} />,
+      col: 5,
     },
     {
       title: "Số năm kinh nghiệm",
       input: <Select style={{ width: "90%" }} />,
+      col: 5,
     },
   ];
 
