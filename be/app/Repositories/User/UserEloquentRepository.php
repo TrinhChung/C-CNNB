@@ -115,7 +115,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function editUser(Request $request)
     {
-        $user = $this->_model->find($request->id);
+        $user = $request->user();
         if ($user) {
             $temp = Arr::except($request->all(), ['image']);
             if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $user->image)) {

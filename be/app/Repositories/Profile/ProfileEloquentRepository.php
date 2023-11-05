@@ -39,10 +39,11 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
     public function updateProfile(Request $request)
     {
         $profile = $this->_model->where('applier_id', $request->user()->id)->first();
+        //dd($profile->projects);
         $projectIds = Arr::pluck($profile->projects, 'id');
         $expDetailIds = Arr::pluck($profile->expDetail, 'id');
         $newProjects = $request->projects;
-        $newExpDetail = $request->expDetail;
+        $newExpDetail = $request->exp_detail;
 
         $deleteProjects =
             array_filter($projectIds, function ($id) use ($newProjects) {
@@ -74,8 +75,12 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             EXPdetail::destroy($deleteExpDetail);
             Project::destroy($deleteProjects);
 
-            $profile->workablePlaces()->sync($request->workablePlaces);
-            $profile->skills()->sync($request->skills);
+            if ($request->workable_places) {
+                $profile->workablePlaces()->sync($request->workable_places);
+            }
+            if ($request->skills) {
+                $profile->skills()->sync($request->skills);
+            }
 
             return $data;
         } else {
@@ -100,14 +105,14 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             //dd($tempt);
             $data = $this->_model->create($tempt);
             if ($data) {
-                $expDetail = $request->expDetail;
+                $expDetail = $request->exp_detail;
                 $projects = $request->projects;
                 if ($expDetail) {
                     foreach ($expDetail as &$item) {
                         $item['profile_id'] = $data->id;
                     }
                     //dd($data);
-                    //dd($request->expDetail);
+                    //dd($request->exp_detail);
                     EXPdetail::insert($expDetail);
                 }
                 if ($projects) {
@@ -116,8 +121,8 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
                     }
                     Project::insert($projects);
                 }
-                if ($request->workablePlaces) {
-                    $data->workablePlaces()->attach($request->workablePlaces);
+                if ($request->workable_places) {
+                    $data->workablePlaces()->attach($request->workable_places);
                 }
                 if ($request->skills) {
                     $data->skills()->attach($request->skills);
