@@ -58,8 +58,18 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
         $data = $profile->update($tempt);
 
         if ($data) {
-            EXPdetail::query()->upsert($newExpDetail, ['id'], ['place', 'content']);
-            Project::query()->upsert($newProjects, ['id'], ['amount_of_member', 'start', 'end', 'technology', 'description']);
+            if ($newExpDetail) {
+                foreach ($newExpDetail as &$item) {
+                    $item['profile_id'] = $profile->id;
+                }
+                EXPdetail::query()->upsert($newExpDetail, ['id'], ['profile_id', 'place', 'content']);
+            }
+            if ($newProjects) {
+                foreach ($newProjects as &$item) {
+                    $item['profile_id'] = $profile->id;
+                }
+                Project::query()->upsert($newProjects, ['id'], ['profile_id', 'amount_of_member', 'start', 'end', 'technology', 'description']);
+            }
 
             EXPdetail::destroy($deleteExpDetail);
             Project::destroy($deleteProjects);

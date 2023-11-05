@@ -51,6 +51,13 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
             ->with('tasks')->withCount('tasks')->paginate(10);
     }
 
+    public function index()
+    {
+        return $this->_model
+            ->with('address')
+            ->with('tasks')->withCount('tasks')->paginate(10);
+    }
+
     public function createCompany(Request $request)
     {
         $check = $this->_model->where(DB::raw('BINARY `email`'), $request->email)->exists();
