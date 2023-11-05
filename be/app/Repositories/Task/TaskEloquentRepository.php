@@ -45,6 +45,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function search(Request $request)
     {
         $data = $this->_model->where('title', 'like', '%'.$request->searchInput.'%');
+        //dd($request->_salary);
         if ($request->category_id) {
             $data = $data->where('category_id', $request->category_id);
         }
@@ -54,17 +55,19 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         if ($request->company_id) {
             $data = $data->where('company_id', $request->company_id);
         }
-        if ($request->salary) {
+        if ($request->_salary) {
             $data = $data->where([
-                ['salary_min', '+>', $request->salary],
-            ]);
+                ['salary_min', '>=', $request->_salary],
+            ])->orWhere(function ($query) {
+                $query->whereNull('salary_min')->whereNull('salary_max');
+            });
         }
 
         return $data->with('category')
             ->with('expYear')
             ->with('types')
             ->with('company')
-            ->with('address')->paginate(10);
+            ->with('address')->orderBy('created_at', 'DESC')->paginate(10);
     }
 
     public function createTask(Request $request)
