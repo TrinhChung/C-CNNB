@@ -76,7 +76,7 @@ Route::prefix('task')->group(function () {
         Route::get('/all', [TaskController::class, 'index']);
         Route::get('/info/{id}', [TaskController::class, 'info']);
     });
-    Route::post('/search', [TaskController::class, 'search']);
+    Route::get('/search', [TaskController::class, 'search']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->post('/new', [TaskController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/update/{id}', [TaskController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->delete('/delete/{id}', [TaskController::class, 'delete']);
@@ -89,7 +89,7 @@ Route::prefix('company')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/all', [CompanyController::class, 'index']);
         Route::get('/info/{id}', [CompanyController::class, 'info']);
-        Route::post('/search', [CompanyController::class, 'search']);
+        Route::get('/search', [CompanyController::class, 'search']);
     });
     Route::post('/new', [CompanyController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/update/{id}', [CompanyController::class, 'update']);
