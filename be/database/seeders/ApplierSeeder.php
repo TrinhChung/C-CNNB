@@ -32,7 +32,7 @@ class ApplierSeeder extends Seeder
             );
             $profile = Profile::create([
                 'email' => $user->email,
-                'gender' => (int) $user->gender + 2,
+                'gender' => $user->gender,
                 'fullname' => $user->fullname,
                 'birth_year' => $user->birth_year,
                 'applier_id' => $user->id,
