@@ -72,14 +72,15 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     if (!authUser) {
       handlerLogin();
+    } else {
+      getCategories();
+      getAddress();
+      getCompanies();
+      getExps();
+      getSkills();
+      getTypes();
     }
-    getCategories();
-    getAddress();
-    getCompanies();
-    getExps();
-    getSkills();
-    getTypes();
-  }, []);
+  }, [authUser]);
 
   return (
     <AuthContext.Provider

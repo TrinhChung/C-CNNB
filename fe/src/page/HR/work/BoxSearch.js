@@ -9,7 +9,7 @@ const BoxSearch = ({ listInput = [], search }) => {
         listInput.length > 0 &&
         listInput.map((item, index) => {
           return (
-            <Col span={20 / listInput.length} key={index}>
+            <Col span={item.col ? item.col : 20 / listInput.length} key={index}>
               <WrapInput title={item.title}>{item.input}</WrapInput>
             </Col>
           );
@@ -17,7 +17,7 @@ const BoxSearch = ({ listInput = [], search }) => {
       <Col span={4}>
         <Button
           className="button-color-inner"
-          style={{ width: "90%", height: 40 }}
+          style={{ width: "100%", height: 40 }}
           onClick={() => {
             search();
           }}

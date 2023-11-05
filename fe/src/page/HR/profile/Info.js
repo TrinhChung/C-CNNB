@@ -1,9 +1,10 @@
 import { Form } from "antd";
 import { useEffect, useContext, useState } from "react";
-import { getInfoHr } from "../../../service/User/index";
+import { getInfoHr, updateUser } from "../../../service/User/index";
 import { AuthContext } from "../../../provider/authProvider";
 import "./Profile.scss";
 import FormInfoHr from "./FormInfoHr";
+import { toast } from "react-toastify";
 const Info = () => {
   const { authUser } = useContext(AuthContext);
   const [data, setData] = useState();
@@ -24,7 +25,16 @@ const Info = () => {
 
   const onSubmit = async () => {
     await form.validateFields();
-    console.log(form.getFieldsValue());
+    try {
+      const res = await updateUser(authUser.id, form.getFieldsValue());
+      if (res.success === 1) {
+        toast.success("Update thành công");
+      } else {
+        toast.error("Xảy ra lỗi");
+      }
+    } catch (error) {
+      toast.error("Xảy ra lỗi");
+    }
   };
 
   return (
