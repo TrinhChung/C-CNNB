@@ -32,7 +32,7 @@ const Navbar = ({ data }) => {
     if (res.success) {
       setAuthUser(null);
       localStorage.removeItem("accessToken");
-      navigate("/auth/login");
+      navigate("/login");
       toast.success("Đã đăng xuất");
     } else {
       toast.error("Có lỗi xảy ra");

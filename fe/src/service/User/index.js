@@ -51,3 +51,19 @@ export const updateUser = (id, data) => {
 export const getInfoHr = (id) => {
   return axios.get(`/api/user/hr/info/${id}`);
 };
+
+export const applyTask = (id) => {
+  return axios.post(`/api/user/apply/${id}`);
+};
+
+export const saveTask = (id) => {
+  return axios.post(`/api/user/save/${id}`);
+};
+
+export const getSavedTasks = () => {
+  return axios.get(`/api/user/saved`);
+};
+
+export const getAppliedTasks = () => {
+  return axios.get(`/api/user/applied`);
+};

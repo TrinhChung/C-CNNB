@@ -14,10 +14,16 @@ import { useState } from "react";
 import moment from "moment";
 import { buildSalary } from "../../../../const/BuildSalaray";
 import { arrayToString } from "../../../../const/arrayToString";
+import {
+  applyTask as applyTaskService,
+  saveTask as saveTaskService,
+} from "../../../../service/User/index";
+import { toast } from "react-toastify";
 
 const JobDetail = () => {
   const { id } = useParams();
   const [info, setInfo] = useState({});
+  const [change, setChange] = useState(false);
 
   const getDetail = async (id) => {
     const res = await getInfoTask(id);
@@ -26,13 +32,33 @@ const JobDetail = () => {
     }
   };
 
+  const applyTask = async () => {
+    const res = await applyTaskService(id);
+    if (res.success === 1 && res.data) {
+      toast.success(`Đã ${info?.applied ? "hủy" : ""} apply`);
+      setChange(!change);
+    } else {
+      toast.error("Đã xảy ra lỗi");
+    }
+  };
+
+  const saveTask = async () => {
+    const res = await saveTaskService(id);
+    if (res.success === 1 && res.data) {
+      toast.success(`Đã ${info?.saved ? "hủy" : ""} lưu`);
+      setChange(!change);
+    } else {
+      toast.error("Đã xảy ra lỗi");
+    }
+  };
+
   useEffect(() => {
     getDetail(id);
-  }, []);
+  }, [change]);
 
   return (
     <Col span={24}>
-      <BannerJob data={info} />
+      <BannerJob data={info} apply={applyTask} save={saveTask} />
       <Row>
         <Col span={16} style={{ paddingLeft: 80 }}>
           <Row>
@@ -49,9 +75,6 @@ const JobDetail = () => {
               name={"Giới thiệu công ty"}
               des={info?.company?.description}
             />
-          </Row>
-          <Row style={{ gap: 16, paddingLeft: 20 }}>
-            <ButtonSub isCol={false} />
           </Row>
         </Col>
         <Col span={8} style={{ paddingLeft: 40 }}>

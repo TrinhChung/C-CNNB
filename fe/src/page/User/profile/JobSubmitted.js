@@ -1,57 +1,47 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import WrapSearch from "../../../component/WrapSearch";
 import BoxCV from "../../../component/BoxCV";
 import CustomTable from "../../../component/TableCustom";
 import { Row } from "antd";
+import {
+  getAppliedTasks as getAppliedTasksService,
+  applyTask as applyTaskService,
+} from "../../../service/User";
+import { columnTask } from "../../../const/columnTable";
+import { buildTasks } from "../../../const/buildData";
+import { useNavigate } from "react-router-dom";
 
 const JobSubmitted = () => {
-  const columns = [
-    {
-      title: "Tên công việc",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Tên công ty",
-      dataIndex: "company",
-      key: "company",
-    },
-    {
-      title: "Địa điểm",
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: "Thao tác",
-      align: "center",
-      key: "action",
-      width: 120,
-      render: (text, record) => {
-        return <CloseCircleOutlined className="icon-cancel" />;
-      },
-    },
-  ];
+  const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const getAppliedTasks = async () => {
+    const res = await getAppliedTasksService();
+    if (res.success === 1 && res.data) {
+      setTasks(buildTasks(res.data));
+    }
+  };
+
+  const applyTask = async (id) => {
+    const res = await applyTaskService(id);
+    if (res.success === 1) {
+      getAppliedTasks();
+    }
+  };
+
+  useEffect(() => {
+    getAppliedTasks();
+  }, []);
+
   return (
     <WrapSearch>
       <BoxCV title={"Việc làm đã nộp"} isEdit={false}>
         <Row style={{ borderTop: "2px solid black", paddingTop: 30 }}>
-          <CustomTable columns={columns} dataSource={dataSource} />
+          <CustomTable
+            columns={columnTask(applyTask, navigate)}
+            dataSource={tasks}
+          />
         </Row>
       </BoxCV>
     </WrapSearch>
