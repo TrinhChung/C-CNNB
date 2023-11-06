@@ -4,8 +4,7 @@ import ButtonSub from "./ButtonSub";
 import "./Job.scss";
 import { buildSalary } from "../../../../const/BuildSalaray";
 import moment from "moment";
-
-const BannerJob = ({ data }) => {
+const BannerJob = ({ data = {}, apply = () => {}, save = () => {} }) => {
   return (
     <Row className="banner-job-detail">
       <Col>
@@ -54,7 +53,12 @@ const BannerJob = ({ data }) => {
         <Row style={{ fontSize: 20, color: "var(--color-gray-job)" }}>
           Ngày đăng: {moment(data.updated_at).calendar()}
         </Row>
-        <ButtonSub />
+        <ButtonSub
+          applied={data?.applied}
+          saved={data?.saved}
+          apply={apply}
+          save={save}
+        />
       </Col>
     </Row>
   );
