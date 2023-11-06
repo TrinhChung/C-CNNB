@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import Banner from "../../../component/home/Banner";
 import { Row, Col, Image } from "antd";
 import WrapBox from "../../../layout/HomeLayout/WrapBox";
@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     getRecommend();
-  }, [currentPage]);
+  }, []);
 
   const handleSearch = (key) => {
     if (!key) {
@@ -55,4 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

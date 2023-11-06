@@ -1,12 +1,23 @@
-import { Form, Input, Col } from "antd";
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
+import { Select, Input, Col } from "antd";
 import FormItemVertical from "../../component/Form/FormItemVertical";
+import { AuthContext } from "../../provider/authProvider";
+import { buildCategories } from "../../const/buildData";
 
-const FormSignupUser = () => {
+const FormSignupHr = () => {
+  const { companies } = useContext(AuthContext);
+
   return (
     <Col span={24}>
       <FormItemVertical name={"fullname"} label={"Họ và tên"} required={true}>
         <Input />
+      </FormItemVertical>
+      <FormItemVertical
+        name={"company_id"}
+        label={"Công ty của bạn"}
+        required={true}
+      >
+        <Select options={buildCategories(companies)} />
       </FormItemVertical>
       <FormItemVertical name={"email"} label={"Email"} required={true}>
         <Input />
@@ -25,4 +36,4 @@ const FormSignupUser = () => {
   );
 };
 
-export default FormSignupUser;
+export default FormSignupHr;
