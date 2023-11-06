@@ -59,3 +59,11 @@ export const applyTask = (id) => {
 export const saveTask = (id) => {
   return axios.post(`/api/user/save/${id}`);
 };
+
+export const getSavedTasks = () => {
+  return axios.get(`/api/user/saved`);
+};
+
+export const getAppliedTasks = () => {
+  return axios.get(`/api/user/applied`);
+};

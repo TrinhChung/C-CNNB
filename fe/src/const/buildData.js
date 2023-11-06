@@ -35,3 +35,15 @@ export const filterId = (data) => {
 export const filterValue = (data) => {
   return data.map((item) => item.value);
 };
+
+export const buildTasks = (data) => {
+  if (!data || data.length === 0) return [];
+  return data.map((item) => {
+    return {
+      title: item?.title,
+      company: item?.company?.name,
+      id: item?.id,
+      address: item?.address?.name,
+    };
+  });
+};

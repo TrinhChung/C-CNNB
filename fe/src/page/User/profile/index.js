@@ -31,12 +31,12 @@ const menu = [
     key: "job-submitted",
     icon: <FolderOutlined />,
   },
-  {
-    label: "Nhà tuyển dụng của tôi",
-    path: "/my-company",
-    key: "my-company",
-    icon: <EyeOutlined />,
-  },
+  // {
+  //   label: "Nhà tuyển dụng của tôi",
+  //   path: "/my-company",
+  //   key: "my-company",
+  //   icon: <EyeOutlined />,
+  // },
 ];
 const Profile = () => {
   return (
@@ -45,7 +45,7 @@ const Profile = () => {
         <Route path="/" element={<CV />} />
         <Route path="/job-bookmark" element={<JobBookmark />} />
         <Route path="/job-submitted" element={<JobSubmitted />} />
-        <Route path="/my-company" element={<MyCompany />} />
+        {/* <Route path="/my-company" element={<MyCompany />} /> */}
       </Routes>
     </SiderLayout>
   );
