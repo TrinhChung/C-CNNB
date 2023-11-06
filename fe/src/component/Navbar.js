@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/authProvider";
-import { logoutService } from "../service/Auth";
+import { logoutService, loginMe } from "../service/Auth";
 const { Header } = Layout;
 
 const Navbar = ({ data }) => {
@@ -18,6 +18,7 @@ const Navbar = ({ data }) => {
   const onClick = (e) => {
     setCurrent(e.key);
   };
+
   useEffect(() => {
     const pathArr = pathname.split("/");
     if (pathArr[1] === "") {
@@ -31,7 +32,7 @@ const Navbar = ({ data }) => {
     if (res.success) {
       setAuthUser(null);
       localStorage.removeItem("accessToken");
-      navigate("login");
+      navigate("/auth/login");
       toast.success("Đã đăng xuất");
     } else {
       toast.error("Có lỗi xảy ra");

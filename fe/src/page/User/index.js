@@ -1,10 +1,11 @@
 import HomeLayout from "../../layout/HomeLayout";
 import { Link } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./home";
 import Job from "./job";
 import Company from "./company";
 import Profile from "./profile";
+import React, { memo } from "react";
 
 const items = [
   {
@@ -34,10 +35,11 @@ const User = () => {
           <Route path="/job/*" element={<Job />} />
           <Route path="/company/*" element={<Company />} />
           <Route path="/profile/*" element={<Profile />} />
+          <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </HomeLayout>
   );
 };
 
-export default User;
+export default memo(User);
