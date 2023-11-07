@@ -28,23 +28,6 @@ class Profile extends Model
 
     public $incrementing = true;
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::updated(function ($model) {
-            $user = User::where('id', $model->applier_id)->first();
-            if ($user) {
-                $user->update([
-                    'birth_year' => $model->birth_year,
-                    'fullname' => $model->fullname,
-                    'gender' => (int) $model->gender + 2,
-                    'email' => $model->email,
-                ]);
-            }
-        });
-    }
-
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

@@ -65,21 +65,6 @@ class User extends Authenticatable
             }
 
         });
-
-        static::updated(function ($model) {
-            if ($model->role == 0) {
-                $profile = Profile::where('applier_id', $model->id)->first();
-                dd($profile);
-                if ($profile) {
-                    $profile->update([
-                        'birth_year' => $model->birth_year,
-                        'fullname' => $model->fullname,
-                        'gender' => (int) $model->gender + 2,
-                        'email' => $model->email,
-                    ]);
-                }
-            }
-        });
     }
 
     public function appliedTasks()
