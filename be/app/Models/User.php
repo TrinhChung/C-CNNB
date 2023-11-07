@@ -67,8 +67,9 @@ class User extends Authenticatable
         });
 
         static::updated(function ($model) {
-            if ($model->role != 1) {
+            if ($model->role == 0) {
                 $profile = Profile::where('applier_id', $model->id)->first();
+                dd($profile);
                 if ($profile) {
                     $profile->update([
                         'birth_year' => $model->birth_year,

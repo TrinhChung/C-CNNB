@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('applier_id')->nullable(false);
-            $table->smallInteger('birth_year')->nullable(false);
+            $table->uuid('applier_id');
+            $table->smallInteger('birth_year');
             $table->smallInteger('level_id')->nullable(false);
-            $table->string('email')->nullable(false);
+            $table->string('email');
             $table->integer('address_id')->nullable(false);
             $table->integer('category_id')->nullable(false);
-            $table->string('fullname', 50)->nullable(false);
-            $table->enum('gender', [-1, 0, 1])->nullable(false);
+            $table->string('fullname', 50);
+            $table->enum('gender', [-1, 0, 1]);
             $table->longText('description')->nullable(false);
             $table->integer('year_of_experience')->nullable(false);
             $table->longText('desire')->nullable(false);

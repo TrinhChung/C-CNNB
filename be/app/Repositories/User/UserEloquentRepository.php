@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Models\Activation;
+use App\Models\Task;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -48,7 +49,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $temp['hraccepted'] = -1;
         }
         $temp['role'] += 1;
-        $temp['gender'] += 2;
+        $temp['gender'] = (int) $temp['gender'] + 2;
         $data = $this->_model->create($temp);
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
         $data['token'] = $token;
@@ -97,11 +98,19 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             'birthYear', 'managedBy' => ['address'],
         ])->find($id);
         //dd(get_class($data->managedTasks()));
-        $data['managedTasks'] = $data->managedTasks()->with(['category', 'expYear', 'types', 'address'])
-            ->orderBy('created_at', 'DESC')->paginate(10);
         $data['newAppliers'] = $this->newAppliers($id);
 
         return $data;
+    }
+
+    public function hrTasks($id)
+    {
+        $data = Task::where('hr_id', $id)->orderBy('created_at', 'DESC')->get();
+        if ($data) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 
     public function newAppliers($hr_id)

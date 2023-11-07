@@ -137,6 +137,7 @@ class UserController extends Controller
     {
         try {
             $data = $this->userRepository->hrInfo($request->id);
+            //dd($request->user());
             if ($data) {
                 return response()->json(
                     [
@@ -147,6 +148,32 @@ class UserController extends Controller
                 );
             } else {
                 throw new Exception('user not found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function tasks(Request $request)
+    {
+        try {
+            $data = $this->userRepository->hrTasks($request->id);
+            //dd($request->user());
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get tasks of hr',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('tasks not found');
             }
         } catch (Exception $err) {
             return response()->json(

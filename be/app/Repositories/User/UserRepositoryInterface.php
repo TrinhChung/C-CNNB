@@ -26,4 +26,6 @@ interface UserRepositoryInterface
     public function editUser(Request $request);
 
     public function newAppliers(string $hr_id);
+
+    public function hrTasks(string $id);
 }
