@@ -4,6 +4,7 @@ namespace App\Repositories\Profile;
 
 use App\Models\EXPdetail;
 use App\Models\Project;
+use App\Models\User;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -64,24 +65,24 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
         }
         $data = $profile->update($tempt);
         if ($data) {
-            /*if($newExpDetail) {
+            if ($newExpDetail) {
                 foreach ($newExpDetail as &$item) {
-                    $item["profile_id"] = $profile->id;
+                    $item['profile_id'] = $profile->id;
                 }
                 EXPdetail::query()->upsert($newExpDetail, ['id'], ['profile_id', 'place', 'content']);
             }
-            if($newProjects) {
+            if ($newProjects) {
                 foreach ($newProjects as &$item) {
-                    $item["profile_id"] = $profile->id;
+                    $item['profile_id'] = $profile->id;
                 }
                 Project::query()->upsert($newProjects, ['id'], ['profile_id', 'amount_of_member', 'start', 'end', 'technology', 'description']);
             }
 
-            if($deleteExpDetail) {
+            if ($deleteExpDetail) {
                 EXPdetail::destroy($deleteExpDetail);
             }
 
-            if($deleteProjects) {
+            if ($deleteProjects) {
                 Project::destroy($deleteProjects);
             }
 
@@ -91,7 +92,14 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             if ($request->skills) {
                 $profile->skills()->sync($request->skills);
             }
-            */
+            $user = User::find($profile->applier_id);
+            $user->update([
+                'birth_year' => $tempt['birth_year'],
+                'fullname' => $tempt['fullname'],
+                'gender' => (int) $tempt['gender'] + 2,
+                'email' => $tempt['email'],
+            ]);
+
             return $profile;
         } else {
             return null;

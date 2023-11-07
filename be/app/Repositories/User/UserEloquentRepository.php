@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Models\Activation;
+use App\Models\Profile;
 use App\Models\Task;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
@@ -137,6 +138,15 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 $temp['gender'] = $request->gender + 2;
             }
             $data = $user->update($temp);
+            $profile = Profile::where('applier_id', $user->id)->first();
+            if ($user->role == 0) {
+                $profile->update([
+                    'birth_year' => $temp['birth_year'],
+                    'fullname' => $temp['fullname'],
+                    'gender' => (int) $temp['gender'] + 2,
+                    'email' => $temp['email'],
+                ]);
+            }
 
             return $data;
             //dd($data);
