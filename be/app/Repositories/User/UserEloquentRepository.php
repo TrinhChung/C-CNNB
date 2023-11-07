@@ -85,12 +85,30 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     {
         $data = $this->_model->with(['birthYear', 'profile' => [
             'category', 'projects', 'expDetail', 'address', 'expYear', 'level', 'skills', 'workablePlaces']])->find($id);
-        $data['appliedTasks'] = $data->appliedTasks()->with(['category', 'expYear', 'types', 'address'])
-            ->orderBy('created_at', 'DESC')->paginate(10);
-        $data['savedTasks'] = $data->savedTasks()->with(['category', 'expYear', 'types', 'address'])
-            ->orderBy('created_at', 'DESC')->paginate(10);
 
         return $data;
+    }
+
+    public function appliedTasks(Request $request)
+    {
+        $user = $request->user();
+        $data = $user->appliedTasks;
+        if ($data) {
+            return $data;
+        } else {
+            return null;
+        }
+    }
+
+    public function savedTasks(Request $request)
+    {
+        $user = $request->user();
+        $data = $user->savedTasks;
+        if ($data) {
+            return $data;
+        } else {
+            return null;
+        }
     }
 
     public function hrInfo($id)

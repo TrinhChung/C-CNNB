@@ -109,6 +109,8 @@ Route::prefix('user')->group(function () {
     Route::middleware(['auth:sanctum'])->put('/update/{id}', [UserController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/apply/{task_id}', [UserController::class, 'apply']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/save/{task_id}', [UserController::class, 'save']);
+    Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/saved', [UserController::class, 'saved']);
+    Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/applied', [UserController::class, 'applied']);
 });
 
 Route::prefix('profile')->group(function () {

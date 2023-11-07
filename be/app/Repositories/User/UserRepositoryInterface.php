@@ -21,6 +21,10 @@ interface UserRepositoryInterface
 
     public function applierInfo(string $id);
 
+    public function appliedTasks(Request $request);
+
+    public function savedTasks(Request $request);
+
     public function hrInfo(string $id);
 
     public function editUser(Request $request);
