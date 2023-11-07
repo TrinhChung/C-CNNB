@@ -185,6 +185,58 @@ class UserController extends Controller
         }
     }
 
+    public function applied(Request $request)
+    {
+        try {
+            $data = $this->userRepository->appliedTasks($request);
+            //dd($request->user());
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get applied tasks',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('tasks not found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
+    public function saved(Request $request)
+    {
+        try {
+            $data = $this->userRepository->savedTasks($request);
+            //dd($request->user());
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get saved tasks',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('tasks not found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
     public function update(Request $request)
     {
         try {
