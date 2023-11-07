@@ -7,25 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    public static function boot()
-    {
-        parent::boot();
-
-        static::updated(function ($model) {
-            if ($model->role != 1) {
-                $user = User::where('id', $model->applier_id)->first();
-                if ($user) {
-                    $user->update([
-                        'birth_year' => $model->birth_year,
-                        'fullname' => $model->fullname,
-                        'gender' => (int) $model->gender + 2,
-                        'email' => $model->email,
-                    ]);
-                }
-            }
-        });
-    }
-
     use HasFactory;
 
     protected $fillable = [
@@ -46,6 +27,23 @@ class Profile extends Model
     protected $primarykey = 'id';
 
     public $incrementing = true;
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updated(function ($model) {
+            $user = User::where('id', $model->applier_id)->first();
+            if ($user) {
+                $user->update([
+                    'birth_year' => $model->birth_year,
+                    'fullname' => $model->fullname,
+                    'gender' => (int) $model->gender + 2,
+                    'email' => $model->email,
+                ]);
+            }
+        });
+    }
 
     public function category()
     {

@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('exp')->group(function () {
         Route::get('/all', [ExpController::class, 'index']);
     });
+    Route::prefix('type')->group(function () {
+        Route::get('/all', [TypeController::class, 'index']);
+    });
 });
 
 Route::prefix('task')->group(function () {
@@ -100,6 +104,7 @@ Route::prefix('company')->group(function () {
 Route::prefix('user')->group(function () {
     Route::middleware(['auth:sanctum'])->get('/applier/info/{id}', [UserController::class, 'infoApplier']);
     Route::middleware(['auth:sanctum', 'ability:role-company,role-hr'])->get('/hr/info/{id}', [UserController::class, 'infoHr']);
+    Route::middleware(['auth:sanctum', 'ability:role-company,role-hr'])->get('/hr/task/{id}', [UserController::class, 'tasks']);
     Route::post('/new', [UserController::class, 'create']);
     Route::middleware(['auth:sanctum'])->put('/update/{id}', [UserController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/apply/{task_id}', [UserController::class, 'apply']);
