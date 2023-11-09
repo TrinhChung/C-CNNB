@@ -1,5 +1,6 @@
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { Row } from "antd";
+import { statusApply } from ".";
 export const columnTask = (handler, navigate, isStatus = false) => {
   if (isStatus) {
     return [
@@ -35,6 +36,9 @@ export const columnTask = (handler, navigate, isStatus = false) => {
         title: "Trạng thái",
         dataIndex: "status",
         key: "status",
+        render: (text, record) => {
+          return <Row>{statusApply[Number(record?.fail) + 1].label}</Row>;
+        },
       },
       {
         title: "Thao tác",

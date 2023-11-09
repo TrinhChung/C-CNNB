@@ -18,4 +18,12 @@
     inset-block-start: 18px;
     inset-inline-start: -7px;
   }
+  .box-skill {
+    background-color: var(--color-yellow);
+    border-radius: 20px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

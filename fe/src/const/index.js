@@ -29,3 +29,18 @@ export const gender = [
     label: "Nữ",
   },
 ];
+
+export const statusApply = [
+  {
+    value: "-1",
+    label: "Đã ứng tuyển",
+  },
+  {
+    value: "0",
+    label: "Hồ sơ được duyệt",
+  },
+  {
+    value: "0",
+    label: "Hồ sơ đã bị loại",
+  },
+];

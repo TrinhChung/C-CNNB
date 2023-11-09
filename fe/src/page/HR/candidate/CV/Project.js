@@ -1,27 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-const Project = () => {
-  const data = [
-    {
-      companyName: "ABC",
-      members: 3,
-      timeStart: "03/03/2023",
-      timeEnd: "03/03/2023",
-      tech: "NodeJs",
-      des: `Dự án là một tập hợp các hoạt động có liên quan đến nhau được thực hiện trong một khoảng thời gian có hạn, với những nguồn lực đã được giới hạn; nhất là nguồn tài chính có giới hạn để đạt được những mục tiêu cụ thể, rõ ràng, làm thỏa mãn nhu cầu của đối tượng mà dự án hướng đến. Thực chất, Dự án là tổng thể những chính sách, hoạt động và chi phí liên quan với nhau được thiết kế nhằm đạt được những mục tiêu nhất định trong một thời gian nhất định.
-Dự án bao gồm dự án đầu tư và dự án hỗ trợ kỹ thuật sản phẩm phải được đánh giá cao và chất lượng.`,
-    },
-    {
-      companyName: "ABC",
-      members: 3,
-      timeStart: "03/03/2023",
-      timeEnd: "03/03/2023",
-      tech: "NodeJs",
-      des: `Dự án là một tập hợp các hoạt động có liên quan đến nhau được thực hiện trong một khoảng thời gian có hạn, với những nguồn lực đã được giới hạn; nhất là nguồn tài chính có giới hạn để đạt được những mục tiêu cụ thể, rõ ràng, làm thỏa mãn nhu cầu của đối tượng mà dự án hướng đến. Thực chất, Dự án là tổng thể những chính sách, hoạt động và chi phí liên quan với nhau được thiết kế nhằm đạt được những mục tiêu nhất định trong một thời gian nhất định.
-Dự án bao gồm dự án đầu tư và dự án hỗ trợ kỹ thuật sản phẩm phải được đánh giá cao và chất lượng.`,
-    },
-  ];
+const Project = ({ data }) => {
   return (
     <Col span={18}>
       <Row
@@ -43,39 +23,33 @@ Dự án bao gồm dự án đầu tư và dự án hỗ trợ kỹ thuật sả
                   <Col span={22} className="fs-20">
                     <Row>
                       <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
-                        Công ty:{" "}
+                        Số lượng thành viên:
                       </Col>
-                      <Col className="fs-20">{item.companyName}</Col>
-                    </Row>
-                    <Row>
-                      <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
-                        Số lượng thành viên:{" "}
-                      </Col>
-                      <Col className="fs-20">{item.members}</Col>
+                      <Col className="fs-20">{item?.amount_of_member}</Col>
                     </Row>
                     <Row>
                       <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
                         Thời gian bắt đầu:{" "}
                       </Col>
-                      <Col className="fs-20">{item.timeStart}</Col>
+                      <Col className="fs-20">{item?.start}</Col>
                     </Row>
                     <Row>
                       <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
                         Thời gian kết thúc:{" "}
                       </Col>
-                      <Col className="fs-20">{item.timeEnd}</Col>
+                      <Col className="fs-20">{item?.end}</Col>
                     </Row>
                     <Row style={{ paddingBottom: 23 }}>
                       <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
                         Công nghệ sử dụng:{" "}
                       </Col>
-                      <Col className="fs-20">{item.tech}</Col>
+                      <Col className="fs-20">{item?.technology}</Col>
                     </Row>
                     <Row>
                       <Col className="fs-20 bold" style={{ paddingRight: 6 }}>
                         Mô tả chi tiết: :{" "}
                       </Col>
-                      <Col className="fs-20">{item.des}</Col>
+                      <Col className="fs-20">{item?.description}</Col>
                     </Row>
                   </Col>
                 </Row>

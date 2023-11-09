@@ -44,6 +44,7 @@ export const buildTasks = (data) => {
       company: item?.company?.name,
       id: item?.id,
       address: item?.address?.name,
+      fail: item?.pivot?.fail,
     };
   });
 };
