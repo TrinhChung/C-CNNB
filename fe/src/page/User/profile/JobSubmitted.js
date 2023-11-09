@@ -39,7 +39,7 @@ const JobSubmitted = () => {
       <BoxCV title={"Việc làm đã nộp"} isEdit={false}>
         <Row style={{ borderTop: "2px solid black", paddingTop: 30 }}>
           <CustomTable
-            columns={columnTask(applyTask, navigate)}
+            columns={[...columnTask(applyTask, navigate, true)]}
             dataSource={tasks}
           />
         </Row>

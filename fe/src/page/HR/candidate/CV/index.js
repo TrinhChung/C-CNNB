@@ -2,7 +2,25 @@ import React from "react";
 import { Button, Col, Row } from "antd";
 import Banner from "./Banner";
 import Detail from "./Detail";
+import { getProfileUser as getProfileService } from "../../../../service/User";
+import { buildAddress } from "../../../../const/buildData";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 const CV = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({});
+
+  const getInfoProfile = async (id) => {
+    const res = await getProfileService(id);
+    if (res.success === 1 && res.data) {
+      setUser(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getInfoProfile(id);
+  }, []);
+
   return (
     <Col
       style={{
@@ -19,8 +37,8 @@ const CV = () => {
           }}
           className="box-shadow-bottom"
         >
-          <Banner />
-          <Detail />
+          <Banner data={user} />
+          <Detail data={user} />
         </Col>
       </Row>
       <Row

@@ -12,12 +12,20 @@ import {
 } from "@ant-design/icons";
 const Work = () => {
   const listInput = [
-    { title: "Từ khóa tìm kiếm", input: <Input style={{ width: "90%" }} /> },
-    { title: "Tìm theo công ty", input: <Select style={{ width: "90%" }} /> },
-    { title: "Ngày đăng", input: <DatePicker style={{ width: "90%" }} /> },
+    {
+      title: "Từ khóa tìm kiếm",
+      input: <Input style={{ width: "90%" }} />,
+      col: 10,
+    },
+    {
+      title: "Ngày đăng",
+      input: <DatePicker style={{ width: "90%" }} />,
+      col: 5,
+    },
     {
       title: "Ngày tuyển dụng",
       input: <DatePicker style={{ width: "90%" }} />,
+      col: 5,
     },
   ];
 

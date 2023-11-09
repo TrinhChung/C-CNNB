@@ -10,7 +10,8 @@ import "./CV.scss";
 import DotElement from "./DotElement";
 import Experience from "./Experience";
 import Project from "./Project";
-const Detail = () => {
+import { arrayToPlaces } from "../../../../const/arrayToString";
+const Detail = ({ data }) => {
   const items = [
     {
       dot: <></>,
@@ -34,13 +35,7 @@ const Detail = () => {
           >
             Mô tả bản thân
           </Row>
-          <Row className="fs-20">
-            Nhân viên bán hàng hiệu xuất cao với X năm kinh nghiệm trong lĩnh
-            vực A, B, C. Kỹ năng thế mạnh bao gồm tìm kiếm khách hàng tiềm năng,
-            chốt sales và giao tiếp. Trong quá khứ đã đạt thành tích vượt 15%
-            KPI của năm. Hiện đang tìm kiếm cơ hội trở thành nhân viên bán hàng
-            và đóng góp tăng trưởng doanh thu cho công ty X
-          </Row>
+          <Row className="fs-20">{data?.description}</Row>
         </Col>
       ),
     },
@@ -67,15 +62,12 @@ const Detail = () => {
             style={{ paddingTop: 16, paddingBottom: 12 }}
           >
             Nơi có thể làm việc:{" "}
+            {data?.workable_places
+              ? arrayToPlaces(data.workable_places)
+              : "Khong co"}
           </Row>
           <Row className="fs-20 bold">Mong muốn bản thân về công việc: </Row>
-          <Row className="fs-20">
-            Nhân viên bán hàng hiệu xuất cao với X năm kinh nghiệm trong lĩnh
-            vực A, B, C. Kỹ năng thế mạnh bao gồm tìm kiếm khách hàng tiềm năng,
-            chốt sales và giao tiếp. Trong quá khứ đã đạt thành tích vượt 15%
-            KPI của năm. Hiện đang tìm kiếm cơ hội trở thành nhân viên bán hàng
-            và đóng góp tăng trưởng doanh thu cho công ty X
-          </Row>
+          <Row className="fs-20">{data?.desire}</Row>
         </Col>
       ),
     },
@@ -95,31 +87,19 @@ const Detail = () => {
             className="title-color-main"
             style={{ borderBottom: "1px solid var(--color-main)" }}
           >
-            Chứng chỉ
-          </Row>
-          <Row style={{ minHeight: 100 }}></Row>
-        </Col>
-      ),
-    },
-    {
-      dot: (
-        <DotElement
-          icon={
-            <UserOutlined
-              style={{ fontSize: 40, color: "var(--color-main)" }}
-            />
-          }
-        />
-      ),
-      children: (
-        <Col span={18}>
-          <Row
-            className="title-color-main"
-            style={{ borderBottom: "1px solid var(--color-main)" }}
-          >
             Kỹ năng
           </Row>
-          <Row style={{ minHeight: 100 }}></Row>
+          <Row style={{ gap: 10, paddingTop: 20, paddingBottom: 20 }}>
+            {data?.skills &&
+              data?.skills.length &&
+              data.skills.map((item, index) => {
+                return (
+                  <Col className="box-skill" key={index}>
+                    {item.content}
+                  </Col>
+                );
+              })}
+          </Row>
         </Col>
       ),
     },
@@ -133,7 +113,7 @@ const Detail = () => {
           }
         />
       ),
-      children: <Experience />,
+      children: <Experience data={data?.exp_detail} />,
     },
     {
       dot: (
@@ -145,7 +125,7 @@ const Detail = () => {
           }
         />
       ),
-      children: <Project />,
+      children: <Project data={data?.projects} />,
     },
     {
       dot: <></>,
