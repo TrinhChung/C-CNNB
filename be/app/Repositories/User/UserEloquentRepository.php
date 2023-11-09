@@ -94,6 +94,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function saveTask(Request $request)
     {
         $user = $request->user();
+        //dd($user->savedTasks);
         $data = $user->savedTasks()->toggle($request->task_id);
 
         return $data;
