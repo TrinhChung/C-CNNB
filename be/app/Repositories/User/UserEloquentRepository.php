@@ -44,8 +44,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $query->where('hr_id', $request->hr_id);
         });
         if ($data) {
-            return $data
-                ->with(['profile' => ['address', 'birth_year', 'category']])->get();
+            return $data->with('birthYear')
+                ->with(['profile' => ['address', 'category', 'expYear', 'level']])->paginate(10);
         } else {
             return null;
         }
@@ -111,7 +111,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function appliedTasks(Request $request)
     {
         $user = $request->user();
-        $data = $user->appliedTasks;
+        $data = $user->appliedTasks()->with('company', 'address')->get();
         if ($data) {
             return $data;
         } else {
@@ -122,7 +122,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
     public function savedTasks(Request $request)
     {
         $user = $request->user();
-        $data = $user->savedTasks;
+        $data = $user->savedTasks()->with('company', 'address')->get();
         if ($data) {
             return $data;
         } else {
