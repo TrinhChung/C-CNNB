@@ -167,7 +167,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             }
 
             return $data;
-            //dd($data);
+        //dd($data);
         } else {
             return null;
         }

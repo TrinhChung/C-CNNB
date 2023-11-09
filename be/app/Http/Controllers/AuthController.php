@@ -26,7 +26,12 @@ class AuthController extends Controller
 
             if ($request->role == 'user' || $request->role == 'hr') {
                 $user = User::where(DB::raw('BINARY `email`'), $fields['email'])->first();
-
+                if ($user->role != 1 && $request->role === 'hr') {
+                    throw new Exception('not your role');
+                }
+                if ($user->role != 0 && $request->role === 'user') {
+                    throw new Exception('not your role');
+                }
             } elseif ($request->role == 'company') {
                 $user = Company::where(DB::raw('BINARY `email`'), $fields['email'])->first();
                 $user['role'] = 2;
@@ -39,7 +44,7 @@ class AuthController extends Controller
                     'status' => 400,
                 ]);
             }
-            //dd($user->tokens());
+
             $user->tokens()->delete();
 
             $token = $user->createToken('authToken', ['role-'.$request->role])->plainTextToken;
