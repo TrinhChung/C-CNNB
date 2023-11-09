@@ -95,7 +95,7 @@ Route::prefix('company')->group(function () {
         Route::get('/info/{id}', [CompanyController::class, 'info']);
         Route::get('/search', [CompanyController::class, 'search']);
     });
-    Route::post('/new', [CompanyController::class, 'create']);
+    Route::middleware(['auth:sanctum', 'abilities:role-company'])->post('/new', [CompanyController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/update/{id}', [CompanyController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/accept', [CompanyController::class, 'accept']);
     Route::get('/selection', [CompanyController::class, 'companySelect']);
@@ -111,6 +111,7 @@ Route::prefix('user')->group(function () {
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/save/{task_id}', [UserController::class, 'save']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/saved', [UserController::class, 'saved']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/applied', [UserController::class, 'applied']);
+    Route::middleware(['auth:sanctum', 'ability:role-hr,role-company'])->get('/search/applier', [UserController::class, 'searchApplier']);
 });
 
 Route::prefix('profile')->group(function () {

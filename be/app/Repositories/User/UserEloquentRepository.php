@@ -25,12 +25,30 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function search(Request $request)
     {
-        $data = $this->_model->where('name', 'like', '%'.$request->searchInput.'%');
-
-        return $data
-            ->with('managedHrs')
-            ->with('address')
-            ->with('tasks')->get();
+        $input = '';
+        if ($request->searchInput) {
+            $input = $request->searchInput;
+        }
+        $data = $this->_model->where('fullname', 'like', '%'.$input.'%');
+        if ($request->year_of_experience) {
+            $data = $data->whereHas('profile', function ($query) use ($request) {
+                $query->where('year_of_experience', $request->year_of_experience);
+            });
+        }
+        if ($request->category_id) {
+            $data = $data->whereHas('profile', function ($query) use ($request) {
+                $query->where('category_id', $request->category_id);
+            });
+        }
+        $data = $data->whereHas('appliedTasks', function ($query) use ($request) {
+            $query->where('hr_id', $request->hr_id);
+        });
+        if ($data) {
+            return $data
+                ->with(['profile' => ['address', 'birth_year', 'category']])->get();
+        } else {
+            return null;
+        }
     }
 
     public function createUser(Request $request)
@@ -134,7 +152,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function newAppliers($hr_id)
     {
-        $data = DB::select('select users.fullname, addresses.name, applier_task.created_at, categories.content, tasks.title from users join profiles 
+        $data = DB::select('select users.fullname, addresses.name, applier_task.created_at, categories.content, tasks.title from users join profiles
         on profiles.applier_id = users.id join addresses on profiles.address_id = addresses.id join categories on categories.id = profiles.category_id
         join applier_task on users.id = applier_task.applier_id join tasks on tasks.id = applier_task.task_id where tasks.hr_id = ? group by users.id order by applier_task.created_at DESC', [$hr_id]);
 
