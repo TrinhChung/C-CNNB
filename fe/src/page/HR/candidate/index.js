@@ -6,7 +6,7 @@ const Candidate = () => {
   return (
     <Routes>
       <Route path="/" element={<Search />} />
-      <Route path="/cv/*" element={<CV />} />
+      <Route path="/cv/:id" element={<CV />} />
     </Routes>
   );
 };

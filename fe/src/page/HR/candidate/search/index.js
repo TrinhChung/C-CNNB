@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
-import { Col, Input, Select, Row, Image } from "antd";
+import { Col, Input, Select, Row, Image, Button } from "antd";
 import BoxSearch from "../../work/BoxSearch";
 import TableResult from "../../work/TableResult";
-import { LockOutlined, EditOutlined, CloseOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getApplier as getApplierService } from "../../../../service/HR";
 import { AuthContext } from "../../../../provider/authProvider";
@@ -145,18 +144,18 @@ const Search = () => {
       title: "Thao tác",
       col: 2,
       borderRight: false,
-      render: () => {
+      render: (data) => {
         return (
           <Row style={{ justifyContent: "center" }}>
-            <Col span={8}>
-              <LockOutlined />
-            </Col>
-            <Col span={8}>
-              <EditOutlined />
-            </Col>
-            <Col span={8}>
-              <CloseOutlined />
-            </Col>
+            <Button
+              className="button-job"
+              style={{ width: "100%" }}
+              onClick={() => {
+                navigate(`cv/${data?.id}`);
+              }}
+            >
+              Xem{" "}
+            </Button>
           </Row>
         );
       },
