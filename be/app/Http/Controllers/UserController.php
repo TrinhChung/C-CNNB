@@ -108,6 +108,31 @@ class UserController extends Controller
         }
     }
 
+    public function searchApplier(Request $request)
+    {
+        try {
+            $data = $this->userRepository->search($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'applied users',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('can not find applier');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
     public function infoApplier(Request $request)
     {
         try {

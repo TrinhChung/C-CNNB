@@ -51,6 +51,9 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         //dd($input);
         $data = $this->_model->where('title', 'like', '%'.$input.'%');
         //dd($data);
+        if ($request->hr_id) {
+            $data = $data->where('hr_id', $request->hr_id);
+        }
         if ($request->category_id) {
             $data = $data->where('category_id', $request->category_id);
         }

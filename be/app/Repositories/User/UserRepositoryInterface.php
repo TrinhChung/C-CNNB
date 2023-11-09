@@ -32,4 +32,6 @@ interface UserRepositoryInterface
     public function newAppliers(string $hr_id);
 
     public function hrTasks(string $id);
+
+    public function search(Request $request);
 }
