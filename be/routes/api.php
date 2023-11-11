@@ -85,8 +85,9 @@ Route::prefix('task')->group(function () {
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/update/{id}', [TaskController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->delete('/delete/{id}', [TaskController::class, 'delete']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/recommend', [TaskController::class, 'recommend']);
-    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/accept', [TaslController::class, 'accept']);
-    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/reject', [TaslController::class, 'reject']);
+    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/accept', [TaskController::class, 'accept']);
+    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/reject', [TaskController::class, 'reject']);
+    Route::middleware(['auth:sanctum', 'ability:role-hr, role-company'])->get('/appliers/{id}', [TaskController::class, 'appliers']);
 });
 
 Route::prefix('company')->group(function () {
