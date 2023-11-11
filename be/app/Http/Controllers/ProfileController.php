@@ -20,7 +20,7 @@ class ProfileController extends Controller
     public function info(Request $request)
     {
         try {
-            $data = $this->profileRepository->info($request->id);
+            $data = $this->profileRepository->info($request);
             if ($data) {
                 return response()->json(
                     [

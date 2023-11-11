@@ -15,7 +15,7 @@ interface ProfileRepositoryInterface
 
     public function updateProfile(Request $request);
 
-    public function info($id);
+    public function info(Request $request);
 
     public function createProfile(Request $request);
 }

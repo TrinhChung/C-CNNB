@@ -160,7 +160,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function acceptApplier(Request $request)
     {
         $task = $this->find($request->task_id);
-        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 1])) {
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 2])) {
             return true;
         } else {
             return false;
@@ -170,7 +170,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function rejectApplier(Request $request)
     {
         $task = $this->find($request->task_id);
-        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 2])) {
+        if ($task->appliedBy()->updateExistingPivot($request->applier_id, ['fail' => 3])) {
             return true;
         } else {
             return false;
