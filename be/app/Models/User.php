@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function appliedTasks()
     {
         return $this->belongsToMany(Task::class, 'applier_task', 'applier_id', 'task_id')
-            ->using(Applier_task::class)->withPivot('id', 'applier_id', 'task_id')->withTimestamps();
+            ->using(Applier_task::class)->withPivot('id', 'applier_id', 'task_id', 'fail')->withTimestamps();
     }
 
     public function savedTasks()

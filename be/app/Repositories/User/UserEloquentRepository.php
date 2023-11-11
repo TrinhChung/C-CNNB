@@ -143,7 +143,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function hrTasks($id)
     {
-        $data = Task::where('hr_id', $id)->orderBy('created_at', 'DESC')->get();
+        $data = Task::where('hr_id', $id)->orderBy('created_at', 'DESC')->limit(5)->get();
         if ($data) {
             return $data;
         } else {
