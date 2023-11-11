@@ -188,6 +188,31 @@ class TaskController extends Controller
         }
     }
 
+    public function appliers(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->getApplier($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get appliers of task',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('failed to get appliers');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
+
     public function accept(Request $request)
     {
         try {
