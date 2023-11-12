@@ -10,67 +10,92 @@ import {
   EditOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../../provider/authProvider/index";
+import { buildCategories, buildAddress } from "../../../const/buildData";
+import { useLocation, useNavigate } from "react-router-dom";
+import { searchTaskHr as searchTaskHrService } from "../../../service/HR";
+import { buildSalary } from "../../../const/BuildSalaray";
 const Work = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const { categories, addresses, authUser } = useContext(AuthContext);
+  const [searchInput, setSearchInput] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(1);
+
   const listInput = [
     {
       title: "Từ khóa tìm kiếm",
-      input: <Input style={{ width: "90%" }} />,
+      input: (
+        <Input
+          style={{ width: "90%" }}
+          onChange={(e) => {
+            setSearchInput(e.target.value);
+          }}
+        />
+      ),
       col: 10,
     },
     {
-      title: "Ngày đăng",
-      input: <DatePicker style={{ width: "90%" }} />,
+      title: "Nghề nghiệp",
+      input: (
+        <Select
+          style={{ width: "90%" }}
+          options={buildCategories(categories)}
+          onChange={(e) => {
+            searchParams.set("category_id", e);
+            navigate("/work/?" + searchParams.toString());
+          }}
+          defaultValue={
+            searchParams.get("category_id")
+              ? +searchParams.get("category_id")
+              : 0
+          }
+        />
+      ),
       col: 5,
     },
     {
-      title: "Ngày tuyển dụng",
-      input: <DatePicker style={{ width: "90%" }} />,
+      title: "Địa điểm",
+      input: (
+        <Select
+          style={{ width: "90%" }}
+          options={buildAddress(addresses)}
+          onChange={(e) => {
+            searchParams.set("address_id", e);
+            navigate("/work/?" + searchParams.toString());
+          }}
+          defaultValue={+searchParams.get("address_id")}
+        />
+      ),
       col: 5,
     },
   ];
 
   const handlerSearch = () => {
-    console.log("searching");
+    searchParams.set("searchInput", searchInput);
+    navigate("/work/?" + searchParams.toString());
+    const query = searchParams.toString();
+    getTaskHr(query);
   };
 
-  const data = [
-    {
-      position: "Vị trí việc làm",
-      status: "Trạng thái",
-      cost: "5.000.000 - 10.000.000",
-      address: "Hà nội",
-      numberRecruit: "10",
-      dateRecruit: "dd/mm/yy",
-      dateWork: "dd/mm/yy",
-    },
-    {
-      position: "Vị trí việc làm",
-      status: "Trạng thái",
-      cost: "5.000.000 - 10.000.000",
-      address: "Hà nội",
-      numberRecruit: "10",
-      dateRecruit: "dd/mm/yy",
-      dateWork: "dd/mm/yy",
-    },
-    {
-      position: "Vị trí việc làm",
-      status: "Trạng thái",
-      cost: "5.000.000 - 10.000.000",
-      address: "Hà nội",
-      numberRecruit: "10",
-      dateRecruit: "dd/mm/yy",
-      dateWork: "dd/mm/yy",
-    },
-    {
-      position: "Vị trí việc làm",
-      status: "Trạng thái",
-      cost: "5.000.000 - 10.000.000",
-      address: "Hà nội",
-      numberRecruit: "10",
-      dateRecruit: "dd/mm/yy",
-      dateWork: "dd/mm/yy",
-    },
-  ];
+  const getTaskHr = async (query) => {
+    const res = await searchTaskHrService(authUser.id, query);
+    if (res.success === 1 && res.data) {
+      if (res.data.data) {
+        setTasks(res.data.data);
+      }
+      setTotal(res.data.total);
+    }
+  };
+
+  useEffect(() => {
+    const query = searchParams.toString();
+    getTaskHr(query);
+  }, []);
 
   const listHead = [
     {
@@ -82,12 +107,16 @@ const Work = () => {
             <Col span={24} style={{ justifyContent: "center" }}>
               <Row className="title-color-main">
                 <Col style={{ fontSize: 30, paddingRight: 22 }}>
-                  {data.position}
+                  {data?.title}
                 </Col>
                 <Col style={{ display: "flex", alignItems: "center" }}>
                   <Badge
                     color="#f50"
-                    text={data.status}
+                    text={
+                      data?.status && data.status === "1"
+                        ? "Đang tuyển"
+                        : "Đã kết thúc"
+                    }
                     style={{ color: "#f50" }}
                   />
                 </Col>
@@ -96,13 +125,15 @@ const Work = () => {
                 <Col>
                   <DollarCircleOutlined />
                 </Col>
-                <Col>Lương: {data.cost}</Col>
+                <Col>
+                  Lương: {buildSalary(data?.salary_min, data?.salary_max)}
+                </Col>
               </Row>
               <Row style={{ paddingTop: 9 }}>
                 <Col>
                   <EnvironmentOutlined />
                 </Col>
-                <Col>Nơi làm việc: {data.address}</Col>
+                <Col>Nơi làm việc: {data?.address?.name}</Col>
               </Row>
             </Col>
           </Row>
@@ -117,7 +148,7 @@ const Work = () => {
           <Row>
             <Col span={24}>
               <Row style={{ justifyContent: "center" }} className="fs-16">
-                {data.numberRecruit}
+                {data.amount}
               </Row>
               <Row
                 style={{ justifyContent: "center", fontWeight: "bold" }}
@@ -131,23 +162,12 @@ const Work = () => {
       },
     },
     {
-      title: "Ngày đăng tin",
-      col: 4,
+      title: "Thời gian tuyển",
+      col: 8,
       render: (data) => {
         return (
           <Row style={{ justifyContent: "center" }} className="fs-16">
-            {data.dateRecruit}
-          </Row>
-        );
-      },
-    },
-    {
-      title: "Cập nhật lần cuối",
-      col: 4,
-      render: (data) => {
-        return (
-          <Row style={{ justifyContent: "center" }} className="fs-16">
-            {data.dateWork}
+            {"Từ ngày " + data?.start + " đến " + data?.end}
           </Row>
         );
       },
@@ -177,7 +197,7 @@ const Work = () => {
   return (
     <Col className="box-shadow-bottom layout-container">
       <BoxSearch listInput={listInput} search={handlerSearch} />
-      <TableResult listHead={listHead} dataSource={data} />
+      <TableResult listHead={listHead} dataSource={tasks} />
     </Col>
   );
 };
