@@ -5,7 +5,11 @@ const CardWork = ({ contentBox = [], data, key }) => {
   return (
     <Col
       span={24}
-      style={{ padding: "30px 0px 30px 0px", marginBottom: 30 }}
+      style={{
+        padding: "30px 0px 30px 0px",
+        marginBottom: 30,
+        backgroundColor: "white",
+      }}
       className="box-border-shadow"
       key={key}
     >

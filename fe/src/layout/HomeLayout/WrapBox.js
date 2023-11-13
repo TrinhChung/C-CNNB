@@ -4,6 +4,7 @@ import BoxJob from "../../component/BoxJob";
 import TitleViewAll from "../../component/TitleViewAll";
 import { AnimatePresence } from "framer-motion";
 import CardAnimated from "../../component/Animation/CardAnimated";
+import { useNavigate } from "react-router-dom";
 const WrapBox = ({
   data = [],
   title,
@@ -15,9 +16,17 @@ const WrapBox = ({
   query = {},
   setCurrentPage = () => {},
 }) => {
+  const navigate = useNavigate();
+  const redirectCompany = () => {
+    navigate(`/job/?company_id=${query?.companyId ? query?.companyId : ""}`);
+  };
   return (
     <>
-      <TitleViewAll title={title} isShowAll={isShowAll} query={query} />
+      <TitleViewAll
+        title={title}
+        isShowAll={isShowAll}
+        redirect={redirectCompany}
+      />
       <Row>
         <Col span={24}>
           <AnimatePresence initial={false}>

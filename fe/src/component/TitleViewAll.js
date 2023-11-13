@@ -1,11 +1,8 @@
 import React from "react";
 import { Col, Row } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 
-const TitleViewAll = ({ title, isShowAll = true, query = {} }) => {
-  const navigate = useNavigate();
-
+const TitleViewAll = ({ title, isShowAll = true, redirect = () => {} }) => {
   return (
     <Row
       style={{
@@ -21,9 +18,7 @@ const TitleViewAll = ({ title, isShowAll = true, query = {} }) => {
           style={{ cursor: "pointer" }}
           className="font-text-28 text-name-click"
           onClick={() => {
-            navigate(
-              `/job/?company_id=${query?.companyId ? query?.companyId : ""}`
-            );
+            redirect();
           }}
         >
           Xem tất cả <ArrowRightOutlined />
