@@ -1,15 +1,9 @@
 import React from "react";
-import { Col, Row, Input, Select, DatePicker, Badge } from "antd";
+import { Col, Row, Input, Select, Button, Badge } from "antd";
 import "./Work.scss";
 import BoxSearch from "./BoxSearch";
 import TableResult from "./TableResult";
-import {
-  DollarCircleOutlined,
-  EnvironmentOutlined,
-  LockOutlined,
-  EditOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
+import { DollarCircleOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../provider/authProvider/index";
 import { buildCategories, buildAddress } from "../../../const/buildData";
@@ -106,7 +100,10 @@ const Work = () => {
           <Row style={{ paddingLeft: 30 }}>
             <Col span={24} style={{ justifyContent: "center" }}>
               <Row className="title-color-main">
-                <Col style={{ fontSize: 30, paddingRight: 22 }}>
+                <Col
+                  style={{ fontSize: 30, paddingRight: 22 }}
+                  className="text-name-click"
+                >
                   {data?.title}
                 </Col>
                 <Col style={{ display: "flex", alignItems: "center" }}>
@@ -163,7 +160,7 @@ const Work = () => {
     },
     {
       title: "Thời gian tuyển",
-      col: 8,
+      col: 7,
       render: (data) => {
         return (
           <Row style={{ justifyContent: "center" }} className="fs-16">
@@ -174,20 +171,20 @@ const Work = () => {
     },
     {
       title: "Thao tác",
-      col: 3,
+      col: 4,
       borderRight: false,
-      render: () => {
+      render: (data) => {
         return (
           <Row style={{ justifyContent: "center" }}>
-            <Col span={8}>
-              <LockOutlined />
-            </Col>
-            <Col span={8}>
-              <EditOutlined />
-            </Col>
-            <Col span={8}>
-              <CloseOutlined />
-            </Col>
+            <Button
+              className="button-job"
+              style={{ width: "80%", height: 50 }}
+              onClick={() => {
+                navigate(`task/edit/${data?.id}`);
+              }}
+            >
+              Chi tiết
+            </Button>
           </Row>
         );
       },
@@ -197,7 +194,13 @@ const Work = () => {
   return (
     <Col className="box-shadow-bottom layout-container">
       <BoxSearch listInput={listInput} search={handlerSearch} />
-      <TableResult listHead={listHead} dataSource={tasks} />
+      <TableResult
+        listHead={listHead}
+        dataSource={tasks}
+        total={total}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Col>
   );
 };
