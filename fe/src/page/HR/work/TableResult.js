@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row, Pagination, Empty } from "antd";
 import CardWork from "./CardWork";
 import RowHead from "./RowHead";
+import CardAnimated from "../../../component/Animation/CardAnimated";
 
 const TableResult = ({
   listHead = [],
@@ -9,6 +10,7 @@ const TableResult = ({
   currentPage,
   total,
   setCurrentPage,
+  isPagination = true,
 }) => {
   return (
     <Row>
@@ -20,18 +22,23 @@ const TableResult = ({
             marginBottom: 40,
             width: "100%",
             justifyContent: "center",
+            paddingTop: 40,
           }}
           className="pdx40"
         >
           {dataSource && dataSource.length > 0 ? (
             dataSource.map((item, index) => {
-              return <CardWork contentBox={listHead} data={item} key={index} />;
+              return (
+                <CardAnimated index={index}>
+                  <CardWork contentBox={listHead} data={item} key={index} />
+                </CardAnimated>
+              );
             })
           ) : (
             <Empty style={{ paddingTop: 20, paddingBottom: 20 }} />
           )}
 
-          {dataSource && dataSource.length > 0 && (
+          {isPagination && dataSource && dataSource.length > 0 && (
             <Row
               style={{
                 justifyContent: "center",

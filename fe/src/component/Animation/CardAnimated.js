@@ -9,6 +9,7 @@ const CardAnimated = ({ children, index }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ type: "spring", duration: 1 }}
+      style={{ width: "100%" }}
     >
       {children}
     </motion.div>

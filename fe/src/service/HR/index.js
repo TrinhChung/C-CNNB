@@ -23,3 +23,7 @@ export const acceptApplier = (data) => {
 export const rejectApplier = (data) => {
   return axios.put(`/api/task/reject`, data);
 };
+
+export const recommendTaskHR = (id) => {
+  return axios.get(`/api/user/hr/task/${id}`);
+};
