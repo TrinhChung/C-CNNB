@@ -6,8 +6,11 @@ import FormItemVertical from "../../../component/Form/FormItemVertical";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import { AuthContext } from "../../../provider/authProvider";
 import { buildAddress, buildCategories } from "../../../const/buildData";
-
-const FormRecruit = ({ onSubmit }) => {
+const FormRecruit = ({
+  onSubmit = () => {},
+  onCancel = () => {},
+  isEdit = false,
+}) => {
   const { exps, categories, addresses, types } = useContext(AuthContext);
 
   return (
@@ -130,7 +133,7 @@ const FormRecruit = ({ onSubmit }) => {
               name={"start"}
               required={true}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker mode={"date"} style={{ width: "100%" }} />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">
@@ -196,7 +199,7 @@ const FormRecruit = ({ onSubmit }) => {
           <Row style={{ width: "40%", gap: 20 }}>
             <Col span={10}>
               <Button
-                className="button-job"
+                className="button-color-inner"
                 size="large"
                 style={{
                   width: "100%",
@@ -206,16 +209,19 @@ const FormRecruit = ({ onSubmit }) => {
                   onSubmit();
                 }}
               >
-                Đăng tin
+                {isEdit ? "Chỉnh sửa" : "Đăng tin"}
               </Button>
             </Col>
             <Col span={10}>
               <Button
-                className="button-color-inner"
+                className="button-job"
                 size="large"
                 style={{
                   width: "100%",
                   height: 60,
+                }}
+                onClick={() => {
+                  onCancel();
                 }}
               >
                 Hủy bỏ
