@@ -191,4 +191,29 @@ class CompanyController extends Controller
             );
         }
     }
+
+    public function hrs(Request $request)
+    {
+        try {
+            $data = $this->companyRepository->hrOfCompany($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get hrs of company',
+                        'success' => 1,
+                    ]
+                );
+            } else {
+                throw new Exception('no hrs found');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }
