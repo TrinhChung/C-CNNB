@@ -81,6 +81,9 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         if ($request->company_id) {
             $data = $data->where('company_id', $request->company_id);
         }
+        if ($request->status) {
+            $data = $data->where('status', $request->status);
+        }
         if ($request->_salary) {
             $data = $data->where(
                 function ($query) use ($request) {

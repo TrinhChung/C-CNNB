@@ -23,5 +23,7 @@ interface CompanyRepositoryInterface
 
     public function acceptHr(Request $request);
 
+    public function hrOfCompany(Request $request);
+
     public function index();
 }
