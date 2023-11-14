@@ -29,11 +29,11 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
         $task = $this->_model
             ->withCount('managedHrs')
             ->with('managedHrs', function ($query) {
-                $query->orderBy('created_at', 'DESC')->limit(3);
+                $query->withCount('managedTasks')->orderBy('created_at', 'DESC')->limit(3);
             })
             ->with('address')
             ->with('tasks', function ($q) {
-                $q->limit(5);
+                $q->with('category', 'hr')->limit(5);
             })
             ->withCount('tasks')
             ->find($request->id);

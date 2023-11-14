@@ -153,8 +153,8 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function newAppliers($hr_id)
     {
-        $data = DB::select('select users.fullname, addresses.name, applier_task.created_at, categories.content, exps.content, tasks.title from users join profiles
-        on profiles.applier_id = users.id join exps on exps.id = profile.year_of_experience join addresses on profiles.address_id = addresses.id join categories on categories.id = profiles.category_id
+        $data = DB::select('select users.id, users.image, users.fullname, addresses.name as address, applier_task.created_at, categories.content as category, exps.content as exp_year, tasks.title as task from users join profiles
+        on profiles.applier_id = users.id join exps on exps.id = profiles.year_of_experience join addresses on profiles.address_id = addresses.id join categories on categories.id = profiles.category_id
         join applier_task on users.id = applier_task.applier_id join tasks on tasks.id = applier_task.task_id where tasks.hr_id = ? group by users.id order by applier_task.created_at DESC limit 3', [$hr_id]);
 
         return $data;
