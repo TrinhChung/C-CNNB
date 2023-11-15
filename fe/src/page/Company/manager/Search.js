@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row, Input, Select, Button, Image } from "antd";
 import BoxSearch from "../../HR/work/BoxSearch";
 import TableResult from "../../HR/work/TableResult";
@@ -7,20 +7,62 @@ import {
   CalendarOutlined,
   MailOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { statusHRaccept } from "../../../const/index";
 const Search = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams(location.search);
+  const [searchInput, setSearchInput] = useState("");
+  const [email, setEmail] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(1);
   const listInput = [
     {
       title: "Từ khóa tìm kiếm",
-      input: <Input style={{ width: "90%" }} />,
+      input: (
+        <Input
+          style={{ width: "90%" }}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+      ),
       col: 10,
     },
-    { title: "Giới tính", input: <Select style={{ width: "90%" }} />, col: 5 },
-    { title: "Chức vụ", input: <Select style={{ width: "90%" }} />, col: 5 },
+    {
+      title: "Gmail",
+      input: (
+        <Input
+          style={{ width: "90%" }}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      ),
+      col: 6,
+    },
+    {
+      title: "Trạng thái",
+      input: (
+        <Select
+          options={statusHRaccept}
+          defaultValue={
+            searchParams.get("status") ? +searchParams.get("status") : 0
+          }
+          style={{ width: "90%" }}
+          onChange={(e) => {
+            searchParams.set("status", e);
+            navigate("/manager/?" + searchParams.toString());
+          }}
+        />
+      ),
+      col: 4,
+    },
   ];
-  const navigate = useNavigate();
+
   const handlerSearch = () => {
+    searchParams.set("searchInput", searchInput);
+    searchParams.set("email", email);
+
+    navigate("/manager/?" + searchParams.toString());
+    const query = searchParams.toString();
     console.log("searching");
   };
 
@@ -151,7 +193,13 @@ const Search = () => {
   return (
     <Col className="box-shadow-bottom layout-container">
       <BoxSearch listInput={listInput} search={handlerSearch} />
-      <TableResult listHead={listHead} dataSource={data} />
+      <TableResult
+        listHead={listHead}
+        dataSource={data}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        total={total}
+      />
     </Col>
   );
 };
