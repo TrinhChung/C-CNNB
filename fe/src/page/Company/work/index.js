@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import JobDetail from "../../User/job/detail";
 import Search from "./Search";
+import EditTask from "../../HR/work/EditTask";
 
 const JobCompany = () => {
   return (
     <Routes>
       <Route path="/" element={<Search />} />
-      <Route path="/detail/*" element={<JobDetail />} />
+      <Route path="/task/edit/:id" element={<EditTask />} />
     </Routes>
   );
 };
