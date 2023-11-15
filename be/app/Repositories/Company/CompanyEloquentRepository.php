@@ -61,8 +61,11 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
 
     public function createCompany(Request $request)
     {
-        $check = $this->_model->where(DB::raw('BINARY `email`'), $request->email)->exists();
-        if ($check) {
+        if ($request->password != $request->repassword) {
+            throw new Exception('password not match');
+        }
+        $check = $this->_model->where(DB::raw('BINARY `email`'), $request->email)->orWhere(DB::raw('BINARY `tax_code`'), $request->tax_code)->exists();
+        if (! $check) {
             if (Http::get('https://api.vietqr.io/v2/business/'.$request->tax_code)['data']) {
                 $temp = Arr::except($request->all(), ['image']);
                 if ($request->file('image')) {
@@ -82,10 +85,10 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
 
                 return $data;
             } else {
-                return null;
+                throw new Exception('taxcode invalid');
             }
         } else {
-            return null;
+            throw new Exception('your email or taxcode already taken');
         }
     }
 

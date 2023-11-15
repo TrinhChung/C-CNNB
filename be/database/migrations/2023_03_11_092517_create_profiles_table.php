@@ -15,15 +15,15 @@ return new class extends Migration
             $table->increments('id');
             $table->uuid('applier_id');
             $table->smallInteger('birth_year');
-            $table->smallInteger('level_id')->nullable(false);
+            $table->smallInteger('level_id')->nullable();
             $table->string('email');
-            $table->integer('address_id')->nullable(false);
-            $table->integer('category_id')->nullable(false);
+            $table->integer('address_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->string('fullname', 50);
             $table->enum('gender', [-1, 0, 1]);
-            $table->longText('description')->nullable(false);
-            $table->integer('year_of_experience')->nullable(false);
-            $table->longText('desire')->nullable(false);
+            $table->longText('description')->nullable();
+            $table->integer('year_of_experience')->nullable();
+            $table->longText('desire')->nullable();
             $table->timestamps();
         });
     }
