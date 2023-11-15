@@ -34,4 +34,6 @@ interface UserRepositoryInterface
     public function hrTasks(string $id);
 
     public function search(Request $request);
+
+    public function searchHr(Request $request);
 }
