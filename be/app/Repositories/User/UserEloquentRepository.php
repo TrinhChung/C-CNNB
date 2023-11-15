@@ -29,7 +29,9 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($request->searchInput) {
             $input = $request->searchInput;
         }
-        $data = $this->_model->where('fullname', 'like', '%'.$input.'%');
+        $data = $this->_model->where('role', 0)->where(function ($query) use ($input) {
+            $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
+        });
         if ($request->year_of_experience) {
             $data = $data->whereHas('profile', function ($query) use ($request) {
                 $query->where('year_of_experience', $request->year_of_experience);
@@ -46,6 +48,23 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($data) {
             return $data->with('birthYear')
                 ->with(['profile' => ['address', 'category', 'expYear', 'level']])->paginate(10);
+        } else {
+            return null;
+        }
+    }
+
+    public function searchHr(Request $request)
+    {
+        $input = '';
+        if ($request->searchInput) {
+            $input = $request->searchInput;
+        }
+        $data = $this->_model->where('role', 1)->where('company_id', $request->user()->id)
+            ->where(function ($query) use ($input) {
+                $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
+            })->withCount('managedTasks')->with('birthYear')->orderBy('created_at', 'DESC')->paginate(10);
+        if ($data) {
+            return $data;
         } else {
             return null;
         }
