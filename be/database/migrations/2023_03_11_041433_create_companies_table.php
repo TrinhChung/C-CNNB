@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->uuid('id')->primary()->nullable(false);
+            $table->uuid('id')->primary();
             $table->smallInteger('role')->default(2);
-            $table->string('link')->unique();
+            $table->string('link')->nullable();
             $table->string('name', 100)->unique();
             $table->string('image')->nullable();
-            $table->longText('description');
-            $table->integer('address_id')->nullable(false);
-            $table->string('detail_address')->nullable(false);
+            $table->longText('description')->nullable();
+            $table->integer('address_id')->nullable();
+            $table->string('detail_address')->nullable();
             $table->longText('renumeration_policy')->nullable();
-            $table->string('tax_code')->unique()->nullable(false);
-            $table->string('email')->unique()->nullable(false);
+            $table->string('tax_code')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();
         });

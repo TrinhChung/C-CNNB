@@ -6,6 +6,7 @@ use App\Models\Activation;
 use App\Models\Profile;
 use App\Models\Task;
 use App\Repositories\EloquentRepository;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +30,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($request->searchInput) {
             $input = $request->searchInput;
         }
-        $data = $this->_model->where('role', 0)->where(function ($query) use ($input) {
+        $data = $this->_model->where('role', '0')->where(function ($query) use ($input) {
             $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
         });
         if ($request->year_of_experience) {
@@ -59,12 +60,15 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($request->searchInput) {
             $input = $request->searchInput;
         }
-        $data = $this->_model->where('role', 1)->where('company_id', $request->user()->id)
-            ->where(function ($query) use ($input) {
-                $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
-            })->withCount('managedTasks')->with('birthYear')->orderBy('created_at', 'DESC')->paginate(10);
+        $data = $this->_model->where('role', '1')->where('company_id', $request->user()->id)->where(function ($query) use ($input) {
+            $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
+        });
+        //dd($data->get());
+        if ($request->accepted) {
+            $data = $data->where('hraccepted', $request->accepted);
+        }
         if ($data) {
-            return $data;
+            return $data->withCount('managedTasks')->with('birthYear')->orderBy('created_at', 'DESC')->paginate(10);
         } else {
             return null;
         }
@@ -72,6 +76,9 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function createUser(Request $request)
     {
+        if ($request->password != $request->repassword) {
+            throw new Exception('password not match');
+        }
         $check = $this->_model->where(DB::raw('BINARY `email`'), $request->email)->exists();
         if ($check) {
             return ['error' => 'email has been taken'];
@@ -84,7 +91,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $temp['image'] = asset('images/'.$imageName);
         }
         if ($request->role == 1) {
-            $temp['hraccepted'] = -1;
+            $temp['hraccepted'] = 1;
         }
         $temp['role'] += 1;
         $temp['gender'] = (int) $temp['gender'] + 2;

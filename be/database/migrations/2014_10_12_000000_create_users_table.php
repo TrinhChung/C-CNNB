@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('image')->nullable();
             $table->string('password');
-            $table->smallInteger('birth_year');
-            $table->enum('gender', [-1, 0, 1]);
+            $table->smallInteger('birth_year')->nullable();
+            $table->enum('gender', [-1, 0, 1])->default(-1);
             $table->enum('role', [0, 1]);
             $table->uuid('company_id')->nullable();
             $table->enum('hraccepted', [0, 1])->nullable();
