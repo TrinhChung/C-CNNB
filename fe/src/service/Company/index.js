@@ -11,3 +11,13 @@ export const detailCompany = (id) => {
 export const postTask = (data) => {
   return axios.post("/api/task/new", data);
 };
+
+export const getInfoCompany = (id) => {
+  return axios.get(`/api/company/info/${id}`);
+};
+
+export const searchTaskCompany = (page, id, query) => {
+  return axios.get(
+    `/api/task/search?page=${page}&company_id=${id}&query=${query}`
+  );
+};

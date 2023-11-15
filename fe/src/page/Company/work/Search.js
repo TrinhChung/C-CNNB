@@ -1,15 +1,15 @@
 import React from "react";
 import { Col, Input, Select } from "antd";
-import "./Work.scss";
-import BoxSearch from "./BoxSearch";
-import TableResult from "./TableResult";
+import "../../HR/work/Work.scss";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../../provider/authProvider/index";
 import { buildCategories, buildAddress } from "../../../const/buildData";
 import { useLocation, useNavigate } from "react-router-dom";
-import { searchTaskHr as searchTaskHrService } from "../../../service/HR";
 import { listHeaderTask } from "../../../const/columnTable";
-const Work = () => {
+import BoxSearch from "../../HR/work/BoxSearch";
+import TableResult from "../../HR/work/TableResult";
+import { searchTaskCompany as searchTaskCompanyService } from "../../../service/Company/index";
+const Search = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
@@ -76,7 +76,7 @@ const Work = () => {
   };
 
   const getTaskHr = async (query) => {
-    const res = await searchTaskHrService(authUser.id, query);
+    const res = await searchTaskCompanyService(currentPage, authUser.id, query);
     if (res.success === 1 && res.data) {
       if (res.data.data) {
         setTasks(res.data.data);
@@ -104,4 +104,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Search;

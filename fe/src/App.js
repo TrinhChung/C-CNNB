@@ -30,7 +30,7 @@ function App() {
             <Route path="/*" element={<User />} />
           ) : role === "1" ? (
             <Route path="/*" element={<HR />} />
-          ) : role === "2" ? (
+          ) : role === 2 ? (
             <Route path="/*" element={<Company />} />
           ) : (
             <Route path="/*" element={<Loading />} />

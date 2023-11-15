@@ -21,7 +21,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [info, setInfo] = useState([]);
-  const [data, setData] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [candidates, setCandidates] = useState([]);
 
@@ -33,8 +32,8 @@ const Home = () => {
     navigate(`/candidate/`);
   };
 
-  const redirectCVUser = () => {
-    navigate(`/candidate/`);
+  const redirectCVUser = (id) => {
+    navigate(`/candidate/cv/${id}`);
   };
 
   useEffect(() => {
@@ -95,7 +94,9 @@ const Home = () => {
           {candidates &&
             candidates.length > 0 &&
             candidates.map((item, i) => {
-              return <CardUser title={title} data={item} />;
+              return (
+                <CardUser title={title} data={item} redirect={redirectCVUser} />
+              );
             })}
         </Row>
       </Col>

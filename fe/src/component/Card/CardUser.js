@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Image, Button } from "antd";
-const CardUser = ({ title, data, redirect }) => {
+const CardUser = ({ title, data, redirect = () => {} }) => {
   return (
     <Col
       style={{
@@ -50,7 +50,7 @@ const CardUser = ({ title, data, redirect }) => {
               paddingBottom: 24,
             }}
           >
-            {title.title1.title}: {data[title.title1.value]}
+            {title?.title1?.title} {data[title?.title1?.value]}
           </Row>
         </Col>
       </Row>
@@ -62,9 +62,9 @@ const CardUser = ({ title, data, redirect }) => {
           color: "var(--color-gray-job)",
         }}
       >
-        <Row style={{ justifyContent: "center" }}>{title.title2.title}</Row>
+        <Row style={{ justifyContent: "center" }}>{title?.title2?.title}</Row>
         <Row style={{ justifyContent: "center" }}>
-          {data[title.title2.value]}
+          {data[title?.title2?.value]}
         </Row>
       </Row>
       <Row
@@ -74,9 +74,9 @@ const CardUser = ({ title, data, redirect }) => {
           color: "var(--color-gray-job)",
         }}
       >
-        <Row style={{ justifyContent: "center" }}>{title.title3.title}</Row>
+        <Row style={{ justifyContent: "center" }}>{title?.title3?.title}</Row>
         <Row style={{ justifyContent: "center" }}>
-          {data[title.title3.value]}
+          {data[title?.title3?.value]}
         </Row>
       </Row>
       <Row style={{ padding: "0 32px 16px 32px" }}>
@@ -84,6 +84,9 @@ const CardUser = ({ title, data, redirect }) => {
           style={{ width: "100%", height: "55px" }}
           className="button-job"
           size="large"
+          onClick={() => {
+            redirect(data.id);
+          }}
         >
           Xem hồ sơ
         </Button>
