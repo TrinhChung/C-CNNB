@@ -11,13 +11,13 @@ import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const listInput = [
-    { title: "Từ khóa tìm kiếm", input: <Input style={{ width: "90%" }} /> },
-    { title: "Giới tính", input: <Select style={{ width: "90%" }} /> },
-    { title: "Chức vụ", input: <Select style={{ width: "90%" }} /> },
     {
-      title: "Số công việc đang phụ trách",
-      input: <Select style={{ width: "90%" }} />,
+      title: "Từ khóa tìm kiếm",
+      input: <Input style={{ width: "90%" }} />,
+      col: 10,
     },
+    { title: "Giới tính", input: <Select style={{ width: "90%" }} />, col: 5 },
+    { title: "Chức vụ", input: <Select style={{ width: "90%" }} />, col: 5 },
   ];
   const navigate = useNavigate();
   const handlerSearch = () => {

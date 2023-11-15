@@ -79,6 +79,9 @@ const EditTask = () => {
         </Col>
       </Row>
       <Col className="layout-container box-shadow-bottom" span={24}>
+        <Row className="title-color-main" style={{ paddingTop: 20 }}>
+          Những ứng viên chưa xét hồ sơ
+        </Row>
         <UserTable
           users={users}
           currentPage={currentPage}
