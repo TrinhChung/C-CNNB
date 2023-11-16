@@ -8,7 +8,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../provider/authProvider";
 const { TextArea } = Input;
 
-const FormCompany = () => {
+const FormCompany = ({ onEdit = () => {} }) => {
   const { authUser, addresses } = useContext(AuthContext);
   const [edit, setEdit] = useState(false);
 
@@ -136,7 +136,14 @@ const FormCompany = () => {
 
       {edit && (
         <Row>
-          <Button className="button-job" size="large">
+          <Button
+            className="button-job"
+            size="large"
+            onClick={() => {
+              setEdit(false);
+              onEdit();
+            }}
+          >
             Cập nhât
           </Button>
         </Row>

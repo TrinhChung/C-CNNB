@@ -81,7 +81,11 @@ const Search = () => {
             <Col span={8} style={{ paddingRight: 35 }}>
               <Image
                 style={{ height: 168, width: 168, borderRadius: "50%" }}
-                src={data.image}
+                src={
+                  data?.image
+                    ? data.image
+                    : "https://th.bing.com/th/id/OIP.dImyW_c6krukWPP-b_3URAHaG8?w=170&h=183&c=7&r=0&o=5&pid=1.7"
+                }
                 preview={false}
               />
             </Col>
@@ -93,25 +97,21 @@ const Search = () => {
                   navigate(`cv/1`);
                 }}
               >
-                {data.name}
+                {data.fullname}
               </Row>
               <Row
                 className="color-main"
                 style={{ paddingBottom: 6, fontSize: 16 }}
               >
-                Chức vụ: {data.position}
+                Trạng thái: {data?.hraccepted === "1" ? "HR" : "Đợi duyệt"}
               </Row>
               <Row style={{ paddingBottom: 9, fontSize: 16 }}>
                 <CalendarOutlined style={{ paddingRight: 6, fontSize: 16 }} />
-                Ngày sinh: {data.birthday}
+                Giới tính: {data?.gender === 0 ? "Nam" : "Nữ"}
               </Row>
               <Row style={{ fontSize: 16 }}>
                 <MailOutlined style={{ paddingRight: 6, fontSize: 16 }} />
-                Email: {data.email}
-              </Row>
-              <Row style={{ fontSize: 16 }}>
-                <PhoneOutlined style={{ paddingRight: 6, fontSize: 16 }} />
-                Phone: {data.phone}
+                Email: {data?.email}
               </Row>
             </Col>
           </Row>
@@ -126,7 +126,7 @@ const Search = () => {
           <Row>
             <Col span={24}>
               <Row style={{ justifyContent: "center" }} className="fs-16">
-                {data.jobCharge}
+                {data.managed_tasks_count}
               </Row>
               <Row
                 style={{ justifyContent: "center", fontWeight: "bold" }}

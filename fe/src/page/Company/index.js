@@ -4,7 +4,8 @@ import HomeLayout from "../../layout/HomeLayout";
 import Home from "./home";
 import JobCompany from "./work";
 import Manager from "./manager";
-import CompanyProfile from "../HR/profile/CompanyProfile";
+import CompanyProfile from "./profile";
+
 const Company = () => {
   const items = [
     {
