@@ -1,14 +1,12 @@
 import React from "react";
 import SiderLayout from "../../../layout/SiderLayout";
 import { Routes, Route } from "react-router-dom";
-import JobBookmark from "../../User/profile/JobBookmark";
-import Company from "./Company";
+import CompanyProfile from "./CompanyProfile";
 import Info from "./Info";
 import {
   UserOutlined,
   FolderOutlined,
   FolderAddOutlined,
-  EyeOutlined,
 } from "@ant-design/icons";
 
 const menu = [
@@ -36,7 +34,7 @@ const Profile = () => {
     <SiderLayout menuProps={{ items: menu, layout: "profile" }}>
       <Routes>
         <Route path="/" element={<Info />} />
-        <Route path="/company" element={<Company />} />
+        <Route path="/company" element={<CompanyProfile />} />
       </Routes>
     </SiderLayout>
   );
