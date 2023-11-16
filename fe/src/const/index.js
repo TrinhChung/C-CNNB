@@ -47,6 +47,10 @@ export const statusApply = [
 
 export const statusHRaccept = [
   {
+    value: null,
+    label: "Tất cả",
+  },
+  {
     value: 0,
     label: "Đang đợi duyệt",
   },

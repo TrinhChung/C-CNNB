@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Input, Select, Button, Image } from "antd";
 import BoxSearch from "../../HR/work/BoxSearch";
 import TableResult from "../../HR/work/TableResult";
@@ -9,13 +9,14 @@ import {
 } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import { statusHRaccept } from "../../../const/index";
+import { searchHRCompany as searchHRCompanyService } from "../../../service/Company/index";
 const Search = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const [searchInput, setSearchInput] = useState("");
-  const [email, setEmail] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [hrs, setHrs] = useState([]);
   const [total, setTotal] = useState(1);
   const listInput = [
     {
@@ -24,19 +25,10 @@ const Search = () => {
         <Input
           style={{ width: "90%" }}
           onChange={(e) => setSearchInput(e.target.value)}
+          placeholder={"Nhập tên hoặc email"}
         />
       ),
-      col: 10,
-    },
-    {
-      title: "Gmail",
-      input: (
-        <Input
-          style={{ width: "90%" }}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      ),
-      col: 6,
+      col: 16,
     },
     {
       title: "Trạng thái",
@@ -44,11 +36,11 @@ const Search = () => {
         <Select
           options={statusHRaccept}
           defaultValue={
-            searchParams.get("status") ? +searchParams.get("status") : 0
+            searchParams.get("accepted") ? +searchParams.get("accepted") : null
           }
           style={{ width: "90%" }}
           onChange={(e) => {
-            searchParams.set("status", e);
+            searchParams.set("accepted", e);
             navigate("/manager/?" + searchParams.toString());
           }}
         />
@@ -59,48 +51,25 @@ const Search = () => {
 
   const handlerSearch = () => {
     searchParams.set("searchInput", searchInput);
-    searchParams.set("email", email);
 
     navigate("/manager/?" + searchParams.toString());
-    const query = searchParams.toString();
-    console.log("searching");
+    searchHRCompany();
   };
 
-  const data = [
-    {
-      id: 1,
-      image:
-        "https://th.bing.com/th/id/OIP.GXbwyfVCv6S8vyx667VBwgHaFR?w=224&h=180&c=7&r=0&o=5&pid=1.7",
-      name: "Darrell Steward",
-      position: "Chức vụ ",
-      birthday: "dd/mm/yy",
-      email: "nguyenvana@gmail.com",
-      phone: "0123456789",
-      jobCharge: 5,
-    },
-    {
-      id: 2,
-      image:
-        "https://th.bing.com/th/id/OIP.GXbwyfVCv6S8vyx667VBwgHaFR?w=224&h=180&c=7&r=0&o=5&pid=1.7",
-      name: "Darrell Steward",
-      position: "Chức vụ ",
-      birthday: "dd/mm/yy",
-      email: "nguyenvana@gmail.com",
-      phone: "0123456789",
-      jobCharge: 5,
-    },
-    {
-      id: 3,
-      image:
-        "https://th.bing.com/th/id/OIP.GXbwyfVCv6S8vyx667VBwgHaFR?w=224&h=180&c=7&r=0&o=5&pid=1.7",
-      name: "Darrell Steward",
-      position: "Chức vụ ",
-      birthday: "dd/mm/yy",
-      email: "nguyenvana@gmail.com",
-      phone: "0123456789",
-      jobCharge: 5,
-    },
-  ];
+  const searchHRCompany = async () => {
+    const query = searchParams.toString();
+    const res = await searchHRCompanyService(currentPage, query);
+    if (res.success === 1 && res.data) {
+      setTotal(res.total);
+      if (res.data.data) {
+        setHrs(res.data.data);
+      }
+    }
+  };
+
+  useEffect(() => {
+    searchHRCompany();
+  }, [currentPage]);
 
   const listHead = [
     {
@@ -195,7 +164,7 @@ const Search = () => {
       <BoxSearch listInput={listInput} search={handlerSearch} />
       <TableResult
         listHead={listHead}
-        dataSource={data}
+        dataSource={hrs}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         total={total}

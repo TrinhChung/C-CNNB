@@ -4,7 +4,7 @@ import HomeLayout from "../../layout/HomeLayout";
 import Home from "./home";
 import JobCompany from "./work";
 import Manager from "./manager";
-
+import CompanyProfile from "../HR/profile/CompanyProfile";
 const Company = () => {
   const items = [
     {
@@ -32,6 +32,7 @@ const Company = () => {
           <Route path="/" element={<Home />} />
           <Route path="/work/*" element={<JobCompany />} />
           <Route path="/manager/*" element={<Manager />} />
+          <Route path="/company" element={<CompanyProfile />} />
         </Routes>
       </div>
     </HomeLayout>

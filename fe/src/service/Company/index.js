@@ -21,3 +21,7 @@ export const searchTaskCompany = (page, id, query) => {
     `/api/task/search?page=${page}&company_id=${id}&query=${query}`
   );
 };
+
+export const searchHRCompany = (page, query) => {
+  return axios.get(`/api/user/search/hr?page=${page}&${query}`);
+};
