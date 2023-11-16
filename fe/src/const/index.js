@@ -44,3 +44,14 @@ export const statusApply = [
     label: "Hồ sơ đã bị loại",
   },
 ];
+
+export const statusHRaccept = [
+  {
+    value: 0,
+    label: "Đang đợi duyệt",
+  },
+  {
+    value: 1,
+    label: "HR",
+  },
+];
