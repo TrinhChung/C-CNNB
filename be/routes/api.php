@@ -96,7 +96,7 @@ Route::prefix('company')->group(function () {
         Route::get('/info/{id}', [CompanyController::class, 'info']);
         Route::get('/search', [CompanyController::class, 'search']);
     });
-    Route::middleware(['auth:sanctum', 'abilities:role-company'])->post('/new', [CompanyController::class, 'create']);
+    Route::post('/new', [CompanyController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/update/{id}', [CompanyController::class, 'update']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->put('/accept', [CompanyController::class, 'accept']);
     Route::middleware(['auth:sanctum', 'ability:role-company'])->get('/hrs', [CompanyController::class, 'hrs']);

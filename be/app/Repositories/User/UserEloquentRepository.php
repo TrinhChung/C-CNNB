@@ -64,7 +64,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $query->where('fullname', 'like', '%'.$input.'%')->orWhere('email', 'like', '%'.$input.'%');
         });
         //dd($data->get());
-        if ($request->accepted) {
+        if ($request->accepted !== null) {
             $data = $data->where('hraccepted', $request->accepted);
         }
         if ($data) {
@@ -91,10 +91,18 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             $temp['image'] = asset('images/'.$imageName);
         }
         if ($request->role == 1) {
+            if (! $request->company_id) {
+                throw new Exception('you must choose your company');
+            }
             $temp['hraccepted'] = 1;
         }
-        $temp['role'] += 1;
-        $temp['gender'] = (int) $temp['gender'] + 2;
+        if ($request->role !== null) {
+            $temp['role'] += 1;
+        }
+        if ($request->gender !== null) {
+            $temp['gender'] = (int) $temp['gender'] + 2;
+        }
+        //dd($temp["gender"]);
         $data = $this->_model->create($temp);
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
         $data['token'] = $token;
@@ -197,7 +205,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 $image->move(public_path('images/'), $imageName);
                 $temp['image'] = asset('images/'.$imageName);
             }
-            if ($request->gender) {
+            if ($request->gender !== null) {
                 $temp['gender'] = $request->gender + 2;
             }
             $data = $user->update($temp);
@@ -206,7 +214,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 $profile->update([
                     'birth_year' => $temp['birth_year'],
                     'fullname' => $temp['fullname'],
-                    'gender' => (int) $temp['gender'] + 2,
+                    'gender' => $temp['gender'],
                     'email' => $temp['email'],
                 ]);
             }
