@@ -26,11 +26,22 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
-    return response()->json([
-        'data' => $request->user(),
-        'message' => 'return user',
-        'success' => 1,
-    ]);
+    try {
+        if ($request->user()) {
+            return response()->json([
+                'data' => $request->user(),
+                'message' => 'return user',
+                'success' => 1,
+            ]);
+        } else {
+            throw new Exception('token invalid');
+        }
+    } catch (Exception $err) {
+        return response()->json([
+            'message' => $err->getMessage(),
+            'success' => 0,
+        ]);
+    }
 });
 
 /*

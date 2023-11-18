@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class ImageControlle extends Controller
             if ($request->role === 'user') {
                 $user = User::find($request->id);
             } else {
-                $user = User::find($request->id);
+                $user = Company::find($request->id);
             }
             if ($user) {
                 if ($user->image) {
