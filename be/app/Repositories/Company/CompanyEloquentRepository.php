@@ -68,12 +68,6 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
         if (! $check) {
             if (Http::get('https://api.vietqr.io/v2/business/'.$request->tax_code)['data']) {
                 $temp = Arr::except($request->all(), ['image']);
-                if ($request->file('image')) {
-                    $image = $request->file('image');
-                    $imageName = time().$image->getClientOriginalName();
-                    $image->move(public_path('images/'), $imageName);
-                    $temp['image'] = asset('images/'.$imageName);
-                }
                 $data = $this->_model->create($temp);
                 $token = hash_hmac('sha256', Str::random(40), config('app.key'));
                 $data['token'] = $token;
@@ -112,12 +106,6 @@ class CompanyEloquentRepository extends EloquentRepository implements CompanyRep
         $company = $this->_model->find($request->id);
         if ($company) {
             $temp = Arr::except($request->all(), ['image']);
-            if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $company->image)) {
-                $image = $request->file('image');
-                $imageName = time().$image->getClientOriginalName();
-                $image->move(public_path('images/'), $imageName);
-                $temp['image'] = asset('images/'.$imageName);
-            }
             $data = $company->update($temp);
 
             return $data;

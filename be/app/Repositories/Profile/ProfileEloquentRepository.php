@@ -4,7 +4,6 @@ namespace App\Repositories\Profile;
 
 use App\Models\EXPdetail;
 use App\Models\Project;
-use App\Models\Task;
 use App\Models\User;
 use App\Repositories\EloquentRepository;
 use Illuminate\Http\Request;
@@ -25,6 +24,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
     public function info($request)
     {
         $data = $this->_model->with([
+            'applier',
             'projects',
             'expDetail',
             'skills',
@@ -35,9 +35,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             'level'])
             ->where('applier_id', $request->id)->first();
         if ($request->user()->role == 1) {
-            $data['appliedTasks'] = Task::where('hr_id', $request->user()->id)->whereHas('appliedBy', function ($query) use ($request) {
-                $query->where('users.id', $request->id);
-            })->with('category', 'address')->get();
+            $data['appliedTasks'] = User::find($request->id)->appliedTasks()->where('hr_id', $request->user()->id)->with('category', 'address')->get();
         }
 
         return $data;

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExpController;
+use App\Http\Controllers\ImageControlle;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\TaskController;
@@ -122,3 +123,5 @@ Route::prefix('profile')->group(function () {
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->post('/create', [ProfileController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->put('/update', [ProfileController::class, 'update']);
 });
+
+Route::middleware(['auth:sanctum'])->post('/image/upload/{id}', [ImageControlle::class, 'imageUpload']);
