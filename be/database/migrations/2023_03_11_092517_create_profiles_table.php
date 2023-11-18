@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('applier_id');
-            $table->smallInteger('birth_year');
+            $table->smallInteger('birth_year')->nullable();
             $table->smallInteger('level_id')->nullable();
             $table->string('email');
             $table->integer('address_id')->nullable();
