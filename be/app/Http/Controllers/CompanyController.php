@@ -93,6 +93,11 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
         try {
+            $request->validate([
+                'email' => 'email|required',
+                'password' => 'required',
+            ]);
+
             $data = $this->companyRepository->createCompany($request);
             if ($data) {
                 Mail::to($data->email)->send(new DemoMail($data));

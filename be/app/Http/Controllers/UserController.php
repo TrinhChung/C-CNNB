@@ -21,6 +21,12 @@ class UserController extends Controller
     public function create(Request $request)
     {
         try {
+
+            $request->validate([
+                'email' => 'email|required',
+                'password' => 'required',
+            ]);
+
             $data = $this->userRepository->createUser($request);
             if ($data && ! $data['error']) {
                 Mail::to($data->email)->send(new DemoMail($data));
