@@ -98,6 +98,14 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         }
         //dd($temp["gender"]);
         $data = $this->_model->create($temp);
+        if ($request->role == 0) {
+            Profile::create([
+                'birth_year' => $temp['birth_year'],
+                'fullname' => $temp['fullname'],
+                'gender' => (int) $temp['gender'] + 2,
+                'email' => $temp['email'],
+            ]);
+        }
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
         $data['token'] = $token;
         Activation::create([

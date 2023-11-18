@@ -6,6 +6,8 @@ use App\Models\Applier_task;
 use App\Models\Type_task;
 use App\Models\User;
 use App\Repositories\EloquentRepository;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -106,6 +108,10 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function createTask(Request $request)
     {
         $temp = Arr::except($request->all(), ['types']);
+        if (! Carbon::createFromFormat('Y-m-d', $temp['end'])->gte(Carbon::createFromFormat('Y-m-d', $temp['start']))) {
+            throw new Exception('time not valid');
+        }
+        //dd(Carbon::createFromFormat('Y-m-d', $temp["end"]));
         $data = $this->_model->create($temp);
         foreach ($request->types as $type) {
             Type_task::create([
