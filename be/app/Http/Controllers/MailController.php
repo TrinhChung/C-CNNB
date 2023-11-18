@@ -11,11 +11,13 @@ class MailController extends Controller
     public function active(Request $request)
     {
         $data = Activation::where('token', $request->token)->first();
-        if (! $data || ! $data->valid) {
+        if (! $data) {
             return response()->json([
                 'success' => 0,
-                'message' => 'your token is not valid',
+                'message' => 'your token not found',
             ]);
+        } elseif (! $data->valid) {
+            return view('emails.verifyPage');
         } else {
             $data->update([
                 'valid' => false,

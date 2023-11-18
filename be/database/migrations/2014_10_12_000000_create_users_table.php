@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->smallInteger('birth_year')->nullable();
             $table->enum('gender', [-1, 0, 1])->default(-1);
-            $table->enum('role', [0, 1]);
+            $table->enum('role', [0, 1])->default(0);
             $table->uuid('company_id')->nullable();
             $table->enum('hraccepted', [0, 1])->nullable();
             $table->rememberToken();

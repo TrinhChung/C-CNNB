@@ -65,7 +65,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
                 return ! in_array($id, Arr::pluck($newExpDetail, 'id'));
             });
         }
-        $tempt = Arr::except($request->all(), ['projects', 'exp_detail', 'workable_places', 'skills']);
+        $tempt = Arr::except($request->all(), ['projects', 'exp_detail', 'workable_places', 'skills', 'image']);
         if (array_key_exists('gender', $tempt)) {
             $tempt['gender'] += 2;
         }

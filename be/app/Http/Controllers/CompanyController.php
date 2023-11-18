@@ -6,6 +6,7 @@ use App\Mail\DemoMail;
 use App\Repositories\Company\CompanyRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
+use Mail;
 
 class CompanyController extends Controller
 {
