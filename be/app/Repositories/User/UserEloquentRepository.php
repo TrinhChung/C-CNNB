@@ -84,12 +84,6 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             return ['error' => 'email has been taken'];
         }
         $temp = Arr::except($request->all(), ['image']);
-        if ($request->file('image')) {
-            $image = $request->file('image');
-            $imageName = time().$image->getClientOriginalName();
-            $image->move(public_path('images/'), $imageName);
-            $temp['image'] = asset('images/'.$imageName);
-        }
         if ($request->role == 1) {
             if (! $request->company_id) {
                 throw new Exception('you must choose your company');
@@ -199,12 +193,6 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         $user = $request->user();
         if ($user) {
             $temp = Arr::except($request->all(), ['image']);
-            if ($request->file('image') && ! Str::contains($request->file('image')->getClientOriginalName(), $user->image)) {
-                $image = $request->file('image');
-                $imageName = time().$image->getClientOriginalName();
-                $image->move(public_path('images/'), $imageName);
-                $temp['image'] = asset('images/'.$imageName);
-            }
             if ($request->gender !== null) {
                 $temp['gender'] = $request->gender + 2;
             }
