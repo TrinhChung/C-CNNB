@@ -11,7 +11,6 @@ import { getInfoCompany } from "../../../service/Company/index";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../provider/authProvider";
 import { useNavigate } from "react-router-dom";
-import { recommendTaskHR } from "../../../service/HR/index";
 import CardWork from "../../HR/work/CardWork";
 import CardAnimated from "../../../component/Animation/CardAnimated";
 import { listHeaderTask } from "../../../const/columnTable";
@@ -55,7 +54,11 @@ const Home = () => {
   }, []);
 
   const redirectTask = () => {
-    navigate(`/job/`);
+    navigate(`/work/`);
+  };
+
+  const redirectHr = () => {
+    navigate(`/manager/`);
   };
 
   return (
@@ -67,7 +70,7 @@ const Home = () => {
           backgroundColor: "white",
         }}
       >
-        <TitleViewAll title={"Quản lý HR"} />
+        <TitleViewAll title={"Quản lý HR"} redirect={redirectHr} />
         <Row
           style={{
             justifyContent: "flex-start",

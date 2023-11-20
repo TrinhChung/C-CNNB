@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Layout, Row, Col, Dropdown, Modal } from "antd";
+import { Layout, Row, Col, Dropdown, Modal, Image } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/authProvider";
 import { logoutService, loginMe } from "../service/Auth";
-const { Header } = Layout;
+import LogoNavbar from "../assets/logo/logo3.svg";
 
+const { Header } = Layout;
 const Navbar = ({ data }) => {
   const { authUser, setAuthUser } = useContext(AuthContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -90,13 +91,15 @@ const Navbar = ({ data }) => {
             color: "var(--color-main)",
           }}
         >
-          <Link
-            to={"/"}
-            style={{ color: "var(--color-main)" }}
-            onClick={() => setCurrent("home")}
-          >
-            Logo
-          </Link>
+          <Row style={{ justifyContent: "center" }}>
+            <Link
+              to={"/"}
+              style={{ color: "var(--color-main)" }}
+              onClick={() => setCurrent("home")}
+            >
+              <Image src={LogoNavbar} height={50} preview={false} />
+            </Link>
+          </Row>
         </Col>
         <Col span={14} style={{ height: 60 }}>
           <Menu

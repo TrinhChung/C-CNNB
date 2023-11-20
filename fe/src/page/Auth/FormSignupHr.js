@@ -6,7 +6,6 @@ import { buildAddress } from "../../const/buildData";
 
 const FormSignupHr = () => {
   const { companies } = useContext(AuthContext);
-  console.log(companies);
 
   return (
     <Col span={24}>

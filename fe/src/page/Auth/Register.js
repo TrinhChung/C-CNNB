@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Tabs, Button, Image, Form } from "antd";
 import imageLogin from "../../assets/image-login.jpeg";
 import logoLogin from "../../assets/logo1.svg";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import FormSignupUser from "./FormSignupUser";
 import FormSignupHr from "./FormSignupHr";
 import FormSignupCompany from "./FormSignupCompany";
+import { singUpForm } from "../../service/Auth/SignUpForm";
+import axios from "axios";
 
 import "./Auth.scss";
 const Register = () => {
@@ -15,9 +17,9 @@ const Register = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
-  const handleChange = (value) => {
-    setRole(value);
-  };
+  useEffect(() => {
+    form.resetFields();
+  }, []);
 
   const items = [
     {
@@ -31,7 +33,7 @@ const Register = () => {
       children: <FormSignupHr form={form} />,
     },
     {
-      key: 3,
+      key: 2,
       label: `Company`,
       children: <FormSignupCompany form={form} />,
     },
@@ -43,9 +45,25 @@ const Register = () => {
   };
 
   const handlerLogin = async () => {
-    form.validateFields();
-    console.log(form.getFieldsValue());
+    const url = `http://localhost:8000/${
+      role === 2 ? "/api/company/new" : "/api/user/new"
+    }`;
+    console.log(url);
+    // form.validateFields();
+    // const formData = new FormData();
+    // const fieldsValue = form.getFieldsValue();
+    // Object.keys(fieldsValue).forEach((key) => {
+    //   formData.append(key, fieldsValue[key]);
+    // });
+    // formData.append("role", role);
+
+    // const res = await singUpForm(
+    //   formData,
+    //   "http://localhost:8000/api/user/new"
+    // );
+    // console.log(res);
   };
+
   return (
     <Row className="auth-container">
       <Col className={"wrap-box"}>
