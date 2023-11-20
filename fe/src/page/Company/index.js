@@ -5,7 +5,6 @@ import Home from "./home";
 import JobCompany from "./work";
 import Manager from "./manager";
 import CompanyProfile from "./profile";
-
 const Company = () => {
   const items = [
     {

@@ -9,7 +9,7 @@ const FormSignupHr = () => {
 
   return (
     <Col span={24}>
-      <FormItemVertical name={"name"} label={"Tên công ty"} required={true}>
+      <FormItemVertical name={"fullname"} label={"Họ và tên"} required={true}>
         <Input />
       </FormItemVertical>
       <FormItemVertical
