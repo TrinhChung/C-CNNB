@@ -2,14 +2,15 @@ import React, { useContext } from "react";
 import { Select, Input, Col } from "antd";
 import FormItemVertical from "../../component/Form/FormItemVertical";
 import { AuthContext } from "../../provider/authProvider";
-import { buildCategories } from "../../const/buildData";
+import { buildAddress } from "../../const/buildData";
 
 const FormSignupHr = () => {
   const { companies } = useContext(AuthContext);
+  console.log(companies);
 
   return (
     <Col span={24}>
-      <FormItemVertical name={"fullname"} label={"Họ và tên"} required={true}>
+      <FormItemVertical name={"name"} label={"Tên công ty"} required={true}>
         <Input />
       </FormItemVertical>
       <FormItemVertical
@@ -17,7 +18,7 @@ const FormSignupHr = () => {
         label={"Công ty của bạn"}
         required={true}
       >
-        <Select options={buildCategories(companies)} />
+        <Select options={buildAddress(companies, false)} />
       </FormItemVertical>
       <FormItemVertical name={"email"} label={"Email"} required={true}>
         <Input />

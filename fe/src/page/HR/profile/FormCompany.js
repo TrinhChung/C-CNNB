@@ -76,7 +76,7 @@ const FormCompany = ({ onEdit = () => {} }) => {
                 label="Mã số thuế"
                 paddingBottom={20}
               >
-                <Input disabled={!edit} />
+                <Input disabled={true} />
               </FormItemVertical>
             </Col>
             <Col span={16} className="custom">

@@ -6,7 +6,7 @@ const Auth = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/auth/signup" element={<Register />} />
+      <Route path="/signup" element={<Register />} />
       <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
