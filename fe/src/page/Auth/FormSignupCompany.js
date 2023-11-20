@@ -6,7 +6,7 @@ import { buildCategories } from "../../const/buildData";
 const FormSignupCompany = () => {
   return (
     <Col span={24}>
-      <FormItemVertical name={"fullname"} label={"Tên công ty"} required={true}>
+      <FormItemVertical name={"name"} label={"Tên công ty"} required={true}>
         <Input />
       </FormItemVertical>
       <FormItemVertical name={"tax_code"} label={"Mã số thuế"} required={true}>

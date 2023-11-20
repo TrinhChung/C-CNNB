@@ -27,5 +27,9 @@ export const searchHRCompany = (page, query) => {
 };
 
 export const editProfileCompany = (id, data) => {
-  return axios.put(`/api/company/update/${id}`);
+  return axios.put(`/api/company/update/${id}`, data);
+};
+
+export const acceptHr = (id, data) => {
+  return axios.put(`/api/company/accept/${id}`, data);
 };
