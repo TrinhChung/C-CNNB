@@ -70,16 +70,17 @@ export default function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    if (!authUser) {
+    const token = localStorage.getItem("accessToken");
+    if (!authUser && token) {
       handlerLogin();
     } else {
       getCategories();
       getAddress();
-      getCompanies();
       getExps();
       getSkills();
       getTypes();
     }
+    getCompanies();
   }, [authUser]);
 
   return (
