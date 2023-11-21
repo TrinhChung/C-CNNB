@@ -29,7 +29,11 @@ const CompanyDetail = () => {
         total={data?.tasks_count}
         banner={true}
         email={data?.email}
-        image={data?.image}
+        image={
+          data?.image
+            ? data?.image
+            : "https://th.bing.com/th/id/OIP.wbmSfjRC-sAo0uGpIRYn9gHaFi?w=226&h=180&c=7&r=0&o=5&pid=1.7"
+        }
       />
 
       <Row>
@@ -45,7 +49,11 @@ const CompanyDetail = () => {
           title={"Các vị trí công ty đang đăng tuyển"}
           data={data?.tasks}
           isShowAll={true}
-          image={data?.image}
+          image={
+            data?.image
+              ? data?.image
+              : "https://th.bing.com/th/id/OIP.wbmSfjRC-sAo0uGpIRYn9gHaFi?w=226&h=180&c=7&r=0&o=5&pid=1.7"
+          }
           isPagination={false}
           query={{ companyId: id }}
         />

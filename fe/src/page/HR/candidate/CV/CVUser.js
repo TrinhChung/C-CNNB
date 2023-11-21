@@ -5,7 +5,12 @@ import Detail from "./Detail";
 import { getProfileUser as getProfileService } from "../../../../service/User";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../../../provider/authProvider";
-const CVUser = ({ id, handleAccept = () => {}, handleReject = () => {} }) => {
+const CVUser = ({
+  id,
+  handleAccept = () => {},
+  handleReject = () => {},
+  change = false,
+}) => {
   const [user, setUser] = useState({});
   const { authUser } = useContext(AuthContext);
 
@@ -18,7 +23,7 @@ const CVUser = ({ id, handleAccept = () => {}, handleReject = () => {} }) => {
 
   useEffect(() => {
     getInfoProfile(id);
-  }, []);
+  }, [change]);
 
   return (
     <Col
@@ -48,9 +53,14 @@ const CVUser = ({ id, handleAccept = () => {}, handleReject = () => {} }) => {
             <Row className="fs-24 bold ">Các Job ứng viên ứng tuyển</Row>
             {user?.appliedTasks?.length > 0 &&
               user.appliedTasks.map((task, index) => {
-                return task.fail === "-1" ? (
+                return task?.pivot?.fail === "-1" ? (
                   <Row
-                    style={{ alignItems: "center", gap: 10, paddingLeft: 40 }}
+                    style={{
+                      alignItems: "center",
+                      gap: 10,
+                      paddingLeft: 40,
+                      paddingBottom: 20,
+                    }}
                     key={index}
                   >
                     <Col className="fs-24 text-name-click" span={12}>

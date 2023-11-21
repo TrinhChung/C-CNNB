@@ -21,7 +21,7 @@ import Project from "./Project";
 import { updateProfile } from "../../../service/User";
 import { toast } from "react-toastify";
 import Skill from "./Skill";
-import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
 import CVUser from "../../HR/candidate/CV/CVUser";
 const { TextArea } = Input;
 
