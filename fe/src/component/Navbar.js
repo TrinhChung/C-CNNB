@@ -30,10 +30,10 @@ const Navbar = ({ data }) => {
 
   const onLogout = async () => {
     localStorage.removeItem("accessToken");
+    setAuthUser(null);
     try {
       const res = await logoutService();
       if (res.success) {
-        setAuthUser(null);
         toast.success("Đã đăng xuất");
       } else {
         toast.error("Có lỗi xảy ra");
