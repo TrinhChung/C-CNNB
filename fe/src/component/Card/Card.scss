@@ -8,3 +8,16 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.ant-upload-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .ant-upload-list-text {
+    visibility: hidden;
+  }
+}
+.ant-upload-wrapper .ant-upload-select {
+  display: flex;
+  justify-content: center;
+}

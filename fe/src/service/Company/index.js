@@ -31,5 +31,5 @@ export const editProfileCompany = (id, data) => {
 };
 
 export const acceptHr = (id, data) => {
-  return axios.put(`/api/company/accept/${id}`, data);
+  return axios.put(`/api/company/accept?hr_id=${id}`, data);
 };

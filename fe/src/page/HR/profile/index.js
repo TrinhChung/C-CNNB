@@ -35,6 +35,7 @@ const Profile = () => {
       <Routes>
         <Route path="/" element={<Info />} />
         <Route path="/company" element={<CompanyProfile />} />
+        <Route path="/view" element={<CompanyProfile />} />
       </Routes>
     </SiderLayout>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form } from "antd";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../provider/authProvider";
@@ -11,10 +11,12 @@ import { toast } from "react-toastify";
 const CompanyProfile = () => {
   const { authUser } = useContext(AuthContext);
   const [form] = Form.useForm();
+  const [data, setData] = useState({});
   const getInfoCompany = async (id) => {
     const res = await detailCompany(id);
     if (res.success === 1 && res.data) {
       form.setFieldsValue({ ...res.data });
+      setData(res.data);
     }
   };
 
@@ -35,7 +37,7 @@ const CompanyProfile = () => {
 
   return (
     <Form form={form}>
-      <FormCompany onEdit={onEdit} />
+      <FormCompany onEdit={onEdit} image={data?.image} />
     </Form>
   );
 };

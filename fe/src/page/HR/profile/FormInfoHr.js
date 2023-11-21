@@ -1,11 +1,27 @@
-import React, { useState } from "react";
-import { Col, Row, Input, Button, Radio } from "antd";
+import { useState, useContext } from "react";
+import { Col, Row, Input, Button, Radio, Modal } from "antd";
 import UploadImage from "../../../component/Card/UploadImage";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import ProfileHR from "../../Company/manager/ProfileHR";
+import { AuthContext } from "../../../provider/authProvider";
+import { toast } from "react-toastify";
+import { singUpForm } from "../../../service/Auth/SignUpForm";
 
-const FormInfoHr = ({ onSubmit }) => {
+const FormInfoHr = ({ onSubmit, image }) => {
   const [edit, setEdit] = useState(false);
+  const { authUser } = useContext(AuthContext);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const uploadImage = async (form) => {
+    const res = await singUpForm(
+      form,
+      `http://localhost:8000/api/image/upload/${authUser.id}?role=hr`
+    );
+    if (res.success === 1) {
+      toast.success("Đã Upload Ảnh ");
+    }
+  };
 
   return (
     <Col
@@ -26,21 +42,33 @@ const FormInfoHr = ({ onSubmit }) => {
       >
         <Col className="title-color-main">Thông tin tài khoản</Col>
         <Col>
-          <Button
-            className="button-job"
-            size="large"
-            onClick={() => {
-              setEdit(true);
-            }}
-          >
-            <EditOutlined />
-            Chỉnh sửa
-          </Button>
+          <Row style={{ gap: 10 }}>
+            <Button
+              className="button-job"
+              size="large"
+              onClick={() => {
+                setIsOpenModal(true);
+              }}
+            >
+              <EyeOutlined />
+              View
+            </Button>
+            <Button
+              className="button-job"
+              size="large"
+              onClick={() => {
+                setEdit(true);
+              }}
+            >
+              <EditOutlined />
+              Chỉnh sửa
+            </Button>
+          </Row>
         </Col>
       </Row>
       <Row>
         <Col span={8}>
-          <UploadImage />
+          <UploadImage image={image} uploadAction={uploadImage} />
         </Col>
         <Col span={16}>
           <Col span={24} style={{ paddingLeft: 40, paddingBottom: 120 }}>
@@ -91,6 +119,20 @@ const FormInfoHr = ({ onSubmit }) => {
           </Button>
         </Row>
       )}
+      <Modal
+        open={isOpenModal}
+        width={"100%"}
+        style={{ top: 0 }}
+        onOk={() => {
+          setIsOpenModal(false);
+        }}
+        onCancel={() => {
+          setIsOpenModal(false);
+        }}
+      >
+        <Col style={{ paddingTop: 20 }}></Col>
+        <ProfileHR id={authUser?.id} />
+      </Modal>
     </Col>
   );
 };

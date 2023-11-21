@@ -6,19 +6,42 @@ import TitleViewAll from "../../../component/TitleViewAll";
 import { listHeaderTask } from "../../../const/columnTable";
 import { useNavigate } from "react-router-dom";
 import TableResult from "../../HR/work/TableResult";
+import { useState, useEffect } from "react";
+import { searchTaskHr as searchTaskHrService } from "../../../service/HR";
+import { getInfoHr as getInfoHrService } from "../../../service/User/index";
 
-const ProfileHR = ({
-  data,
-  tasks,
-  currentPage,
-  setCurrentPage,
-  total,
-  acceptHr = () => {},
-}) => {
+const ProfileHR = ({ acceptHr = () => {}, id }) => {
+  const navigate = useNavigate();
+
+  const [data, setData] = useState({});
+  const [tasks, setTasks] = useState([]);
+  const [total, setTotal] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const redirectTask = () => {
     navigate(`/work/`);
   };
-  const navigate = useNavigate();
+
+  const getTaskRecommendHR = async (id) => {
+    const res = await searchTaskHrService(id, "", currentPage);
+    if (res.success === 1 && res.data) {
+      setTotal(res.data.total);
+      if (res.data.data) {
+        setTasks(res.data.data);
+      }
+    }
+  };
+
+  const getInfoHr = async (id) => {
+    const res = await getInfoHrService(id);
+    if (res.success === 1 && res.data) {
+      setData(res.data);
+    }
+  };
+
+  useEffect(() => {
+    getTaskRecommendHR(id);
+    getInfoHr(id);
+  }, [id]);
 
   return (
     <Col>

@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AuthContext } from "../provider/authProvider";
-import { logoutService, loginMe } from "../service/Auth";
+import { logoutService } from "../service/Auth";
 import LogoNavbar from "../assets/logo/logo3.svg";
 
 const { Header } = Layout;
@@ -29,15 +29,20 @@ const Navbar = ({ data }) => {
   }, [pathname]);
 
   const onLogout = async () => {
-    const res = await logoutService();
-    if (res.success) {
-      setAuthUser(null);
-      localStorage.removeItem("accessToken");
-      navigate("/login");
-      toast.success("Đã đăng xuất");
-    } else {
-      toast.error("Có lỗi xảy ra");
+    localStorage.removeItem("accessToken");
+    try {
+      const res = await logoutService();
+      if (res.success) {
+        setAuthUser(null);
+        toast.success("Đã đăng xuất");
+      } else {
+        toast.error("Có lỗi xảy ra");
+      }
+    } catch (error) {
+      console.log(error);
     }
+
+    navigate("/login");
   };
 
   const items = [
