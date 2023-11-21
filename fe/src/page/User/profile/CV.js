@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Select, Input, Radio, Form } from "antd";
+import { Col, Row, Select, Input, Radio, Form, Button, Modal } from "antd";
 import UploadImage from "../../../component/Card/UploadImage";
 import RowVertical from "../../../component/RowVertical";
 import BoxCV from "../../../component/BoxCV";
@@ -21,7 +21,8 @@ import Project from "./Project";
 import { updateProfile } from "../../../service/User";
 import { toast } from "react-toastify";
 import Skill from "./Skill";
-
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import CVUser from "../../HR/candidate/CV/CVUser";
 const { TextArea } = Input;
 
 const CV = () => {
@@ -30,6 +31,7 @@ const CV = () => {
   const [user, setUser] = useState({});
   const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
@@ -114,6 +116,20 @@ const CV = () => {
                   user?.updated_at ? user.updated_at : new Date()
                 ).format("l")}
               />
+            </Col>
+            <Col>
+              <Row style={{ gap: 10 }}>
+                <Button
+                  className="button-job"
+                  size="large"
+                  onClick={() => {
+                    setIsOpenModal(true);
+                  }}
+                >
+                  <EyeOutlined />
+                  View
+                </Button>
+              </Row>
             </Col>
           </Row>
         </BoxCV>
@@ -284,6 +300,15 @@ const CV = () => {
           </Col>
         </BoxCV>
       </Form>
+      <Modal
+        open={isOpenModal}
+        width={"100%"}
+        style={{ top: 0 }}
+        onOk={() => setIsOpenModal(false)}
+        onCancel={() => setIsOpenModal(false)}
+      >
+        <CVUser id={authUser?.id} />
+      </Modal>
     </Col>
   );
 };

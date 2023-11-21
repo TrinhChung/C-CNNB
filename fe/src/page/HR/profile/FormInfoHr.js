@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { Col, Row, Input, Button, Radio } from "antd";
+import { useState, useContext } from "react";
+import { Col, Row, Input, Button, Radio, Modal } from "antd";
 import UploadImage from "../../../component/Card/UploadImage";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, EyeOutlined } from "@ant-design/icons";
+import ProfileHR from "../../Company/manager/ProfileHR";
+import { AuthContext } from "../../../provider/authProvider";
 
 const FormInfoHr = ({ onSubmit }) => {
   const [edit, setEdit] = useState(false);
-
+  const { authUser } = useContext(AuthContext);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <Col
       style={{
@@ -26,16 +29,28 @@ const FormInfoHr = ({ onSubmit }) => {
       >
         <Col className="title-color-main">Thông tin tài khoản</Col>
         <Col>
-          <Button
-            className="button-job"
-            size="large"
-            onClick={() => {
-              setEdit(true);
-            }}
-          >
-            <EditOutlined />
-            Chỉnh sửa
-          </Button>
+          <Row style={{ gap: 10 }}>
+            <Button
+              className="button-job"
+              size="large"
+              onClick={() => {
+                setIsOpenModal(true);
+              }}
+            >
+              <EyeOutlined />
+              View
+            </Button>
+            <Button
+              className="button-job"
+              size="large"
+              onClick={() => {
+                setEdit(true);
+              }}
+            >
+              <EditOutlined />
+              Chỉnh sửa
+            </Button>
+          </Row>
         </Col>
       </Row>
       <Row>
@@ -91,6 +106,20 @@ const FormInfoHr = ({ onSubmit }) => {
           </Button>
         </Row>
       )}
+      <Modal
+        open={isOpenModal}
+        width={"100%"}
+        style={{ top: 0 }}
+        onOk={() => {
+          setIsOpenModal(false);
+        }}
+        onCancel={() => {
+          setIsOpenModal(false);
+        }}
+      >
+        <Col style={{ paddingTop: 20 }}></Col>
+        <ProfileHR id={authUser?.id} />
+      </Modal>
     </Col>
   );
 };

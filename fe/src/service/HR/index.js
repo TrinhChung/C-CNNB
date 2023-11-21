@@ -5,7 +5,7 @@ export const getApplier = (id = "", query) => {
 };
 
 export const searchTaskHr = (id = "", query, page = 1) => {
-  return axios.get(`/api/task/search?page=${page}hr_id=${id}&${query}`);
+  return axios.get(`/api/task/search?page=${page}&hr_id=${id}&${query}`);
 };
 
 export const editTask = (id, data) => {
