@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import Skill from "./Skill";
 import { EyeOutlined } from "@ant-design/icons";
 import CVUser from "../../HR/candidate/CV/CVUser";
+import { singUpForm } from "../../../service/Auth/SignUpForm";
 const { TextArea } = Input;
 
 const CV = () => {
@@ -84,6 +85,16 @@ const CV = () => {
     );
   };
 
+  const uploadImage = async (form) => {
+    const res = await singUpForm(
+      form,
+      `http://localhost:8000/api/image/upload/${authUser.id}?role=user`
+    );
+    if (res.success === 1) {
+      toast.success("Đã Upload Ảnh ");
+    }
+  };
+
   return (
     <Col
       style={{
@@ -95,7 +106,10 @@ const CV = () => {
         <BoxCV title={"Profile"}>
           <Row style={{ paddingTop: 20 }}>
             <Col style={{ paddingRight: 40 }}>
-              <UploadImage image={user?.image} />
+              <UploadImage
+                image={user?.applier?.image}
+                uploadAction={uploadImage}
+              />
             </Col>
             <Col span={12}>
               <Row className="font-text-28" style={{ paddingBottom: 15 }}>

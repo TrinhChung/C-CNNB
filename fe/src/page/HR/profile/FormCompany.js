@@ -6,12 +6,23 @@ import FormItemVertical from "../../../component/Form/FormItemVertical";
 import { buildAddress } from "../../../const/buildData";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../provider/authProvider";
+import { toast } from "react-toastify";
+import { singUpForm } from "../../../service/Auth/SignUpForm";
 const { TextArea } = Input;
 
-const FormCompany = ({ onEdit = () => {} }) => {
+const FormCompany = ({ onEdit = () => {}, image }) => {
   const { authUser, addresses } = useContext(AuthContext);
   const [edit, setEdit] = useState(false);
 
+  const uploadImage = async (form) => {
+    const res = await singUpForm(
+      form,
+      `http://localhost:8000/api/image/upload/${authUser.id}?role=company`
+    );
+    if (res.success === 1) {
+      toast.success("Đã Upload Ảnh ");
+    }
+  };
   return (
     <Col
       style={{
@@ -45,10 +56,7 @@ const FormCompany = ({ onEdit = () => {} }) => {
       </Row>
       <Row>
         <Col span={8}>
-          <UploadImage
-            edit={edit}
-            image="https://th.bing.com/th/id/OIP.bSb43NL2Y-B-UoeRS7JHsAAAAA?pid=ImgDet&w=195&h=194&c=7"
-          />
+          <UploadImage image={image} uploadAction={uploadImage} />
         </Col>
         <Col span={16}>
           <Col span={24} style={{ paddingLeft: 40, paddingBottom: 120 }}>

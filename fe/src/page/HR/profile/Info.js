@@ -39,7 +39,7 @@ const Info = () => {
 
   return (
     <Form form={form}>
-      <FormInfoHr onSubmit={onSubmit} />
+      <FormInfoHr onSubmit={onSubmit} image={data?.image} />
     </Form>
   );
 };
