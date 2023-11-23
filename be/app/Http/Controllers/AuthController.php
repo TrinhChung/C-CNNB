@@ -36,7 +36,6 @@ class AuthController extends Controller
                 }
             } elseif ($request->role == 'company') {
                 $user = Company::where(DB::raw('BINARY `email`'), $fields['email'])->first();
-                $user['role'] = 2;
             }
             //dd($user);
             if (! $user || $fields['password'] !== $user->password) {
@@ -47,7 +46,7 @@ class AuthController extends Controller
                 ]);
             }
             $user->tokens()->delete();
-            $token = $user->createToken('authToken', ['role-'.$request->role])->plainTextToken;
+            $token = $user->createToken($request->email, ['role-'.$request->role])->plainTextToken;
 
             //dd($token);
             return response()->json([
