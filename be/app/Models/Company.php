@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class Company extends Model
@@ -28,20 +27,7 @@ class Company extends Model
 
     protected $primarykey = 'id';
 
-    protected $keyType = 'string';
-
-    public $incrementing = false;
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (empty($model->id)) {
-                $model->id = (string) Str::uuid();
-            }
-        });
-    }
+    public $incrementing = true;
 
     public function managedHrs()
     {

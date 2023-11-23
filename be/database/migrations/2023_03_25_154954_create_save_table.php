@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('save', function (Blueprint $table) {
             $table->increments('id');
-            $table->uuid('applier_id');
-            $table->uuid('task_id');
+            $table->integer('applier_id');
+            $table->integer('task_id');
             $table->timestamps();
         });
     }

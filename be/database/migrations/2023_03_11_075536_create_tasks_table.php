@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->increments('id');
             $table->text('title')->nullable(false);
-            $table->uuid('hr_id')->nullable(false);
-            $table->uuid('company_id')->nullable(false);
+            $table->integer('hr_id')->nullable(false);
+            $table->integer('company_id')->nullable(false);
             $table->integer('address_id')->nullable(false);
             $table->integer('category_id')->nullable(false);
             $table->integer('amount')->nullable(false);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('activations', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id')->nullable(false);
+            $table->integer('user_id')->nullable(false);
             $table->string('token')->nullable(false);
             $table->boolean('active')->default(false);
             $table->boolean('valid')->default(true);

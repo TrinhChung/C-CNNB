@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_task', function (Blueprint $table) {
             $table->id();
-            $table->uuid('task_id');
+            $table->integer('task_id');
             $table->smallInteger('type_id');
             $table->timestamps();
         });

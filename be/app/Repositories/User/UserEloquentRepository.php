@@ -102,6 +102,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             Profile::create([
                 'fullname' => $temp['fullname'],
                 'email' => $temp['email'],
+                'applier_id' => $data->id,
             ]);
         }
         $token = hash_hmac('sha256', Str::random(40), config('app.key'));
