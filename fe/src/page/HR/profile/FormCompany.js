@@ -23,6 +23,7 @@ const FormCompany = ({ onEdit = () => {}, image }) => {
       toast.success("Đã Upload Ảnh ");
     }
   };
+  console.log(image);
   return (
     <Col
       style={{
@@ -107,7 +108,7 @@ const FormCompany = ({ onEdit = () => {}, image }) => {
         <FormItemVertical name="detail_address" label={"Địa chỉ chi tiết"}>
           <TextArea
             showCount
-            maxLength={100}
+            maxLength={10000}
             style={{
               marginBottom: 24,
               width: "100%",
@@ -126,7 +127,7 @@ const FormCompany = ({ onEdit = () => {}, image }) => {
         <FormItemVertical name="description" label={"Mô tả công ty "}>
           <TextArea
             showCount
-            maxLength={100}
+            maxLength={10000}
             style={{
               marginBottom: 24,
               width: "100%",

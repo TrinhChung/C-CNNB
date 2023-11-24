@@ -53,12 +53,20 @@ const CV = () => {
         end: item.end.format("YYYY-MM-DD"),
       };
     });
-    data.skills = filterId(data.skills);
-    const res = await updateProfile(data);
-    if (res.success === 1) {
-      toast.success("Update thành công");
-    } else {
-      toast.error("Update that bai");
+
+    data.skills = data.skills.map((skill) => {
+      return skill.content;
+    });
+    console.log(data.skills);
+    try {
+      const res = await updateProfile(data);
+      if (res.success === 1) {
+        toast.success("Update thành công");
+      } else {
+        toast.error("Update that bai");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

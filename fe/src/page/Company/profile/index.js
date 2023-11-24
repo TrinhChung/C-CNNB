@@ -15,6 +15,7 @@ const CompanyProfile = () => {
   const getInfoCompany = async (id) => {
     const res = await detailCompany(id);
     if (res.success === 1 && res.data) {
+      console.log(res.data);
       form.setFieldsValue({ ...res.data });
       setData(res.data);
     }

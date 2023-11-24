@@ -8,11 +8,13 @@ import FormCompany from "./FormCompany";
 const CompanyProfile = () => {
   const { authUser } = useContext(AuthContext);
   const [form] = Form.useForm();
+  const [data, setDate] = useState({});
 
   const getInfoCompany = async (id) => {
     const res = await detailCompany(id);
     if (res.success === 1 && res.data) {
       form.setFieldsValue({ ...res.data });
+      setDate(res.data);
     }
   };
 
@@ -23,7 +25,7 @@ const CompanyProfile = () => {
 
   return (
     <Form form={form}>
-      <FormCompany />
+      <FormCompany image={data?.image} />
     </Form>
   );
 };

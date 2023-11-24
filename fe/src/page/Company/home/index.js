@@ -81,7 +81,15 @@ const Home = () => {
           {hrs &&
             hrs.length > 0 &&
             hrs.map((item, i) => {
-              return <CardUser title={title} data={item} />;
+              return (
+                <CardUser
+                  title={title}
+                  data={item}
+                  redirect={() => {
+                    navigate(`/manager/detail/${item.id}`);
+                  }}
+                />
+              );
             })}
         </Row>
       </Col>

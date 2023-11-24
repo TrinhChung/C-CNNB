@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row } from "antd";
 
-const CardWork = ({ contentBox = [], data, key }) => {
+const CardWork = ({ contentBox = [], data, key, redirect = () => {} }) => {
   return (
     <Col
       span={24}
@@ -12,6 +12,9 @@ const CardWork = ({ contentBox = [], data, key }) => {
       }}
       className="box-border-shadow"
       key={key}
+      onClick={() => {
+        redirect();
+      }}
     >
       <Row style={{ alignItems: "center" }}>
         {contentBox &&

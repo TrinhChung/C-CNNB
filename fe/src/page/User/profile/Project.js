@@ -5,7 +5,6 @@ import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 const { TextArea } = Input;
 const Project = ({ projects = [], edit = false }) => {
-  console.log(projects);
   return (
     <Form.List
       name="projects"
