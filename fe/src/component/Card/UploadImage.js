@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Image, Button, Upload } from "antd";
 import "./Card.scss";
 
-const UploadImage = ({ image, edit = true, uploadAction = () => {} }) => {
+const UploadImage = ({
+  image = "https://th.bing.com/th/id/OIP.qdSbn0McRHkJEzYu5_cAWgHaI9?pid=ImgDet&w=100&h=100&c=7",
+  edit = true,
+  uploadAction = () => {},
+}) => {
   const [field, setField] = useState({});
   const [urlImage, setUrlImage] = useState(image);
 

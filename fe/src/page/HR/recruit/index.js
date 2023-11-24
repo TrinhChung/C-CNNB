@@ -13,6 +13,8 @@ const Recruit = () => {
     try {
       await form.validateFields();
       const data = form.getFieldsValue();
+      data.end = data.end.format("YYYY-MM-DD");
+      data.start = data.start.format("YYYY-MM-DD");
       const res = await postTask({
         hr_id: authUser?.id,
         company_id: authUser.company_id,

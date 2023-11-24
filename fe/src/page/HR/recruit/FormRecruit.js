@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext } from "react";
 import { Col, Row, Input, Button, Select, DatePicker, InputNumber } from "antd";
 import RowVertical from "../../../component/RowVertical";
 import TextArea from "antd/es/input/TextArea";
@@ -135,7 +135,12 @@ const FormRecruit = ({
               disabled={true}
               format={""}
             >
-              <DatePicker mode={"date"} style={{ width: "100%" }} />
+              <DatePicker
+                mode={"date"}
+                min={new Date()}
+                style={{ width: "100%" }}
+                value={new Date()}
+              />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">

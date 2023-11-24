@@ -15,8 +15,10 @@ const WaitVerifyMail = () => {
         </Row>
         <Row>
           <Col span={12} style={{ paddingRight: 40 }}>
-            <Row>
-              <Col span={24}>Mail wait</Col>
+            <Row style={{ paddingTop: 20 }}>
+              <Col span={24} className="fs-24">
+                Vui lòng đợi xác xác thực mail
+              </Col>
             </Row>
             <Row></Row>
             <Row style={{ paddingTop: 40 }}>
