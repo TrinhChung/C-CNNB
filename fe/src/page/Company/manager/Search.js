@@ -94,7 +94,7 @@ const Search = () => {
                 className="h2-color-main text-name-click"
                 style={{ paddingBottom: 6 }}
                 onClick={() => {
-                  navigate(`cv/1`);
+                  navigate(`/manager/detail/${data.id}`);
                 }}
               >
                 {data.fullname}

@@ -160,7 +160,7 @@ export const listHeaderTask = (navigate = () => {}) => {
       },
     },
     {
-      title: "Số người ứng tuyển",
+      title: "Số lượng tuyển",
       col: 4,
       render: (data) => {
         return (
@@ -173,7 +173,7 @@ export const listHeaderTask = (navigate = () => {}) => {
                 style={{ justifyContent: "center", fontWeight: "bold" }}
                 className="fs-16"
               >
-                Người ứng tuyển
+                Số lượng tuyển
               </Row>
             </Col>
           </Row>

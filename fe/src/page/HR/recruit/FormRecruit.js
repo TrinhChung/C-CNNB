@@ -132,6 +132,8 @@ const FormRecruit = ({
               label="Bắt đầu từ:"
               name={"start"}
               required={true}
+              disabled={true}
+              format={""}
             >
               <DatePicker mode={"date"} style={{ width: "100%" }} />
             </FormItemVertical>
@@ -183,7 +185,11 @@ const FormRecruit = ({
               name={"description"}
               required={true}
             >
-              <TextArea style={{ width: "100%" }} />
+              <TextArea
+                style={{ width: "100%" }}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                allowClear={true}
+              />
             </FormItemVertical>
           </Col>
           <Col span={24} className="text-area">
@@ -192,7 +198,11 @@ const FormRecruit = ({
               name={"requiment"}
               required={true}
             >
-              <TextArea style={{ width: "100%" }} />
+              <TextArea
+                style={{ width: "100%" }}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                allowClear={true}
+              />
             </FormItemVertical>
           </Col>
 

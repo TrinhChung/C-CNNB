@@ -27,7 +27,7 @@ import { singUpForm } from "../../../service/Auth/SignUpForm";
 const { TextArea } = Input;
 
 const CV = () => {
-  const { authUser, addresses, exps } = useContext(AuthContext);
+  const { authUser, addresses, exps, categories } = useContext(AuthContext);
   const [workablePlaces, setWorkablePlaces] = useState([]);
   const [user, setUser] = useState({});
   const [form] = Form.useForm();
@@ -47,7 +47,6 @@ const CV = () => {
     await form.validateFields();
     const data = form.getFieldsValue();
     data.skills = filterId(data.skills);
-    data.workable_places = filterValue(data.workable_places);
     const res = await updateProfile(data);
     if (res.success === 1) {
       toast.success("Update thành công");
@@ -204,6 +203,17 @@ const CV = () => {
                 disabled={!edit}
               />
             </FormItemHorizontal>
+            <FormItemHorizontal
+              name={"category_id"}
+              label={"Lĩnh vực làm việc:"}
+              required={true}
+            >
+              <Select
+                style={{ minWidth: 200 }}
+                options={buildCategories(categories, false)}
+                disabled={!edit}
+              />
+            </FormItemHorizontal>
 
             <FormItemVertical
               label="Mô tả về bản thân"
@@ -241,8 +251,6 @@ const CV = () => {
                 <Select
                   mode="multiple"
                   style={{ minWidth: 200 }}
-                  value={workablePlaces}
-                  onChange={setWorkablePlaces}
                   options={buildAddress(addresses, false)}
                   disabled={!edit}
                 />

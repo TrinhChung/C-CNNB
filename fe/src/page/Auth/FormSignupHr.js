@@ -22,6 +22,9 @@ const FormSignupHr = () => {
       <FormItemVertical name={"email"} label={"Email"} required={true}>
         <Input />
       </FormItemVertical>
+      <FormItemVertical required={true} name={"birth_year"} label={"Năm sinh:"}>
+        <Input />
+      </FormItemVertical>
       <FormItemVertical name={"password"} label={"Mật khẩu"} required={true}>
         <Input type="password" />
       </FormItemVertical>

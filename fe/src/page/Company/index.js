@@ -20,8 +20,8 @@ const Company = () => {
       key: "manager",
     },
     {
-      label: <Link to={"/company"}>Hồ sơ công ty</Link>,
-      key: "company",
+      label: <Link to={"/profile"}>Hồ sơ công ty</Link>,
+      key: "profile",
     },
   ];
 
@@ -32,7 +32,7 @@ const Company = () => {
           <Route path="/" element={<Home />} />
           <Route path="/work/*" element={<JobCompany />} />
           <Route path="/manager/*" element={<Manager />} />
-          <Route path="/company" element={<CompanyProfile />} />
+          <Route path="/profile" element={<CompanyProfile />} />
         </Routes>
       </div>
     </HomeLayout>
