@@ -45,6 +45,11 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
             } else {
                 $task['saved'] = false;
             }
+
+            $task['passInfo'] = Applier_task::where(['task_id' => $request->id, 'applier_id' => $request->user()->id])->first();
+
+            unset($task['appliedBy']);
+            unset($task['savedBy']);
         }
 
         //dd($request->user()->role)
@@ -147,7 +152,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         if ($request->user()->id != $task->hr_id) {
             throw new Exception('not your task');
         }
-        $checkProfiles = Applier_task::where('task_id', $task->id)->where('fail', 0)->exists();
+        $checkProfiles = Applier_task::where('task_id', $task->id)->where('fail', -1)->exists();
         if ($checkProfiles) {
             throw new Exception('All profiles must be checked');
         }

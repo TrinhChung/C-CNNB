@@ -85,7 +85,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function changePass(Request $request)
+    public function renewPass(Request $request)
     {
         try {
             $fields = $request->validate([
@@ -141,7 +141,65 @@ class AuthController extends Controller
         } catch (Exception $err) {
             return response()->json([
                 'success' => 0,
-                'message' => 'Error in reset password',
+                'message' => $err->getMessage(),
+                'error' => $err,
+            ]);
+        }
+    }
+
+    public function changePass(Request $request)
+    {
+        try {
+            $fields = $request->validate([
+                'email' => 'email|required',
+                'password' => 'required',
+                'newpassword' => 'required',
+                'checknewpassword' => 'required',
+            ]);
+
+            $user = null;
+
+            if ($request->newpassword != $request->checknewpassword) {
+                throw new Exception('new password not match');
+            }
+
+            if ($request->role == 'user' || $request->role == 'hr') {
+                $user = User::where(DB::raw('BINARY `email`'), $fields['email'])->first();
+
+            } elseif ($request->role == 'company') {
+                $user = Company::where(DB::raw('BINARY `email`'), $fields['email'])->first();
+            }
+
+            //dd($user);
+
+            if (! $user) {
+                return response()->json([
+                    'message' => 'user not found',
+                    'success' => 0,
+                ]);
+            }
+
+            if ($user->password !== $request->password) {
+                return response()->json([
+                    'message' => 'password not true',
+                    'success' => 0,
+                ]);
+            }
+
+            $user->tokens()->delete();
+
+            $user->update([
+                'password' => $request->newpassword,
+            ]);
+
+            return response()->json([
+                'success' => 1,
+                'message' => 'password has changed',
+            ]);
+        } catch (Exception $err) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'Error in change password',
                 'error' => $err,
             ]);
         }
