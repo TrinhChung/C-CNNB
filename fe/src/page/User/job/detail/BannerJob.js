@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Image } from "antd";
+import { Col, Row, Image, Button } from "antd";
 import ButtonSub from "./ButtonSub";
 import "./Job.scss";
 import { buildSalary } from "../../../../const/BuildSalaray";
@@ -53,12 +53,28 @@ const BannerJob = ({ data = {}, apply = () => {}, save = () => {} }) => {
         <Row style={{ fontSize: 20, color: "var(--color-gray-job)" }}>
           Ngày đăng: {moment(data.updated_at).calendar()}
         </Row>
-        <ButtonSub
-          applied={data?.applied}
-          saved={data?.saved}
-          apply={apply}
-          save={save}
-        />
+        {data.passInfo === null || data?.passInfo?.fail === "-1" ? (
+          <ButtonSub
+            applied={data?.applied}
+            saved={data?.saved}
+            apply={apply}
+            save={save}
+          />
+        ) : (
+          <Button
+            className="button-job button-color-inner"
+            style={{
+              width: "100%",
+              height: 64,
+              fontSize: "20px",
+              margin: "12px 0",
+            }}
+          >
+            {data?.passInfo?.fail === "0"
+              ? "Hồ sơ đã được duyệt"
+              : "Hồ sơ đã bị loại"}
+          </Button>
+        )}
       </Col>
     </Row>
   );

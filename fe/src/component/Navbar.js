@@ -18,8 +18,6 @@ const Navbar = ({ data }) => {
   const { pathname } = useLocation();
 
   const onClick = (e) => {
-    e.domEvent.preventDefault();
-    e.domEvent.stopPropagation();
     setCurrent(e.key);
   };
 
@@ -67,7 +65,6 @@ const Navbar = ({ data }) => {
   ];
 
   const handleMenuClick = (e) => {
-    e.preventDefault();
     if (e.key === "logout") {
       setIsOpenModal(true);
     } else {
