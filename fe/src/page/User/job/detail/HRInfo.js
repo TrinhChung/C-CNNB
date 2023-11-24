@@ -3,6 +3,7 @@ import React from "react";
 import { gender } from "../../../../const";
 import avatarUser from "../../../../assets/avatar-user.png";
 const HRInfo = ({ data }) => {
+  console.log(data);
   const RowHorizontal = ({ title, des }) => {
     return (
       <Row

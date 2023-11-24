@@ -179,9 +179,13 @@ const FormRecruit = ({
               <Select mode="multiple" options={buildCategories(types, false)} />
             </FormItemVertical>
           </Col>
-          <Col span={8} className="custom">
+          <Col span={24} className="text-area">
             <FormItemVertical label="Đãi ngộ:" name={"benefit"} required={true}>
-              <Input />
+              <TextArea
+                style={{ width: "100%" }}
+                autoSize={{ minRows: 4, maxRows: 6 }}
+                allowClear={true}
+              />
             </FormItemVertical>
           </Col>
           <Col span={24} className="text-area">
@@ -192,7 +196,7 @@ const FormRecruit = ({
             >
               <TextArea
                 style={{ width: "100%" }}
-                autoSize={{ minRows: 2, maxRows: 6 }}
+                autoSize={{ minRows: 4, maxRows: 6 }}
                 allowClear={true}
               />
             </FormItemVertical>

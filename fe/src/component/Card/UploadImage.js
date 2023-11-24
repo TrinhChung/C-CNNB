@@ -10,6 +10,7 @@ const UploadImage = ({
   const [field, setField] = useState({});
   const [urlImage, setUrlImage] = useState(image);
 
+  console.log(image);
   useEffect(() => {
     setUrlImage(image);
   }, [image]);
