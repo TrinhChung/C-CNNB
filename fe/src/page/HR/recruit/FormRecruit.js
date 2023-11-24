@@ -6,6 +6,7 @@ import FormItemVertical from "../../../component/Form/FormItemVertical";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import { AuthContext } from "../../../provider/authProvider";
 import { buildAddress, buildCategories } from "../../../const/buildData";
+import dayjs from "dayjs";
 const FormRecruit = ({
   onSubmit = () => {},
   onCancel = () => {},
@@ -132,6 +133,8 @@ const FormRecruit = ({
               label="Bắt đầu từ:"
               name={"start"}
               required={true}
+              disabled={true}
+              format={""}
             >
               <DatePicker mode={"date"} style={{ width: "100%" }} />
             </FormItemVertical>
@@ -142,7 +145,13 @@ const FormRecruit = ({
               name={"end"}
               required={true}
             >
-              <DatePicker style={{ width: "100%" }} />
+              <DatePicker
+                style={{ width: "100%" }}
+                onChange={(e) => {
+                  // console.log(dayjs(e.date));
+                  console.log(e.date.split("T")[0]);
+                }}
+              />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">
@@ -183,7 +192,11 @@ const FormRecruit = ({
               name={"description"}
               required={true}
             >
-              <TextArea style={{ width: "100%" }} />
+              <TextArea
+                style={{ width: "100%" }}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                allowClear={true}
+              />
             </FormItemVertical>
           </Col>
           <Col span={24} className="text-area">
@@ -192,7 +205,11 @@ const FormRecruit = ({
               name={"requiment"}
               required={true}
             >
-              <TextArea style={{ width: "100%" }} />
+              <TextArea
+                style={{ width: "100%" }}
+                autoSize={{ minRows: 2, maxRows: 6 }}
+                allowClear={true}
+              />
             </FormItemVertical>
           </Col>
 

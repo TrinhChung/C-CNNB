@@ -9,7 +9,6 @@ import { AuthContext } from "../../../provider/authProvider";
 const Recruit = () => {
   const { authUser } = useContext(AuthContext);
   const [form] = Form.useForm();
-  console.log(authUser);
   const handleSubmit = async () => {
     try {
       await form.validateFields();
