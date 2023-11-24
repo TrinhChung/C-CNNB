@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import TableResult from "../../work/TableResult";
 import { useNavigate } from "react-router-dom";
-import { listHeaderTask } from "../../../../const/columnTable";
 import { Row, Col, Image, Button } from "antd";
 const UserTable = ({ currentPage, setCurrentPage, total, users }) => {
   const navigate = useNavigate();

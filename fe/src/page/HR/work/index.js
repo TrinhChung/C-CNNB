@@ -9,6 +9,7 @@ import { buildCategories, buildAddress } from "../../../const/buildData";
 import { useLocation, useNavigate } from "react-router-dom";
 import { searchTaskHr as searchTaskHrService } from "../../../service/HR";
 import { listHeaderTask } from "../../../const/columnTable";
+
 const Work = () => {
   const location = useLocation();
   const navigate = useNavigate();

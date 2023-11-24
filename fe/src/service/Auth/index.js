@@ -11,3 +11,7 @@ export const loginMe = () => {
 export const logoutService = () => {
   return axios.delete("/api/auth/logout");
 };
+
+export const forgotService = (data) => {
+  return axios.put("/api/auth/reset/password", data);
+};

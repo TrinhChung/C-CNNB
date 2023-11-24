@@ -3,13 +3,11 @@ import {
   UserOutlined,
   FolderOutlined,
   FolderAddOutlined,
-  EyeOutlined,
 } from "@ant-design/icons";
 import SiderLayout from "../../../layout/SiderLayout";
 import { Routes, Route } from "react-router-dom";
 import JobBookmark from "./JobBookmark";
 import JobSubmitted from "./JobSubmitted";
-import MyCompany from "./MyCompany";
 import CV from "./CV";
 
 const menu = [
