@@ -6,7 +6,6 @@ import FormItemVertical from "../../../component/Form/FormItemVertical";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import { AuthContext } from "../../../provider/authProvider";
 import { buildAddress, buildCategories } from "../../../const/buildData";
-import dayjs from "dayjs";
 const FormRecruit = ({
   onSubmit = () => {},
   onCancel = () => {},
@@ -145,13 +144,7 @@ const FormRecruit = ({
               name={"end"}
               required={true}
             >
-              <DatePicker
-                style={{ width: "100%" }}
-                onChange={(e) => {
-                  // console.log(dayjs(e.date));
-                  console.log(e.date.split("T")[0]);
-                }}
-              />
+              <DatePicker style={{ width: "100%" }} />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">
