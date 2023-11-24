@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Col, Row } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 
@@ -28,4 +28,4 @@ const TitleViewAll = ({ title, isShowAll = true, redirect = () => {} }) => {
   );
 };
 
-export default TitleViewAll;
+export default memo(TitleViewAll);

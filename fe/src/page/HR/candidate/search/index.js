@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
-import { Col, Input, Select, Row, Image, Button } from "antd";
+import { Col, Input, Select } from "antd";
 import BoxSearch from "../../work/BoxSearch";
-import TableResult from "../../work/TableResult";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getApplier as getApplierService } from "../../../../service/HR";
 import { AuthContext } from "../../../../provider/authProvider";

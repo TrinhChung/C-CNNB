@@ -3,6 +3,7 @@ import { Col, Row, Pagination, Empty } from "antd";
 import CardWork from "./CardWork";
 import RowHead from "./RowHead";
 import CardAnimated from "../../../component/Animation/CardAnimated";
+import { memo } from "react";
 
 const TableResult = ({
   listHead = [],
@@ -63,4 +64,4 @@ const TableResult = ({
   );
 };
 
-export default TableResult;
+export default memo(TableResult);

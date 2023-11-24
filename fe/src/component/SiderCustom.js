@@ -9,6 +9,7 @@ const SiderCustom = ({ menuProps = {} }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+
   const handleClickMenuOption = (selectedItem) => {
     let { keyPath } = selectedItem;
     keyPath.reverse();

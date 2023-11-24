@@ -74,6 +74,14 @@ const Login = () => {
                 </RowVertical>
               </Col>
             </Row>
+            <Row
+              style={{ paddingBottom: 15, color: "red", cursor: "pointer" }}
+              onClick={() => {
+                navigate("/forgot-password");
+              }}
+            >
+              Quên mật khẩu
+            </Row>
             <Row>
               <Col>
                 <Button className="button-job" onClick={() => handlerLogin()}>

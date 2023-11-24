@@ -53,7 +53,7 @@ const CVUser = ({
             <Row className="fs-24 bold ">Các Job ứng viên ứng tuyển</Row>
             {user?.appliedTasks?.length > 0 &&
               user.appliedTasks.map((task, index) => {
-                return task?.pivot ? (
+                return task?.pivot?.fail === "-1" ? (
                   <Row
                     style={{
                       alignItems: "center",
@@ -87,6 +87,48 @@ const CVUser = ({
                       >
                         Loại
                       </Button>
+                    </Col>
+                  </Row>
+                ) : (
+                  <></>
+                );
+              })}
+            <Row className="fs-24 bold ">Các Job đã duyệt</Row>
+            {user?.appliedTasks?.length > 0 &&
+              user.appliedTasks.map((task, index) => {
+                return task?.pivot?.fail === "0" ? (
+                  <Row
+                    style={{
+                      alignItems: "center",
+                      gap: 10,
+                      paddingLeft: 40,
+                      paddingBottom: 20,
+                    }}
+                    key={index}
+                  >
+                    <Col className="fs-24 text-name-click" span={12}>
+                      {task.title}
+                    </Col>
+                  </Row>
+                ) : (
+                  <></>
+                );
+              })}
+            <Row className="fs-24 bold ">Các Job đã loại</Row>
+            {user?.appliedTasks?.length > 0 &&
+              user.appliedTasks.map((task, index) => {
+                return task?.pivot?.fail === "1" ? (
+                  <Row
+                    style={{
+                      alignItems: "center",
+                      gap: 10,
+                      paddingLeft: 40,
+                      paddingBottom: 20,
+                    }}
+                    key={index}
+                  >
+                    <Col className="fs-24 text-name-click" span={12}>
+                      {task.title}
                     </Col>
                   </Row>
                 ) : (

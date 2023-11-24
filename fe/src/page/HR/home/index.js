@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useState, useEffect, useContext } from "react";
 import { Col, Row } from "antd";
 import Banner from "../../../component/home/Banner";
 import banner from "../../../assets/banner-hr-home.jpeg";
@@ -6,7 +6,6 @@ import TitleViewAll from "../../../component/TitleViewAll";
 import CardUser from "../../../component/Card/CardUser";
 import CardIcon from "../../../component/Card/CardIcon";
 import { FileOutlined } from "@ant-design/icons";
-import { useState, useEffect, useContext } from "react";
 import { getInfoHr } from "../../../service/User/index";
 import { AuthContext } from "../../../provider/authProvider";
 import { recommendTaskHR } from "../../../service/HR/index";
@@ -20,7 +19,6 @@ const Home = () => {
   const { authUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [info, setInfo] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [candidates, setCandidates] = useState([]);
 
@@ -44,7 +42,6 @@ const Home = () => {
   const getInfoProfile = async (id) => {
     const res = await getInfoHr(id);
     if (res.success === 1 && res.data) {
-      setInfo(res.data);
       if (res.data.newAppliers) {
         setCandidates(res.data.newAppliers);
       }
@@ -198,4 +195,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default memo(Home);

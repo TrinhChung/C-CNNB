@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, memo } from "react";
 import { Col, Row, Input, Button, Select, DatePicker, InputNumber } from "antd";
 import RowVertical from "../../../component/RowVertical";
 import TextArea from "antd/es/input/TextArea";
@@ -244,7 +244,7 @@ const FormRecruit = ({
                   onCancel();
                 }}
               >
-                Hủy bỏ
+                {isEdit ? "Đóng task" : "Hủy lưu"}
               </Button>
             </Col>
           </Row>
@@ -254,4 +254,4 @@ const FormRecruit = ({
   );
 };
 
-export default FormRecruit;
+export default memo(FormRecruit);

@@ -8,12 +8,7 @@ import { getProfileUser as getProfileService } from "../../../service/User";
 import { useContext } from "react";
 import { AuthContext } from "../../../provider/authProvider";
 import moment from "moment";
-import {
-  buildAddress,
-  buildCategories,
-  filterId,
-  filterValue,
-} from "../../../const/buildData";
+import { buildAddress, buildCategories } from "../../../const/buildData";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
 import ExpAddField from "./ExpAddField";
