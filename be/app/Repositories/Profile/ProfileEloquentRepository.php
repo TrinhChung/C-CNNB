@@ -73,7 +73,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
         }
         $tempt = Arr::except($request->all(), ['projects', 'exp_detail', 'workable_places', 'skills', 'image']);
         if (array_key_exists('gender', $tempt)) {
-            $tempt['gender'] += 2;
+            $tempt['gender'] = (int) $tempt['gender'] + 2;
         }
         $data = $profile->update($tempt);
         if ($data) {
@@ -112,7 +112,7 @@ class ProfileEloquentRepository extends EloquentRepository implements ProfileRep
             $user->update([
                 'birth_year' => $tempt['birth_year'],
                 'fullname' => $tempt['fullname'],
-                'gender' => (int) $tempt['gender'] + 2,
+                'gender' => (int) $request->gender + 2,
                 'email' => $tempt['email'],
             ]);
             $profile->workablePlaces;
