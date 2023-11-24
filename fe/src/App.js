@@ -22,21 +22,17 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<AnimationLayout />}>
-          {!authUser && !token ? (
-            <Route path="/*" element={<Auth />} />
-          ) : role === "0" ? (
-            <Route path="/*" element={<User />} />
-          ) : role === "1" ? (
-            <Route path="/*" element={<HR />} />
-          ) : role === 2 ? (
-            <Route path="/*" element={<Company />} />
-          ) : (
-            <Route path="/*" element={<Loading />} />
-          )}
-        </Route>
-      </Routes>
+      {!authUser && !token ? (
+        <Auth />
+      ) : role === "0" ? (
+        <User />
+      ) : role === "1" ? (
+        <HR />
+      ) : role === 2 ? (
+        <Company />
+      ) : (
+        <Loading />
+      )}
       <ToastContainer
         position="top-right"
         autoClose={2000}

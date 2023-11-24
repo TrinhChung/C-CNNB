@@ -29,12 +29,6 @@ const menu = [
     key: "job-submitted",
     icon: <FolderOutlined />,
   },
-  // {
-  //   label: "Nhà tuyển dụng của tôi",
-  //   path: "/my-company",
-  //   key: "my-company",
-  //   icon: <EyeOutlined />,
-  // },
 ];
 const Profile = () => {
   return (

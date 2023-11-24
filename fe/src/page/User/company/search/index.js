@@ -49,11 +49,10 @@ const SearchCompany = () => {
             Tổng số công ty sử dụng web
           </Row>
           {companies && companies.length > 0 ? (
-            companies.map((item, key) => {
+            companies.map((item, index) => {
               return (
-                <CardAnimated index={key}>
+                <CardAnimated key={index}>
                   <Card
-                    key={key}
                     name={item?.name}
                     address={item?.address?.name}
                     link={item?.link}

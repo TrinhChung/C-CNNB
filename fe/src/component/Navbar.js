@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, memo } from "react";
 import { Layout, Row, Col, Dropdown, Modal, Image } from "antd";
 import { BellFilled, UserOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
@@ -16,16 +16,23 @@ const Navbar = ({ data }) => {
   const [current, setCurrent] = useState("home");
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
   const onClick = (e) => {
+    e.domEvent.preventDefault();
+    e.domEvent.stopPropagation();
     setCurrent(e.key);
   };
 
   useEffect(() => {
-    const pathArr = pathname.split("/");
-    if (pathArr[1] === "") {
-      pathArr[1] = "home";
+    console.log(current);
+    if (pathname) {
+      const pathArr = pathname.split("/");
+      if (pathArr[1] === "") {
+        console.log("path 1 null");
+        pathArr[1] = "home";
+      }
+      setCurrent(pathArr[1]);
     }
-    setCurrent(pathArr[1]);
   }, [pathname]);
 
   const onLogout = async () => {
@@ -60,6 +67,7 @@ const Navbar = ({ data }) => {
   ];
 
   const handleMenuClick = (e) => {
+    e.preventDefault();
     if (e.key === "logout") {
       setIsOpenModal(true);
     } else {
@@ -109,7 +117,9 @@ const Navbar = ({ data }) => {
         <Col span={14} style={{ height: 60 }}>
           <Menu
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
-            onClick={onClick}
+            onClick={(e) => {
+              onClick(e);
+            }}
             selectedKeys={[current]}
             mode="horizontal"
             items={data}
@@ -155,4 +165,4 @@ const Navbar = ({ data }) => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

@@ -33,8 +33,8 @@ const WrapBox = ({
             {data && data?.length > 0 ? (
               data.map((item, index) => {
                 return (
-                  <CardAnimated index={index}>
-                    <BoxJob data={item} image={image} size={140} key={index} />
+                  <CardAnimated key={index}>
+                    <BoxJob data={item} image={image} size={140} />
                   </CardAnimated>
                 );
               })
