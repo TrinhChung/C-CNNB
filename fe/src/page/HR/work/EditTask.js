@@ -2,10 +2,13 @@ import { Col, Row, Form } from "antd";
 import React, { useState, useEffect } from "react";
 import FormRecruit from "../recruit/FormRecruit";
 import { getInfoTask } from "../../../service/User/index";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { buildCategories } from "../../../const/buildData";
-import { editTask as editTaskService } from "../../../service/HR/index";
+import {
+  editTask as editTaskService,
+  closeTask as closeTaskService,
+} from "../../../service/HR/index";
 import { toast } from "react-toastify";
 import UserTable from "../candidate/search/UserTable";
 import { getAppliersOfTask as getAppliersOfTaskService } from "../../../service/HR";
@@ -18,6 +21,7 @@ const EditTask = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(1);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getDetail = async (id) => {
     const res = await getInfoTask(id);
@@ -41,6 +45,16 @@ const EditTask = () => {
     const res = await editTaskService(id, data);
     if (res.success === 1) {
       toast.success("Update thành công");
+    } else {
+      toast.error("Đã xảy ra lỗi");
+    }
+  };
+
+  const closeTask = async () => {
+    const res = await closeTaskService(id);
+    if (res.success === 1) {
+      toast.success("Đóng task thành công");
+      navigate("/work/");
     } else {
       toast.error("Đã xảy ra lỗi");
     }
@@ -76,6 +90,7 @@ const EditTask = () => {
               isEdit={true}
               onCancel={() => {
                 setChange(!change);
+                closeTask();
               }}
               onSubmit={editTask}
             />

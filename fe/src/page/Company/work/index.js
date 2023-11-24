@@ -9,7 +9,6 @@ const JobCompany = () => {
     <Routes>
       <Route path="/" element={<Search />} />
       <Route path="/task/edit/:id" element={<EditTask />} />
-      <Route path="/task/edit/:id/cv/:id" element={<CV />} />
     </Routes>
   );
 };

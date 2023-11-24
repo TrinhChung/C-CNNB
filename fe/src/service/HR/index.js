@@ -12,6 +12,10 @@ export const editTask = (id, data) => {
   return axios.put(`/api/task/update/${id}`, data);
 };
 
+export const closeTask = (id) => {
+  return axios.put(`/api/task/close/${id}`);
+};
+
 export const getAppliersOfTask = (id) => {
   return axios.get(`/api/task/appliers/${id}`);
 };

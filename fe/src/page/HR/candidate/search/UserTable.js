@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import TableResult from "../../work/TableResult";
 import { useNavigate } from "react-router-dom";
 import { listHeaderTask } from "../../../../const/columnTable";
@@ -29,7 +29,7 @@ const UserTable = ({ currentPage, setCurrentPage, total, users }) => {
                 className="h2-color-main text-name-click"
                 style={{ paddingBottom: 23 }}
                 onClick={() => {
-                  navigate(`cv/${data?.id}`);
+                  navigate(`/candidate/cv/${data?.id}`);
                 }}
               >
                 {data.fullname}
@@ -86,7 +86,7 @@ const UserTable = ({ currentPage, setCurrentPage, total, users }) => {
             <Button
               className="button-job"
               onClick={() => {
-                navigate(`cv/${data.id}`);
+                navigate(`/candidate/cv/${data.id}`);
               }}
             >
               Xem ngay
@@ -108,4 +108,4 @@ const UserTable = ({ currentPage, setCurrentPage, total, users }) => {
   );
 };
 
-export default UserTable;
+export default memo(UserTable);

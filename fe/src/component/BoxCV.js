@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
 import { Col, Row, Button, Form } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import "../page/User/profile/Profile.scss";
@@ -61,4 +61,4 @@ const BoxCV = ({
   );
 };
 
-export default BoxCV;
+export default memo(BoxCV);

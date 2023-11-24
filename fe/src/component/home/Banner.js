@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Image, Col, Row } from "antd";
 import BoxSearch from "../BoxSearch";
 import InfoBanner from "../../page/HR/home/InfoBanner";
@@ -60,4 +60,4 @@ const Banner = ({
   );
 };
 
-export default Banner;
+export default memo(Banner);

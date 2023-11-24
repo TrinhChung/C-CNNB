@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Row } from "antd";
+import { memo } from "react";
 
 const CardWork = ({ contentBox = [], data, key, redirect = () => {} }) => {
   return (
@@ -31,4 +32,4 @@ const CardWork = ({ contentBox = [], data, key, redirect = () => {} }) => {
   );
 };
 
-export default CardWork;
+export default memo(CardWork);
