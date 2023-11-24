@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import WrapSearch from "../../../component/WrapSearch";
 import BoxCV from "../../../component/BoxCV";
 import CustomTable from "../../../component/TableCustom";

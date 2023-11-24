@@ -34,8 +34,8 @@ const Banner = ({ data = {} }) => {
               >
                 <Image
                   src={
-                    data?.image
-                      ? data.image
+                    data?.applier?.image
+                      ? data.applier.image
                       : "https://th.bing.com/th/id/OIP.qdSbn0McRHkJEzYu5_cAWgHaI9?pid=ImgDet&w=100&h=100&c=7"
                   }
                   style={{ height: 216, width: 216, borderRadius: "50%" }}

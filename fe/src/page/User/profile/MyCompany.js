@@ -5,6 +5,7 @@ import BoxCV from "../../../component/BoxCV";
 import CustomTable from "../../../component/TableCustom";
 import { Row, Col } from "antd";
 import RowHorizontal from "../../../component/RowHorizontal";
+
 const MyCompany = () => {
   const columns = [
     {
@@ -33,20 +34,6 @@ const MyCompany = () => {
     },
   ];
 
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
   return (
     <WrapSearch>
       <BoxCV title={"Nhà tuyển dụng xem hồ sơ của tôi"} isEdit={false}>
@@ -57,7 +44,7 @@ const MyCompany = () => {
           <RowHorizontal title={"Số lượt xem"}>
             <Row>:0</Row>
           </RowHorizontal>
-          <CustomTable columns={columns} dataSource={dataSource} />
+          <CustomTable columns={columns} />
         </Col>
       </BoxCV>
     </WrapSearch>

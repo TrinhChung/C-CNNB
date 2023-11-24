@@ -1,12 +1,11 @@
 import React from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Col, Row, InputNumber } from "antd";
-import { useEffect } from "react";
+import { Button, Form, Input, Col, Row, InputNumber, DatePicker } from "antd";
 import FormItemHorizontal from "../../../component/Form/FormItemHorizontal";
 import FormItemVertical from "../../../component/Form/FormItemVertical";
-import moment from "moment";
 const { TextArea } = Input;
 const Project = ({ projects = [], edit = false }) => {
+  console.log(projects);
   return (
     <Form.List
       name="projects"
@@ -53,7 +52,7 @@ const Project = ({ projects = [], edit = false }) => {
                       ]}
                       required={true}
                     >
-                      <Input placeholder="Place" disabled={!edit} />
+                      <DatePicker placeholder="Place" disabled={!edit} />
                     </FormItemHorizontal>
                     <FormItemHorizontal
                       label={"Thời gian kết thúc:"}
@@ -66,7 +65,7 @@ const Project = ({ projects = [], edit = false }) => {
                       ]}
                       required={true}
                     >
-                      <Input placeholder="Place" disabled={!edit} />
+                      <DatePicker placeholder="Place" disabled={!edit} />
                     </FormItemHorizontal>
                     <FormItemHorizontal
                       label={"Công nghệ sử dụng:"}

@@ -24,11 +24,11 @@ import Skill from "./Skill";
 import { EyeOutlined } from "@ant-design/icons";
 import CVUser from "../../HR/candidate/CV/CVUser";
 import { singUpForm } from "../../../service/Auth/SignUpForm";
+import dayjs from "dayjs";
 const { TextArea } = Input;
 
 const CV = () => {
   const { authUser, addresses, exps, categories } = useContext(AuthContext);
-  const [workablePlaces, setWorkablePlaces] = useState([]);
   const [user, setUser] = useState({});
   const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);
@@ -46,6 +46,13 @@ const CV = () => {
   const onSave = async () => {
     await form.validateFields();
     const data = form.getFieldsValue();
+    data.projects = data.projects.map((item) => {
+      return {
+        ...item,
+        start: item.start.format("YYYY-MM-DD"),
+        end: item.end.format("YYYY-MM-DD"),
+      };
+    });
     data.skills = filterId(data.skills);
     const res = await updateProfile(data);
     if (res.success === 1) {
@@ -67,6 +74,14 @@ const CV = () => {
           "workable_places",
           buildAddress(res.data.workable_places, false)
         );
+        const projects = res.data.projects.map((item) => {
+          return {
+            ...item,
+            start: dayjs(new Date(item.start)),
+            end: dayjs(new Date(item.end)),
+          };
+        });
+        form.setFieldValue("projects", projects);
       }
     }
   };
@@ -106,7 +121,7 @@ const CV = () => {
           <Row style={{ paddingTop: 20 }}>
             <Col style={{ paddingRight: 40 }}>
               <UploadImage
-                image={user?.applier?.image}
+                image={user?.applier?.image ? user?.applier?.image : undefined}
                 uploadAction={uploadImage}
               />
             </Col>

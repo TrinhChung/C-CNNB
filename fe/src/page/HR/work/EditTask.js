@@ -9,6 +9,7 @@ import { editTask as editTaskService } from "../../../service/HR/index";
 import { toast } from "react-toastify";
 import UserTable from "../candidate/search/UserTable";
 import { getAppliersOfTask as getAppliersOfTaskService } from "../../../service/HR";
+
 const EditTask = () => {
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -34,7 +35,10 @@ const EditTask = () => {
   };
 
   const editTask = async () => {
-    const res = await editTaskService(id, form.getFieldsValue());
+    const data = form.getFieldsValue();
+    data.end = data.end.format("YYYY-MM-DD");
+    data.start = data.start.format("YYYY-MM-DD");
+    const res = await editTaskService(id, data);
     if (res.success === 1) {
       toast.success("Update thành công");
     } else {

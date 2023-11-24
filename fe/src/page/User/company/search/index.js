@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { Row, Col, Pagination, Empty } from "antd";
 import Banner from "../../../../component/home/Banner";
 import Card from "./Card";
