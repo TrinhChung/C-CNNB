@@ -201,7 +201,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($user) {
             $temp = Arr::except($request->all(), ['image']);
             if ($request->gender !== null) {
-                $temp['gender'] = $request->gender + 2;
+                $temp['gender'] = (int) $request->gender + 2;
             }
             $data = $user->update($temp);
             $profile = Profile::where('applier_id', $user->id)->first();
@@ -209,7 +209,7 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
                 $profile->update([
                     'birth_year' => $temp['birth_year'],
                     'fullname' => $temp['fullname'],
-                    'gender' => $temp['gender'],
+                    'gender' => (int) $request->gender + 2,
                     'email' => $temp['email'],
                 ]);
             }

@@ -260,4 +260,28 @@ class TaskController extends Controller
             );
         }
     }
+
+    public function close(Request $request)
+    {
+        try {
+            $data = $this->taskRepository->closeTask($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'message' => 'task closed',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('failed to close');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }

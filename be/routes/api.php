@@ -95,7 +95,7 @@ Route::prefix('task')->group(function () {
     Route::get('/search', [TaskController::class, 'search']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->post('/new', [TaskController::class, 'create']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/update/{id}', [TaskController::class, 'update']);
-    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->delete('/delete/{id}', [TaskController::class, 'delete']);
+    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/close/{id}', [TaskController::class, 'close']);
     Route::middleware(['auth:sanctum', 'abilities:role-user'])->get('/recommend', [TaskController::class, 'recommend']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/accept', [TaskController::class, 'accept']);
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/reject', [TaskController::class, 'reject']);

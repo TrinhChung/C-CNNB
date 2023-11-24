@@ -131,6 +131,9 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
 
     public function editTask(Request $request)
     {
+        if (! Carbon::createFromFormat('Y-m-d', $request->end)->gte(Carbon::createFromFormat('Y-m-d', $request->start))) {
+            throw new Exception('time not valid');
+        }
         $task = $this->_model->find($request->id);
         $temp = Arr::except($request->all(), ['types']);
         $task->types()->sync($request->types);
@@ -141,8 +144,16 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function closeTask(Request $request)
     {
         $task = $this->_model->find($request->id);
+        if ($request->user()->id != $task->hr_id) {
+            throw new Exception('not your task');
+        }
+        $checkProfiles = Applier_task::where('task_id', $task->id)->where('fail', 0)->exists();
+        if ($checkProfiles) {
+            throw new Exception('All profiles must be checked');
+        }
+        $task->update(['status' => 0]);
 
-        return $task->update(['status' => 1]);
+        return true;
     }
 
     public function recommendedTasks(Request $request)

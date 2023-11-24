@@ -19,7 +19,7 @@ class ImageControlle extends Controller
             if ($request->role === null) {
                 throw new Exception('role not provided');
             }
-            if ($request->role === 'user') {
+            if ($request->role === 'user' || $request->role === 'hr') {
                 $user = User::find($request->id);
             } else {
                 $user = Company::find($request->id);
