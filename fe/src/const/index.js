@@ -40,7 +40,7 @@ export const statusApply = [
     label: "Hồ sơ được duyệt",
   },
   {
-    value: "0",
+    value: "1",
     label: "Hồ sơ đã bị loại",
   },
 ];
