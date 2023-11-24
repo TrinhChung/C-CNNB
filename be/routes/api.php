@@ -62,7 +62,8 @@ return $data[0]->content;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
-    Route::put('/reset/password', [AuthController::class, 'changePass']);
+    Route::put('/reset/password', [AuthController::class, 'renewPass']);
+    Route::put('/change/password', [AuthController::class, 'changePass']);
     Route::middleware('auth:sanctum')->delete('/logout', [AuthController::class, 'logout']);
 });
 
