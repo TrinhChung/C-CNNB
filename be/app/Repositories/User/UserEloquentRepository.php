@@ -9,6 +9,7 @@ use App\Repositories\EloquentRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -117,6 +118,13 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
 
     public function applyTask(Request $request)
     {
+        $task = Task::findOrFail($request->task_id);
+        if (! $task) {
+            return ['error' => 'task not found'];
+        }
+        if ($task->end < Carbon::now()) {
+            return ['error' => 'This task ended'];
+        }
         $user = $request->user();
         if (! $user->profile) {
             return ['error' => 'you need a profile to apply'];

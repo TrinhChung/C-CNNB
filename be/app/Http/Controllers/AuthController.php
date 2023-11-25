@@ -23,11 +23,8 @@ class AuthController extends Controller
             ]);
 
             $user = null;
-            //dd($request->role);
             if ($request->role == 'user' || $request->role == 'hr') {
                 $user = User::where(DB::raw('BINARY `email`'), $fields['email'])->first();
-                //dd($user);
-                //dd($user->role);
                 if ($user->role != 1 && $request->role === 'hr') {
                     throw new Exception('not your role');
                 }
@@ -37,7 +34,11 @@ class AuthController extends Controller
             } elseif ($request->role == 'company') {
                 $user = Company::where(DB::raw('BINARY `email`'), $fields['email'])->first();
             }
-            //dd($user);
+
+            if (! $user->activationToken->active) {
+                throw new Exception('not activated');
+            }
+
             if (! $user || $fields['password'] !== $user->password) {
                 return response()->json([
                     'success' => 0,

@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ExpController;
 use App\Http\Controllers\ImageControlle;
 use App\Http\Controllers\ProfileController;
@@ -137,3 +138,5 @@ Route::prefix('profile')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->post('/image/upload/{id}', [ImageControlle::class, 'imageUpload']);
+
+Route::get('/export-excel', [ExcelController::class, 'export']);

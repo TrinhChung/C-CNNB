@@ -22,7 +22,7 @@ class DemoMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Mail from Gau Con')
+        return $this->subject('Mail from Recruit')
             ->view('emails.userEmail')->with('user', $this->user);
     }
 }
