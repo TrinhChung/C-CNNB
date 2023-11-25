@@ -25,7 +25,7 @@ const Skill = ({ mySkills = [], edit = false }) => {
                 >
                   <Col span={18}>
                     <FormItemHorizontal
-                      name={[name, "content"]}
+                      name={[name, "id"]}
                       label={"Kỹ năng:"}
                       required={true}
                     >

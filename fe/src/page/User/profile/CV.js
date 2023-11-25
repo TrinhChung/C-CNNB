@@ -49,10 +49,14 @@ const CV = () => {
       };
     });
 
-    data.skills = data.skills.map((skill) => {
-      return skill.content;
+    data.workable_places = data.workable_places.map((workable_place) => {
+      return workable_place;
     });
-    console.log(data.skills);
+
+    data.skills = data.skills.map((skill) => {
+      return skill.id;
+    });
+
     try {
       const res = await updateProfile(data);
       if (res.success === 1) {
@@ -75,7 +79,7 @@ const CV = () => {
         form.setFieldsValue({ ...res.data });
         form.setFieldValue(
           "workable_places",
-          buildAddress(res.data.workable_places, false)
+          res.data.workable_places.map((place) => place.id)
         );
         const projects = res.data.projects.map((item) => {
           return {
