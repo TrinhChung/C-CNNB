@@ -22,7 +22,7 @@ class ChangePassword extends Mailable
 
     public function build()
     {
-        return $this->subject('Mail from Gau Con')
+        return $this->subject('Mail from Recruit')
             ->view('emails.passwordChange')->with('user', $this->user);
     }
 }
