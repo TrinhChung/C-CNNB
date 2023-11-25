@@ -47,7 +47,7 @@ export const statusApply = [
 
 export const statusHRaccept = [
   {
-    value: null,
+    value: "",
     label: "Tất cả",
   },
   {
