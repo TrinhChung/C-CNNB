@@ -22,11 +22,9 @@ const Navbar = ({ data }) => {
   };
 
   useEffect(() => {
-    console.log(current);
     if (pathname) {
       const pathArr = pathname.split("/");
       if (pathArr[1] === "") {
-        console.log("path 1 null");
         pathArr[1] = "home";
       }
       setCurrent(pathArr[1]);
@@ -35,6 +33,7 @@ const Navbar = ({ data }) => {
 
   const onLogout = async () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     setAuthUser(null);
     try {
       const res = await logoutService();

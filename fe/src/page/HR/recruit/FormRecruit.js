@@ -65,6 +65,10 @@ const FormRecruit = ({
               required={true}
             >
               <Select
+                showSearch
+                filterOption={(input, option) =>
+                  (option?.label ?? "").includes(input)
+                }
                 style={{
                   width: "100%",
                   backgroundColor: "transparent!important",
@@ -132,7 +136,7 @@ const FormRecruit = ({
             <FormItemVertical
               label="Bắt đầu từ:"
               name={"start"}
-              required={true}
+              required={false}
               disabled={true}
             >
               <DatePicker
@@ -159,7 +163,13 @@ const FormRecruit = ({
               name={"address_id"}
               required={true}
             >
-              <Select options={buildAddress(addresses, false)} />
+              <Select
+                showSearch
+                filterOption={(input, option) =>
+                  (option?.label ?? "").includes(input)
+                }
+                options={buildAddress(addresses, false)}
+              />
             </FormItemVertical>
           </Col>
           <Col span={8} className="custom">
