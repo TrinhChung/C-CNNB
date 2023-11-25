@@ -30,6 +30,10 @@ const Skill = ({ mySkills = [], edit = false }) => {
                       required={true}
                     >
                       <Select
+                        showSearch
+                        filterOption={(input, option) =>
+                          (option?.label ?? "").includes(input)
+                        }
                         options={buildCategories(skills, false)}
                         disabled={!edit}
                       />
