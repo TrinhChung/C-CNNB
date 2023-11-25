@@ -10,14 +10,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "./provider/authProvider";
 import React, { useContext, useState, useEffect } from "react";
-import AnimationLayout from "./layout/AnimationLayout/AnimationLayout";
 import Loading from "./page/Loading/Loading";
+
 function App() {
   const { authUser, setAuthUser } = useContext(AuthContext);
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
+
   useEffect(() => {
     setToken(localStorage.getItem("accessToken"));
   }, [authUser]);
+
   const role = authUser && authUser.role ? authUser.role : null;
 
   return (

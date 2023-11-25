@@ -30,12 +30,12 @@ const Login = () => {
     if (res.success === 1 && res.data && res.data.accessToken) {
       toast.success("Đăng nhập thành công!", 2);
       localStorage.setItem("accessToken", JSON.stringify(res.data.accessToken));
-      setAuthUser(res.data.user);
+      setAuthUser(res.data?.user);
+      localStorage.setItem("user", JSON.stringify(res.data?.user));
       navigate("/");
     } else {
       toast.error("Tài khoản hoặc mật khẩu không chính xác");
     }
-    console.log(res);
   };
 
   return (
