@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row, Button } from "antd";
 import WrapInput from "./WrapInput";
 
-const BoxSearch = ({ listInput = [], search }) => {
+const BoxSearch = ({ listInput = [], search = () => {} }) => {
   return (
     <Row style={{ paddingTop: 30, alignItems: "end" }}>
       {listInput &&
