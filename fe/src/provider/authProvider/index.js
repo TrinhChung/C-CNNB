@@ -21,9 +21,16 @@ export default function AuthProvider({ children }) {
   const [types, setTypes] = useState([]);
 
   const handlerLogin = async () => {
-    const res = await loginMe();
-    if (res.success === 1 && res.data) {
-      setAuthUser(res.data);
+    const userLocal = JSON.parse(localStorage.getItem("user"));
+
+    if (userLocal) {
+      setAuthUser(userLocal);
+    } else {
+      const res = await loginMe();
+      if (res.success === 1 && res.data) {
+        setAuthUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+      }
     }
   };
 
@@ -73,7 +80,11 @@ export default function AuthProvider({ children }) {
     const token = localStorage.getItem("accessToken");
     if (!authUser && token) {
       handlerLogin();
-    } else {
+    }
+  }, []);
+
+  useEffect(() => {
+    if (authUser) {
       getCategories();
       getAddress();
       getExps();
