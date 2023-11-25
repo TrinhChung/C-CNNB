@@ -132,7 +132,7 @@ const Search = () => {
                 style={{ justifyContent: "center", fontWeight: "bold" }}
                 className="fs-16"
               >
-                Người ứng tuyển
+                Công việc đang phụ trách
               </Row>
             </Col>
           </Row>
