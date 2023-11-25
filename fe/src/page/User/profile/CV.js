@@ -220,6 +220,10 @@ const CV = () => {
               required={true}
             >
               <Select
+                filterOption={(input, option) =>
+                  (option?.label ?? "").includes(input)
+                }
+                showSearch
                 style={{ minWidth: 200 }}
                 options={buildAddress(addresses, false)}
                 disabled={!edit}
@@ -231,6 +235,10 @@ const CV = () => {
               required={true}
             >
               <Select
+                filterOption={(input, option) =>
+                  (option?.label ?? "").includes(input)
+                }
+                showSearch
                 style={{ minWidth: 200 }}
                 options={buildCategories(categories, false)}
                 disabled={!edit}
@@ -273,6 +281,9 @@ const CV = () => {
                 <Select
                   mode="multiple"
                   style={{ minWidth: 200 }}
+                  filterOption={(input, option) =>
+                    (option?.label ?? "").includes(input)
+                  }
                   options={buildAddress(addresses, false)}
                   disabled={!edit}
                 />
