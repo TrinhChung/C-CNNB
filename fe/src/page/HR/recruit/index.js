@@ -10,12 +10,10 @@ import dayjs from "dayjs";
 const Recruit = () => {
   const { authUser } = useContext(AuthContext);
   const [form] = Form.useForm();
-  console.log(form);
   const handleSubmit = async () => {
     try {
       await form.validateFields();
       const data = form.getFieldsValue();
-      console.log(data);
       data.end = data.end.format("YYYY-MM-DD");
       data.start = data?.start
         ? data.start.format("YYYY-MM-DD")
@@ -32,7 +30,6 @@ const Recruit = () => {
         toast.error("Có lỗi xảy ra" + " " + res.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Có lỗi xảy ra");
     }
   };

@@ -16,6 +16,7 @@ const Search = () => {
   const [task, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(1);
+  const [querySearch, setQuerySearch] = useState(searchParams.toString());
 
   const getAllTask = async (currentPage, query) => {
     const res = await getTask(currentPage, query);
@@ -29,14 +30,12 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const query = searchParams.toString();
-    getAllTask(currentPage, query);
-  }, [currentPage]);
+    getAllTask(currentPage, querySearch);
+  }, [currentPage, querySearch]);
 
-  const handleSearch = () => {
-    const query = searchParams.toString();
-    getAllTask(currentPage, query);
-  };
+  useEffect(() => {
+    setQuerySearch(searchParams.toString());
+  }, [searchParams.toString()]);
 
   const WrapBoxSearch = () => {
     return (
@@ -51,7 +50,7 @@ const Search = () => {
           }}
         >
           <Col span={12}>
-            <BoxSearch handleSearch={handleSearch} />
+            <BoxSearch handleSearch={() => {}} />
           </Col>
         </Row>
         <Row style={{ width: "100%", justifyContent: "center", paddingTop: 2 }}>

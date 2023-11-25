@@ -12,9 +12,10 @@ const SearchCompany = () => {
   const [companies, setCompanies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(1);
+  const [querySearch, setQuerySearch] = useState(searchParams.toString());
 
   const handleSearch = () => {
-    getCompanies(currentPage, searchParams.toString());
+    getCompanies(currentPage, querySearch);
   };
 
   const getCompanies = async (currentPage, query) => {
@@ -26,8 +27,12 @@ const SearchCompany = () => {
   };
 
   useEffect(() => {
-    getCompanies(currentPage, searchParams.toString());
-  }, [currentPage]);
+    getCompanies(currentPage, querySearch);
+  }, [currentPage, querySearch]);
+
+  useEffect(() => {
+    setQuerySearch(searchParams.toString());
+  }, [searchParams.toString()]);
 
   return (
     <Col span={24}>

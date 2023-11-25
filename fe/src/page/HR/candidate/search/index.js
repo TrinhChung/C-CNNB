@@ -16,6 +16,7 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(1);
+  const [querySearch, setQuerySearch] = useState(searchParams.toString());
 
   const listInput = [
     {
@@ -81,14 +82,15 @@ const Search = () => {
   const handlerSearch = () => {
     searchParams.set("searchInput", searchInput);
     navigate("/candidate/?" + searchParams.toString());
-    const query = searchParams.toString();
-    getApplier(query);
   };
 
   useEffect(() => {
-    const query = searchParams.toString();
-    getApplier(query);
-  }, []);
+    setQuerySearch(searchParams.toString());
+  }, [searchParams.toString()]);
+
+  useEffect(() => {
+    getApplier(querySearch);
+  }, [querySearch]);
 
   return (
     <Col className="layout-container box-shadow-bottom">
