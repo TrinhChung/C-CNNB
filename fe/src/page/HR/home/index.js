@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect, useContext } from "react";
-import { Col, Row } from "antd";
+import { Col, Row, Empty, Button } from "antd";
 import Banner from "../../../component/home/Banner";
 import banner from "../../../assets/banner-hr-home.jpeg";
 import TitleViewAll from "../../../component/TitleViewAll";
@@ -88,13 +88,31 @@ const Home = () => {
             gap: 30,
           }}
         >
-          {candidates &&
-            candidates.length > 0 &&
+          {candidates && candidates.length > 0 ? (
             candidates.map((item, i) => {
               return (
                 <CardUser title={title} data={item} redirect={redirectCVUser} />
               );
-            })}
+            })
+          ) : (
+            <Empty
+              style={{ width: "100%" }}
+              description={
+                <span style={{ fontSize: 20 }}>
+                  Chưa có ứng viên hãy tạo Job để tìm kiếm ứng viên!!
+                </span>
+              }
+            >
+              <Button
+                className="button-search"
+                onClick={() => {
+                  navigate(`/recruit/`);
+                }}
+              >
+                Tạo Job
+              </Button>
+            </Empty>
+          )}
         </Row>
       </Col>
       <Col
@@ -110,8 +128,7 @@ const Home = () => {
             padding: "0 0px 65px 0px",
           }}
         >
-          {tasks &&
-            tasks.length > 0 &&
+          {tasks && tasks.length > 0 ? (
             tasks.map((item, index) => {
               return (
                 <CardAnimated index={index}>
@@ -122,7 +139,26 @@ const Home = () => {
                   />
                 </CardAnimated>
               );
-            })}
+            })
+          ) : (
+            <Empty
+              style={{ width: "100%" }}
+              description={
+                <span style={{ fontSize: 20 }}>
+                  Chưa có bài đăng hãy tạo bài đăng để tìm kiếm ứng viên!!
+                </span>
+              }
+            >
+              <Button
+                className="button-search"
+                onClick={() => {
+                  navigate(`/recruit/`);
+                }}
+              >
+                Tạo Job
+              </Button>
+            </Empty>
+          )}
         </Row>
       </Col>
       <Row>
