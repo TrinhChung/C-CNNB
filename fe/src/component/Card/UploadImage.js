@@ -3,14 +3,13 @@ import { Col, Row, Image, Button, Upload } from "antd";
 import "./Card.scss";
 
 const UploadImage = ({
-  image = "https://th.bing.com/th/id/OIP.qdSbn0McRHkJEzYu5_cAWgHaI9?pid=ImgDet&w=100&h=100&c=7",
+  image = null,
   edit = true,
   uploadAction = () => {},
 }) => {
   const [field, setField] = useState({});
   const [urlImage, setUrlImage] = useState(image);
 
-  console.log(image);
   useEffect(() => {
     setUrlImage(image);
   }, [image]);
