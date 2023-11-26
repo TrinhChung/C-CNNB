@@ -251,7 +251,29 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
             ->orderBy('day', 'ASC')
             ->get();
         foreach ($data as $item) {
-            $days[$item->day] = $item->post_count;
+            $days[$item->day - 1] = $item->post_count;
+        }
+
+        return $days;
+    }
+
+    public function applyDataChart($companyId, $month, $year)
+    {
+        $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
+        $days = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $days[] = 0;
+        }
+        $data = $this->_model->select(DB::raw('DAY(applier_task.created_at) as day'), DB::raw('count(applier_task.id) as apply_count'))
+            ->leftJoin('applier_task', 'tasks.id', '=', 'applier_task.task_id')
+            ->where('tasks.company_id', $companyId)
+            ->whereMonth('applier_task.created_at', $month)
+            ->whereYear('applier_task.created_at', $year)
+            ->groupBy('day')
+            ->orderBy('day', 'ASC')
+            ->get();
+        foreach ($data as $item) {
+            $days[$item->day - 1] = $item->apply_count;
         }
 
         return $days;
