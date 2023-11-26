@@ -1,46 +1,43 @@
-import React, { useState } from "react";
-import { Form } from "antd";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../../../provider/authProvider";
-import FormCompany from "../../HR/profile/FormCompany";
+import React from "react";
 import {
-  detailCompany,
-  editProfileCompany,
-} from "../../../service/Company/index";
-import { toast } from "react-toastify";
-const CompanyProfile = () => {
-  const { authUser } = useContext(AuthContext);
-  const [form] = Form.useForm();
-  const [data, setData] = useState({});
-  const getInfoCompany = async (id) => {
-    const res = await detailCompany(id);
-    if (res.success === 1 && res.data) {
-      console.log(res.data);
-      form.setFieldsValue({ ...res.data });
-      setData(res.data);
-    }
-  };
+  UserOutlined,
+  FolderOutlined,
+  FolderAddOutlined,
+} from "@ant-design/icons";
+import SiderLayout from "../../../layout/SiderLayout";
+import { Routes, Route, Link } from "react-router-dom";
+import Profile from "./Profile";
+import Analytic from "../analytic";
 
-  useEffect(() => {
-    getInfoCompany(authUser.id);
-    form.resetFields();
-  }, []);
-
-  const onEdit = async () => {
-    const data = form.getFieldsValue();
-    const res = await editProfileCompany(authUser.id, data);
-    if (res.success === 1) {
-      toast.success("Update thành công");
-    } else {
-      toast.error("Xảy ra lỗi gì đó");
-    }
-  };
-
+const menu = [
+  {
+    label: "Hồ sơ",
+    path: "",
+    key: "",
+    icon: <UserOutlined />,
+  },
+  {
+    label: "Thống kê Job",
+    path: "/analytic-job",
+    key: "analytic-job",
+    icon: <FolderAddOutlined />,
+  },
+  {
+    label: "Việc làm đã nộp",
+    path: "/job-submitted",
+    key: "job-submitted",
+    icon: <FolderOutlined />,
+  },
+];
+const ProfileCompany = () => {
   return (
-    <Form form={form}>
-      <FormCompany onEdit={onEdit} image={data?.image} />
-    </Form>
+    <SiderLayout menuProps={{ items: menu, layout: "profile" }}>
+      <Routes>
+        <Route path="/" element={<Profile />} />
+        <Route path="/analytic-job" element={<Analytic />} />
+      </Routes>
+    </SiderLayout>
   );
 };
 
-export default CompanyProfile;
+export default ProfileCompany;

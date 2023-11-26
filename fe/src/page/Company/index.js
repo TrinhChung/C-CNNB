@@ -6,6 +6,8 @@ import JobCompany from "./work";
 import Manager from "./manager";
 import CompanyProfile from "./profile";
 import CV from "../HR/candidate/CV";
+import Analytic from "./analytic";
+import ProfileCompany from "./profile";
 const Company = () => {
   const items = [
     {
@@ -33,7 +35,7 @@ const Company = () => {
           <Route path="/" element={<Home />} />
           <Route path="/work/*" element={<JobCompany />} />
           <Route path="/manager/*" element={<Manager />} />
-          <Route path="/profile" element={<CompanyProfile />} />
+          <Route path="/profile/*" element={<ProfileCompany />} />
           <Route path="/candidate/cv/:id" element={<CV />} />
         </Routes>
       </div>

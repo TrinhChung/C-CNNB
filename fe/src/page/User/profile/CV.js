@@ -23,7 +23,8 @@ import dayjs from "dayjs";
 const { TextArea } = Input;
 
 const CV = () => {
-  const { authUser, addresses, exps, categories } = useContext(AuthContext);
+  const { authUser, addresses, exps, categories, birthYears } =
+    useContext(AuthContext);
   const [user, setUser] = useState({});
   const [form] = Form.useForm();
   const [edit, setEdit] = useState(false);
@@ -81,6 +82,7 @@ const CV = () => {
           "workable_places",
           res.data.workable_places.map((place) => place.id)
         );
+        form.setFieldValue("birth_year", res.data?.birth_year?.id);
         const projects = res.data.projects.map((item) => {
           return {
             ...item,
@@ -192,7 +194,16 @@ const CV = () => {
               name={"birth_year"}
               label={"Năm sinh:"}
             >
-              <Input disabled={!edit} />
+              <Select
+                filterOption={(input, option) =>
+                  (option?.label ?? "").includes(input)
+                }
+                showSearch
+                style={{ minWidth: 200 }}
+                options={buildAddress(birthYears, false)}
+                disabled={!edit}
+                defaultValue={1}
+              />
             </FormItemHorizontal>
             <FormItemHorizontal
               name={"gender"}
