@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Task\TaskRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -283,5 +284,31 @@ class TaskController extends Controller
                 ]
             );
         }
+    }
+
+    public function monthChart(Request $request)
+    {
+        $company = $request->user();
+        if (! $request->month || ! $request->year) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'month or year empty',
+            ]);
+        }
+        $month = (int) $request->month;
+        $year = (int) $request->year;
+        if ($month <= 0 || $month > 12 || $year <= 0 || $year > Carbon::now()->year) {
+            return response()->json([
+                'success' => 0,
+                'message' => 'no data available',
+            ]);
+        }
+        $data = $this->taskRepository->taskDataChart($company->id, $month, $year);
+
+        return response()->json([
+            'data' => $data,
+            'success' => 1,
+            'message' => 'get month chart successfully',
+        ]);
     }
 }

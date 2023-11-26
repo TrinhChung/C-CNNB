@@ -32,4 +32,6 @@ interface TaskRepositoryInterface
     public function getApplier(Request $request);
 
     public function closeTask(Request $request);
+
+    public function taskDataChart(int $companyId, int $month, int $year);
 }

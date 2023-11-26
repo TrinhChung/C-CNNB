@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class TaskEloquentRepository extends EloquentRepository implements TaskRepositoryInterface
@@ -233,5 +234,26 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         } else {
             return false;
         }
+    }
+
+    public function taskDataChart($companyId, $month, $year)
+    {
+        $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
+        $days = [];
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $days[] = 0;
+        }
+        $data = $this->_model->select(DB::raw('DAY(start) as day'), DB::raw('count(*) as post_count'))
+            ->where('company_id', $companyId)
+            ->whereMonth('start', $month)
+            ->whereYear('start', $year)
+            ->groupBy('day')
+            ->orderBy('day', 'ASC')
+            ->get();
+        foreach ($data as $item) {
+            $days[$item->day] = $item->post_count;
+        }
+
+        return $days;
     }
 }
