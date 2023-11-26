@@ -24,6 +24,10 @@ export const getAddress = () => {
   return axios.get(`/api/address/all`);
 };
 
+export const getBirthYears = () => {
+  return axios.get(`/api/birth-year/all`);
+};
+
 export const getCompanies = () => {
   return axios.get(`/api/company/selection/`);
 };

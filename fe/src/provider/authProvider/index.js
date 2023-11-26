@@ -7,6 +7,7 @@ import {
   getExps as getExpsService,
   getSkills as getSkillsService,
   getTypes as getTypesService,
+  getBirthYears as getBirthYearsService,
 } from "../../service/User";
 
 export const AuthContext = createContext();
@@ -19,6 +20,7 @@ export default function AuthProvider({ children }) {
   const [exps, setExps] = useState([]);
   const [skills, setSkills] = useState([]);
   const [types, setTypes] = useState([]);
+  const [birthYears, setBirthYears] = useState([]);
 
   const handlerLogin = async () => {
     const userLocal = JSON.parse(localStorage.getItem("user"));
@@ -62,6 +64,13 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  const getBirthYears = async () => {
+    const res = await getBirthYearsService();
+    if (res.success === 1 && res.data) {
+      setBirthYears(res.data);
+    }
+  };
+
   const getCompanies = async () => {
     const res = await getCompaniesService();
     if (res.success === 1 && res.data) {
@@ -90,6 +99,7 @@ export default function AuthProvider({ children }) {
       getExps();
       getSkills();
       getTypes();
+      getBirthYears();
     }
     getCompanies();
   }, [authUser]);
@@ -100,6 +110,7 @@ export default function AuthProvider({ children }) {
         authUser,
         categories,
         addresses,
+        birthYears,
         companies,
         exps,
         skills,
