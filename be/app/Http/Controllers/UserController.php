@@ -6,6 +6,7 @@ use App\Mail\DemoMail;
 use App\Repositories\User\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Mail;
 
 class UserController extends Controller
@@ -20,6 +21,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
+        DB::beginTransaction();
         try {
 
             $request->validate([
@@ -45,6 +47,8 @@ class UserController extends Controller
                 throw new Exception('failed to create new user');
             }
         } catch (Exception $err) {
+            DB::rollBack();
+
             return response()->json(
                 [
                     'message' => $err->getMessage(),
@@ -52,6 +56,7 @@ class UserController extends Controller
                 ]
             );
         }
+        DB::commit();
     }
 
     public function apply(Request $request)
