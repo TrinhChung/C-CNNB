@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 
 class TaskEloquentRepository extends EloquentRepository implements TaskRepositoryInterface
 {
@@ -163,29 +164,51 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
 
     public function recommendedTasks(Request $request)
     {
-        //dd($request->user()->profi(le->workablePlaces);
-        //dd(Arr::pluck($request->user()->profile->workablePlaces, 'id'));
-        if ($request->user()->profile) {
-            $data = $this->_model->whereIn('address_id', Arr::pluck($request->user()->profile->workablePlaces, 'id'))->orWhere('category_id', $request->user()->profile->category_id)
-                ->with('category')
-                ->with('expYear')
-                ->with('types')
-                ->with('company')
-                ->with('address')
-                ->orderBy('created_at', 'DESC')
-                ->limit(6)
-                ->get();
-            if (! $data || $data === null);
-            $data = $this->_model
-                ->with('category')
-                ->with('expYear')
-                ->with('types')
-                ->with('company')
-                ->with('address')
-                ->orderBy('created_at', 'DESC')
-                ->limit(6)
-                ->get();
+        $user = $request->user()->load('profile');
+        if ($user->profile && $user->profile->category_id && $user->profile->address_id && $user->profile->year_of_experience) {
+            $selected_jobs = $this->_model->where('category_id', $user->profile->category_id)->limit(5)->get();
+            if (count($selected_jobs) > 0) {
+                $ratings = [];
+                foreach ($selected_jobs as $job) {
+                    $score = 1;
+                    if ($job->category_id === $user->profile->category_id) {
+                        $score += 1;
+                    }
+                    if ($job->gender === -1 || $job->gender === $user->profile->gender) {
+                        $score += 1;
+                    }
+                    if (in_array($job->address_id, $user->profile->workablePlaces->pluck('id')->toArray())) {
+                        $score += 1;
+                    }
+                    if ($job->year_of_experience <= $user->profile->year_of_experience) {
+                        $score += 1;
+                    }
+                    $ratings[] = [$score];
+                }
+                $items = $selected_jobs->pluck('id')->toArray();
+                $jobs_id = Http::post('https://job_recommend.bachnguyencoder.id.vn/api/predict', ['items' => $items, 'ratings' => $ratings, 'category_id' => $user->profile->category_id])['data'];
+                $data = $this->_model->whereIn('id', $jobs_id)
+                    ->with('category')
+                    ->with('expYear')
+                    ->with('types')
+                    ->with('company')
+                    ->with('address')
+                    ->orderBy('created_at', 'DESC')->get();
 
+                return $data;
+            } else {
+                $data = $this->_model
+                    ->with('category')
+                    ->with('expYear')
+                    ->with('types')
+                    ->with('company')
+                    ->with('address')
+                    ->orderBy('created_at', 'DESC')
+                    ->limit(6)
+                    ->get();
+
+                return $data;
+            }
         } else {
             $data = $this->_model
                 ->with('category')
@@ -196,9 +219,9 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
                 ->orderBy('created_at', 'DESC')
                 ->limit(6)
                 ->get();
-        }
 
-        return $data;
+            return $data;
+        }
     }
 
     public function acceptApplier(Request $request)

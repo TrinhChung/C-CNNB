@@ -19,6 +19,6 @@ class BirthYear extends Model
 
     public function profiles()
     {
-        return $this->hasMany(User::class, 'birth_year', 'id');
+        return $this->hasMany(Profile::class, 'birth_year', 'id');
     }
 }
