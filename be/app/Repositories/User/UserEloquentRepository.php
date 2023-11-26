@@ -97,7 +97,6 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
         if ($request->gender !== null) {
             $temp['gender'] = (int) $temp['gender'] + 2;
         }
-        //dd($temp["gender"]);
         $data = $this->_model->create($temp);
         if ($request->role == 0 || $request->role === null) {
             Profile::create([
