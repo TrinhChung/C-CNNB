@@ -104,6 +104,7 @@ Route::prefix('task')->group(function () {
     Route::middleware(['auth:sanctum', 'abilities:role-hr'])->put('/reject', [TaskController::class, 'reject']);
     Route::middleware(['auth:sanctum', 'ability:role-hr,role-company'])->get('/appliers/{id}', [TaskController::class, 'appliers']);
     Route::middleware(['auth:sanctum', 'ability:role-company'])->get('/monthChart', [TaskController::class, 'monthChart']);
+    Route::middleware(['auth:sanctum', 'ability:role-company'])->get('/applyChart', [TaskController::class, 'applyChart']);
 });
 
 Route::prefix('company')->group(function () {

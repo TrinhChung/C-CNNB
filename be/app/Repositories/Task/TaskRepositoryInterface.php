@@ -34,4 +34,6 @@ interface TaskRepositoryInterface
     public function closeTask(Request $request);
 
     public function taskDataChart(int $companyId, int $month, int $year);
+
+    public function applyDataChart(int $companyId, int $month, int $year);
 }
