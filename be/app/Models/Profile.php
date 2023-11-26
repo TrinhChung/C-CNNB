@@ -74,4 +74,9 @@ class Profile extends Model
         return $this->belongsToMany(Address::class, 'work_address', 'profile_id', 'workable_place_id')
             ->using(Work_address::class)->withPivot('id', 'profile_id', 'workable_place_id')->withTimestamps();
     }
+
+    public function birthYear()
+    {
+        return $this->belongsTo(BirthYear::class, 'birth_year', 'id');
+    }
 }
