@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BirthYearController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ExcelController;
@@ -138,5 +139,7 @@ Route::prefix('profile')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->post('/image/upload/{id}', [ImageControlle::class, 'imageUpload']);
+
+Route::get('/birthyear', [BirthYearController::class, 'index']);
 
 Route::get('/export-excel', [ExcelController::class, 'export']);
