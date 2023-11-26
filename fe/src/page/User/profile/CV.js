@@ -34,6 +34,8 @@ const CV = () => {
     console.log(`switch to ${checked}`);
   };
 
+  console.log(birthYears);
+
   useEffect(() => {
     getInfoProfile(authUser.id);
     form.resetFields();
@@ -200,9 +202,8 @@ const CV = () => {
                 }
                 showSearch
                 style={{ minWidth: 200 }}
-                options={buildAddress(birthYears, false)}
+                options={buildCategories(birthYears, false)}
                 disabled={!edit}
-                defaultValue={1}
               />
             </FormItemHorizontal>
             <FormItemHorizontal
