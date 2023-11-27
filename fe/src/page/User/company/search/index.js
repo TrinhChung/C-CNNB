@@ -64,6 +64,7 @@ const SearchCompany = () => {
                     email={item?.email}
                     image={item?.image}
                     id={item?.id}
+                    total={item?.tasks_count}
                   />
                 </CardAnimated>
               );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Col, Row, Pagination, Empty } from "antd";
 import BoxJob from "../../component/BoxJob";
 import TitleViewAll from "../../component/TitleViewAll";
@@ -14,6 +14,7 @@ const WrapBox = ({
   currentPage = 1,
   image = "",
   query = {},
+  company = "FPT software",
   setCurrentPage = () => {},
 }) => {
   const navigate = useNavigate();
@@ -34,7 +35,11 @@ const WrapBox = ({
               data.map((item, index) => {
                 return (
                   <CardAnimated key={index}>
-                    <BoxJob data={item} image={image} size={140} />
+                    <BoxJob
+                      data={{ ...item, companyName: company }}
+                      image={image}
+                      size={140}
+                    />
                   </CardAnimated>
                 );
               })
@@ -59,4 +64,4 @@ const WrapBox = ({
   );
 };
 
-export default WrapBox;
+export default memo(WrapBox);

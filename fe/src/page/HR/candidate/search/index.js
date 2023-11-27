@@ -41,6 +41,10 @@ const Search = () => {
               ? +searchParams.get("category_id")
               : 0
           }
+          filterOption={(input, option) =>
+            (option?.label ?? "").includes(input)
+          }
+          showSearch
           style={{ width: "90%" }}
           onChange={(e) => {
             searchParams.set("category_id", e);

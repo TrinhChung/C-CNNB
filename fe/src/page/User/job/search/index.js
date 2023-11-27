@@ -68,6 +68,10 @@ const Search = () => {
                   ? +searchParams.get("category_id")
                   : 0
               }
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
+              showSearch
             />
           </Col>
           <Col span={3}>
@@ -84,6 +88,10 @@ const Search = () => {
                   ? searchParams.get("company_id")
                   : 0
               }
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
+              showSearch
             />
           </Col>
           <Col span={3}>
@@ -96,6 +104,10 @@ const Search = () => {
                 navigate("/job/?" + searchParams.toString());
               }}
               defaultValue={+searchParams.get("address_id")}
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
+              showSearch
             />
           </Col>
           <Col span={3}>

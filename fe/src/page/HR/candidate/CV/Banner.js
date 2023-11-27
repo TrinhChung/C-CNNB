@@ -59,7 +59,7 @@ const Banner = ({ data = {} }) => {
                     : "Khong co"}
                 </Row>
                 <Row className="fs-20" style={{ paddingBottom: 8 }}>
-                  Năm sinh: {data?.birth_year}
+                  Năm sinh: {data?.birth_year?.content}
                 </Row>
                 <Row className="fs-20" style={{ paddingBottom: 8 }}>
                   Giới tính:{" "}

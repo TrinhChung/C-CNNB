@@ -71,3 +71,7 @@ export const getSavedTasks = () => {
 export const getAppliedTasks = () => {
   return axios.get(`/api/user/applied`);
 };
+
+export const getAllYears = () => {
+  return axios.get(`/api/birthyear/`);
+};

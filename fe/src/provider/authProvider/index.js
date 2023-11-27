@@ -7,7 +7,7 @@ import {
   getExps as getExpsService,
   getSkills as getSkillsService,
   getTypes as getTypesService,
-  getBirthYears as getBirthYearsService,
+  getAllYears as getBirthYearsService,
 } from "../../service/User";
 
 export const AuthContext = createContext();
