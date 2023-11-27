@@ -115,10 +115,9 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
     public function createTask(Request $request)
     {
         $temp = Arr::except($request->all(), ['types']);
-        if (! Carbon::createFromFormat('Y-m-d', $temp['end'])->gte(Carbon::createFromFormat('Y-m-d', $temp['start']))) {
-            throw new Exception('time not valid');
+        if (! Carbon::createFromFormat('Y-m-d', $temp['end'])->gt(Carbon::createFromFormat('Y-m-d', $temp['start']))) {
+            throw new Exception('End time must be greater than start time');
         }
-        //dd(Carbon::createFromFormat('Y-m-d', $temp["end"]));
         $data = $this->_model->create($temp);
         foreach ($request->types as $type) {
             Type_task::create([
