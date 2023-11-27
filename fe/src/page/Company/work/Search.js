@@ -42,6 +42,10 @@ const Search = () => {
             searchParams.set("category_id", e);
             navigate("/work/?" + searchParams.toString());
           }}
+          filterOption={(input, option) =>
+            (option?.label ?? "").includes(input)
+          }
+          showSearch
           defaultValue={
             searchParams.get("category_id")
               ? +searchParams.get("category_id")
@@ -61,6 +65,10 @@ const Search = () => {
             searchParams.set("address_id", e);
             navigate("/work/?" + searchParams.toString());
           }}
+          filterOption={(input, option) =>
+            (option?.label ?? "").includes(input)
+          }
+          showSearch
           defaultValue={+searchParams.get("address_id")}
         />
       ),

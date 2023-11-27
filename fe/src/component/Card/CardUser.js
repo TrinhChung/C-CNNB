@@ -21,9 +21,7 @@ const CardUser = ({ title, data, redirect = () => {} }) => {
             }}
           >
             <Image
-              src={
-                "https://th.bing.com/th/id/OIP.8roqmbD6Awp7MUp68cuqDQAAAA?pid=ImgDet&w=100&h=100&c=7"
-              }
+              src={data?.image}
               preview={false}
               style={{
                 width: 130,

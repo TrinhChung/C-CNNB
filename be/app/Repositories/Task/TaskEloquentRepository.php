@@ -196,15 +196,28 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
                 }
                 $items = $selected_jobs->pluck('id')->toArray();
                 $jobs_id = Http::post('https://job_recommend.bachnguyencoder.id.vn/api/predict', ['items' => $items, 'ratings' => $ratings, 'category_id' => $user->profile->category_id])['data'];
-                if ($jobs_id !== []) {
-                    $data = $this->_model->whereIn('id', $jobs_id)
-                        ->with('category')
-                        ->with('expYear')
-                        ->with('types')
-                        ->with('company')
-                        ->with('address')
-                        ->orderBy('created_at', 'DESC')->get();
-                }
+                dd($jobs_id);
+                $data = $this->_model->whereIn('id', $jobs_id)
+                    ->with('category')
+                    ->with('expYear')
+                    ->with('types')
+                    ->with('company')
+                    ->with('address')
+                    ->orderBy('created_at', 'DESC')->get();
+
+                return $data;
+            } else {
+                $data = $this->_model
+                    ->with('category')
+                    ->with('expYear')
+                    ->with('types')
+                    ->with('company')
+                    ->with('address')
+                    ->orderBy('created_at', 'DESC')
+                    ->limit(6)
+                    ->get();
+
+                return $data;
             }
         }
 

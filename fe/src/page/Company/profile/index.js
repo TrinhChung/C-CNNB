@@ -5,9 +5,10 @@ import {
   FolderAddOutlined,
 } from "@ant-design/icons";
 import SiderLayout from "../../../layout/SiderLayout";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Profile from "./Profile";
 import Analytic from "../analytic";
+import AnalyticApply from "./AnalyticApply";
 
 const menu = [
   {
@@ -23,9 +24,9 @@ const menu = [
     icon: <FolderAddOutlined />,
   },
   {
-    label: "Việc làm đã nộp",
-    path: "/job-submitted",
-    key: "job-submitted",
+    label: "Thống kê Apply",
+    path: "/analytic-apply",
+    key: "analytic-apply",
     icon: <FolderOutlined />,
   },
 ];
@@ -35,6 +36,7 @@ const ProfileCompany = () => {
       <Routes>
         <Route path="/" element={<Profile />} />
         <Route path="/analytic-job" element={<Analytic />} />
+        <Route path="/analytic-apply" element={<AnalyticApply />} />
       </Routes>
     </SiderLayout>
   );

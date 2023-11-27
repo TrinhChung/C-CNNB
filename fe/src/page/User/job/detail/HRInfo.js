@@ -2,8 +2,7 @@ import { Row, Image, Col } from "antd";
 import React from "react";
 import { gender } from "../../../../const";
 import avatarUser from "../../../../assets/avatar-user.png";
-const HRInfo = ({ data }) => {
-  console.log(data);
+const HRInfo = ({ data, company = {} }) => {
   const RowHorizontal = ({ title, des }) => {
     return (
       <Row
@@ -31,7 +30,7 @@ const HRInfo = ({ data }) => {
           <Row style={{ fontSize: 24, fontWeight: "bold", paddingBottom: 10 }}>
             {data?.fullname}
           </Row>
-          <Row>Tên công ty</Row>
+          <Row>{company?.name ? company.name : "Tên công ty"}</Row>
         </Col>
       </Row>
       <RowHorizontal title={"Ngày tháng năm sinh: "} des={data?.birth_year} />
@@ -41,7 +40,7 @@ const HRInfo = ({ data }) => {
           data?.gender ? gender[Number(data.gender) + 1].label : gender[0].label
         }
       />
-      <RowHorizontal title={"Số điện thoại: "} des="dd/mm/yy" />
+      <RowHorizontal title={"Số điện thoại: "} des="0972409880" />
       <RowHorizontal title={"Email: "} des={data?.email} />
     </Col>
   );

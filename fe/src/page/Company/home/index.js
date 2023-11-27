@@ -81,6 +81,7 @@ const Home = () => {
           {hrs &&
             hrs.length > 0 &&
             hrs.map((item, i) => {
+              console.log(item);
               return (
                 <CardUser
                   title={title}

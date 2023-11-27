@@ -53,7 +53,19 @@ const BannerJob = ({ data = {}, apply = () => {}, save = () => {} }) => {
         <Row style={{ fontSize: 20, color: "var(--color-gray-job)" }}>
           Ngày đăng: {moment(data.updated_at).calendar()}
         </Row>
-        {data.passInfo === null || data?.passInfo?.fail === "-1" ? (
+        {data.status === null || data.status === "" ? (
+          <Button
+            className="button-job button-color-inner"
+            style={{
+              width: "100%",
+              height: 64,
+              fontSize: "20px",
+              margin: "12px 0",
+            }}
+          >
+            Job đã kết thúc
+          </Button>
+        ) : data.passInfo === null || data?.passInfo?.fail === "-1" ? (
           <ButtonSub
             applied={data?.applied}
             saved={data?.saved}

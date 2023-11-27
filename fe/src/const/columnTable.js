@@ -122,22 +122,26 @@ export const listHeaderTask = (navigate = () => {}) => {
           <Row style={{ paddingLeft: 30 }}>
             <Col span={24} style={{ justifyContent: "center" }}>
               <Row className="title-color-main">
-                <Col
-                  style={{ fontSize: 30, paddingRight: 22 }}
-                  className="text-name-click"
-                >
-                  {data?.title}
-                </Col>
-                <Col style={{ display: "flex", alignItems: "center" }}>
-                  <Badge
-                    color="#f50"
-                    text={
-                      data?.status && data.status === "1"
-                        ? "Đang tuyển"
-                        : "Đã kết thúc"
-                    }
-                    style={{ color: "#f50" }}
-                  />
+                <Col>
+                  <Row
+                    style={{ fontSize: 30, paddingRight: 22 }}
+                    className="text-name-click"
+                  >
+                    {data?.title}
+                  </Row>
+                  <Row>
+                    <Col style={{ display: "flex", alignItems: "center" }}>
+                      <Badge
+                        color="#f50"
+                        text={
+                          data?.status && data.status === "1"
+                            ? "Đang tuyển"
+                            : "Đã kết thúc"
+                        }
+                        style={{ color: "#f50" }}
+                      />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
               <Row style={{ paddingTop: 27 }} className="color-main">

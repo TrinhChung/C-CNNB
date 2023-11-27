@@ -3,11 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import dayjs, { Dayjs } from "dayjs";
-import { dataAnalysisTask } from "../../../service/Company/index";
+import dayjs from "dayjs";
+import {
+  dataAnalysisTask,
+  dataAnalysisApply,
+} from "../../../service/Company/index";
 Chart.register(CategoryScale);
 
-const Analytic = () => {
+const AnalyticApply = () => {
   const [day, setDay] = useState(dayjs());
   const [job, setJob] = useState([]);
   const [label, setLabel] = useState(
@@ -25,7 +28,7 @@ const Analytic = () => {
   }
 
   const fetchDataAnalysis = async (day) => {
-    const data = await dataAnalysisTask({
+    const data = await dataAnalysisApply({
       month: day.month() + 1,
       year: day.year(),
     });
@@ -57,6 +60,7 @@ const Analytic = () => {
       },
     ],
   };
+
   return (
     <Row style={{ padding: "20px 15px" }}>
       <Col span={24}>
@@ -101,4 +105,4 @@ const Analytic = () => {
   );
 };
 
-export default Analytic;
+export default AnalyticApply;

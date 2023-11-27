@@ -48,6 +48,7 @@ const CompanyDetail = () => {
         <WrapBox
           title={"Các vị trí công ty đang đăng tuyển"}
           data={data?.tasks}
+          company={data?.name}
           isShowAll={true}
           image={
             data?.image

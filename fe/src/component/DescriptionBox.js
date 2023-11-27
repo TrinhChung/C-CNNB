@@ -7,6 +7,7 @@ const DescriptionBox = ({ name, des, paddingLeft = 50 }) => {
       style={{
         padding: `50px 50px 50px ${paddingLeft}px`,
         paddingLeft: paddingLeft,
+        heightLine: 35,
       }}
     >
       <Row style={{ fontSize: 30, paddingBottom: 18, fontWeight: "bold" }}>

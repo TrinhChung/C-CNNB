@@ -38,12 +38,16 @@ const BoxJob = ({ data, size, key, image = "" }) => {
               >
                 {moment(data.update_at).format("l")}
               </Row>
-              của công ty
+              <Row className="fs-20">của công ty</Row>
               <Row
-                style={{ color: "var(--color-main)", paddingRight: 6 }}
+                style={{
+                  color: "var(--color-main)",
+                  paddingRight: 6,
+                  paddingLeft: 6,
+                }}
                 className="fs-20"
               >
-                {data?.company?.name}
+                {data?.company?.name ? data.company.name : data.companyName}
               </Row>
             </Row>
           </Col>
