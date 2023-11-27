@@ -1,12 +1,14 @@
 import { Col, Row, DatePicker } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-
+import dayjs, { Dayjs } from "dayjs";
+import { dataAnalysisTask } from "../../../service/Company/index";
 Chart.register(CategoryScale);
 
 const Analytic = () => {
+  const [day, setDay] = useState(dayjs());
   const [job, setJob] = useState([]);
   const [label, setLabel] = useState(
     getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
@@ -22,6 +24,20 @@ const Analytic = () => {
     return days;
   }
 
+  const fetchDataAnalysis = async (day) => {
+    const data = await dataAnalysisTask({
+      month: day.month(),
+      year: day.year(),
+    });
+    if (data.success === 1 && data.data) {
+      setJob(data.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataAnalysis(day);
+  }, [day]);
+
   const options = {
     scales: {
       x: {
@@ -34,7 +50,7 @@ const Analytic = () => {
     datasets: [
       {
         label: "Số Job",
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: job,
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
@@ -57,7 +73,10 @@ const Analytic = () => {
           </Col>
           <Col>
             <DatePicker
-              onChange={(date, dateString) => {
+              onChange={(date) => {
+                if (!date) {
+                  date = dayjs();
+                }
                 if (
                   date != null &&
                   date.month() != null &&
@@ -66,8 +85,10 @@ const Analytic = () => {
                   let month = date.month();
                   let year = date.year();
                   setLabel(getDaysInMonth(month, year));
+                  setDay(date);
                 }
               }}
+              defaultValue={day}
               picker="month"
             />
           </Col>

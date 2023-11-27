@@ -33,3 +33,7 @@ export const editProfileCompany = (id, data) => {
 export const acceptHr = (id, data) => {
   return axios.put(`/api/company/accept?hr_id=${id}`, data);
 };
+
+export const dataAnalysisTask = ({ month = 1, year = 2023 }) => {
+  return axios.get(`/api/task/monthChart?month=${month}&year=${year}`);
+};
