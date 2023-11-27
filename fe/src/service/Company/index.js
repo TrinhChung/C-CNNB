@@ -37,3 +37,7 @@ export const acceptHr = (id, data) => {
 export const dataAnalysisTask = ({ month = 1, year = 2023 }) => {
   return axios.get(`/api/task/monthChart?month=${month}&year=${year}`);
 };
+
+export const dataAnalysisApply = ({ month = 1, year = 2023 }) => {
+  return axios.get(`/api/task/applyChart?month=${month}&year=${year}`);
+};
