@@ -132,8 +132,9 @@ Route::prefix('user')->group(function () {
     Route::middleware(['auth:sanctum', 'ability:role-user, role-hr'])->get('/applied', [UserController::class, 'applied']);
     Route::middleware(['auth:sanctum', 'ability:role-hr,role-company'])->get('/search/applier', [UserController::class, 'searchAppliers']);
     Route::middleware(['auth:sanctum', 'abilities:role-company'])->get('/search/hr', [UserController::class, 'searchHrs']);
-    Route::middleware(['auth:sanctum', 'abilities:role-hr'])->get('/footer/metadata', [UserController::class, 'HrFooterData']);
 });
+
+Route::middleware(['auth:sanctum'])->get('/footer/metadata', [UserController::class, 'FooterData']);
 
 Route::prefix('profile')->group(function () {
     Route::middleware(['auth:sanctum'])->get('/info/{id}', [ProfileController::class, 'info']);
