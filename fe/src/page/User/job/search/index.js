@@ -37,6 +37,10 @@ const Search = () => {
     setQuerySearch(searchParams.toString());
   }, [searchParams.toString()]);
 
+  console.log(buildCategories(categories));
+
+  console.log(buildAddress(companies));
+
   const WrapBoxSearch = () => {
     return (
       <Row
@@ -83,13 +87,13 @@ const Search = () => {
                 searchParams.set("company_id", e);
                 navigate("/job/?" + searchParams.toString());
               }}
+              filterOption={(input, option) =>
+                (option?.label ?? "").includes(input)
+              }
               defaultValue={
                 searchParams.get("company_id")
                   ? searchParams.get("company_id")
                   : 0
-              }
-              filterOption={(input, option) =>
-                (option?.label ?? "").includes(input)
               }
               showSearch
             />

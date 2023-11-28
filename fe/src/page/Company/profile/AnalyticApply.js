@@ -4,10 +4,7 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import dayjs from "dayjs";
-import {
-  dataAnalysisTask,
-  dataAnalysisApply,
-} from "../../../service/Company/index";
+import { dataAnalysisApply } from "../../../service/Company/index";
 Chart.register(CategoryScale);
 
 const AnalyticApply = () => {

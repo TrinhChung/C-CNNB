@@ -75,3 +75,7 @@ export const getAppliedTasks = () => {
 export const getAllYears = () => {
   return axios.get(`/api/birthyear/`);
 };
+
+export const getDataFooter = () => {
+  return axios.get(`/api/user/footer/metadata`);
+};
