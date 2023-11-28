@@ -37,5 +37,5 @@ interface UserRepositoryInterface
 
     public function searchHr(Request $request);
 
-    public function getHrFooterData(Request $request);
+    public function getFooterData(Request $request);
 }

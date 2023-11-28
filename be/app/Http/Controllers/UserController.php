@@ -324,10 +324,10 @@ class UserController extends Controller
         }
     }
 
-    public function HrFooterData(Request $request)
+    public function FooterData(Request $request)
     {
         try {
-            $data = $this->userRepository->getHrFooterData($request);
+            $data = $this->userRepository->getFooterData($request);
             if ($data) {
                 return response()->json(
                     [
