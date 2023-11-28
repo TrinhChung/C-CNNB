@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mysql-db:
+    image: mysql:8
+    container_name: recruit_database
+    environment:
+      MYSQL_ROOT_PASSWORD: bach1912
+      MYSQL_DATABASE: recruit
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - recruit
+
+  laravel-backend:
+    build:
+      dockerfile: Dockerfile
+      context: "./be"
+    ports:
+      - "8000:8000"  # Update the port mapping
+    volumes:
+      - mysql_data:/var/lib/mysql
+    depends_on:
+      - mysql-db
+    networks:
+      - recruit
+
+  react-frontend:
+    build:
+      dockerfile: Dockerfile
+      context: "./fe"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - laravel-backend
+    networks:
+      - recruit
+
+volumes:
+  mysql_data:
+
+networks:
+  recruit:
