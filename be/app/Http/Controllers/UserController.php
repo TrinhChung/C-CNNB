@@ -323,4 +323,29 @@ class UserController extends Controller
             );
         }
     }
+
+    public function HrFooterData(Request $request)
+    {
+        try {
+            $data = $this->userRepository->getHrFooterData($request);
+            if ($data) {
+                return response()->json(
+                    [
+                        'data' => $data,
+                        'message' => 'get footer data successfully',
+                        'success' => 1,
+                    ], 200
+                );
+            } else {
+                throw new Exception('can not get footer data');
+            }
+        } catch (Exception $err) {
+            return response()->json(
+                [
+                    'message' => $err->getMessage(),
+                    'success' => 0,
+                ]
+            );
+        }
+    }
 }

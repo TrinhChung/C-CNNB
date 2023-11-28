@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Models\Activation;
+use App\Models\Applier_task;
 use App\Models\Profile;
 use App\Models\Task;
 use App\Repositories\EloquentRepository;
@@ -222,9 +223,22 @@ class UserEloquentRepository extends EloquentRepository implements UserRepositor
             }
 
             return $data;
-        //dd($data);
         } else {
             return null;
         }
+    }
+
+    public function getHrFooterData(Request $request)
+    {
+        $user = $request->user();
+        $company = $user->managedBy->load('tasks');
+        $applyCount = Applier_task::whereIn('task_id', $company->tasks->pluck('id')->toArray())->count();
+        $taskCount = $company->tasks->count();
+
+        return [
+            'company' => $company,
+            'applyCount' => $applyCount,
+            'taskCount' => $taskCount,
+        ];
     }
 }
