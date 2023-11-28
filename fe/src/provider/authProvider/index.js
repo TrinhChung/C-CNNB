@@ -8,6 +8,7 @@ import {
   getSkills as getSkillsService,
   getTypes as getTypesService,
   getAllYears as getBirthYearsService,
+  getDataFooter as getDataFooterService,
 } from "../../service/User";
 
 export const AuthContext = createContext();
@@ -21,6 +22,12 @@ export default function AuthProvider({ children }) {
   const [skills, setSkills] = useState([]);
   const [types, setTypes] = useState([]);
   const [birthYears, setBirthYears] = useState([]);
+  const [dataFooter, setDataFooter] = useState({
+    userCount: 0,
+    applyCount: 0,
+    taskCount: 0,
+    companyCount: 0,
+  });
 
   const handlerLogin = async () => {
     const userLocal = JSON.parse(localStorage.getItem("user"));
@@ -85,6 +92,13 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  const getDataFooter = async () => {
+    const res = await getDataFooterService();
+    if (res.success === 1 && res.data) {
+      setDataFooter(res.data);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!authUser && token) {
@@ -100,6 +114,7 @@ export default function AuthProvider({ children }) {
       getSkills();
       getTypes();
       getBirthYears();
+      getDataFooter();
     }
     getCompanies();
   }, [authUser]);
@@ -115,6 +130,7 @@ export default function AuthProvider({ children }) {
         exps,
         skills,
         types,
+        dataFooter,
         setAuthUser,
       }}
     >
