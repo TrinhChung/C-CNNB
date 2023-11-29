@@ -77,5 +77,5 @@ export const getAllYears = () => {
 };
 
 export const getDataFooter = () => {
-  return axios.get(`/api/user/footer/metadata`);
+  return axios.get(`/api/footer/metadata`);
 };

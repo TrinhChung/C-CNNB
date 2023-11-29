@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./Home.scss";
 const Home = () => {
-  const { authUser } = useContext(AuthContext);
+  const { authUser, dataFooter } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([]);
@@ -191,7 +191,7 @@ const Home = () => {
                     }}
                   />
                 }
-                title={"Số tin đã ứng tuyển"}
+                title={`Số tin đã ứng tuyển: ${dataFooter?.taskCount}`}
               />
             </Col>
             <Col className="card">
@@ -206,7 +206,7 @@ const Home = () => {
                     }}
                   />
                 }
-                title={"Số tin đã ứng tuyển"}
+                title={`Số công ty sử dụng: ${dataFooter?.companyCount}`}
               />
             </Col>
             <Col className="card">
@@ -221,7 +221,7 @@ const Home = () => {
                     }}
                   />
                 }
-                title={"Số tin đã ứng tuyển"}
+                title={`Số  người sử  dụng: ${dataFooter?.userCount}`}
               />
             </Col>
           </Row>
