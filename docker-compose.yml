@@ -3,9 +3,14 @@ services:
   mysql-db:
     image: mysql:8
     container_name: recruit_database
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: bach1912
       MYSQL_DATABASE: recruit
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
     ports:
       - "3307:3306"
     volumes:
@@ -17,12 +22,15 @@ services:
     build:
       dockerfile: Dockerfile
       context: "./be"
+    command:
+      sh -c 'composer install --ignore-platform-reqs && php artisan migrate && php artisan db:seed && php artisan serve --host=0.0.0.0 --port=8000'
     ports:
       - "8000:8000"  # Update the port mapping
     volumes:
       - mysql_data:/var/lib/mysql
     depends_on:
-      - mysql-db
+      mysql-db:
+        condition: service_healthy
     networks:
       - recruit
 
