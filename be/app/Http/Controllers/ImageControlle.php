@@ -34,8 +34,10 @@ class ImageControlle extends Controller
                 $image = $request->file('image');
                 $imageName = time().$image->getClientOriginalName();
                 $image->move(public_path('images/'), $imageName);
+                $app_url = env('APP_URL');
+                $imgLink = env('APP_ENV') === 'production' ? "{$app_url}/images/{$imageName}" : asset('images/'.$imageName);
                 $user->update([
-                    'image' => asset('images/'.$imageName),
+                    'image' => $imgLink,
                 ]);
 
                 return response()->json([
