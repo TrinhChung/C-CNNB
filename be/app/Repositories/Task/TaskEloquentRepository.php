@@ -4,7 +4,6 @@ namespace App\Repositories\Task;
 
 use App\Models\Applier_task;
 use App\Models\Type_task;
-use App\Models\User;
 use App\Repositories\EloquentRepository;
 use Carbon\Carbon;
 use Exception;
@@ -54,7 +53,6 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
             unset($task['savedBy']);
         }
 
-        //dd($request->user()->role)
         return $task;
 
     }
@@ -75,9 +73,7 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
         if ($request->searchInput) {
             $input = $request->searchInput;
         }
-        //dd($input);
         $data = $this->_model->where('title', 'like', '%'.$input.'%');
-        //dd($data);
         if ($request->hr_id) {
             $data = $data->where('hr_id', $request->hr_id);
         }
@@ -104,7 +100,6 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
                 });
         }
 
-        //dd($data);
         return $data->with('category')
             ->with('expYear')
             ->with('types')
@@ -131,7 +126,6 @@ class TaskEloquentRepository extends EloquentRepository implements TaskRepositor
 
     public function paginateTasks()
     {
-        //dd(get_class($this->_model));
         return $this->_model->with('address')->with('types')->with('company')->with('hr')->orderBy('created_at', 'DESC')->paginate(10);
     }
 
