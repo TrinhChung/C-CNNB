@@ -34,8 +34,6 @@ const CV = () => {
     console.log(`switch to ${checked}`);
   };
 
-  console.log(birthYears);
-
   useEffect(() => {
     getInfoProfile(authUser.id);
     form.resetFields();
@@ -111,9 +109,10 @@ const CV = () => {
   };
 
   const uploadImage = async (form) => {
+    console.log(process.env.URL_BE);
     const res = await singUpForm(
       form,
-      `http://localhost:8000/api/image/upload/${authUser.id}?role=user`
+      `${process.env.URL_BE}/api/image/upload/${authUser.id}?role=user`
     );
     if (res.success === 1) {
       toast.success("Đã Upload Ảnh ");

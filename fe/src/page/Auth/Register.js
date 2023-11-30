@@ -46,7 +46,7 @@ const Register = () => {
 
   const handlerLogin = async () => {
     form.validateFields();
-    const url = `http://localhost:8000${
+    const url = `${process.env.URL_BE}${
       role === 2 ? "/api/company/new" : "/api/user/new"
     }`;
 

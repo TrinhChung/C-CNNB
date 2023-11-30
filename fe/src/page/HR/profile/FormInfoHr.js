@@ -16,7 +16,7 @@ const FormInfoHr = ({ onSubmit, image }) => {
   const uploadImage = async (form) => {
     const res = await singUpForm(
       form,
-      `http://localhost:8000/api/image/upload/${authUser.id}?role=hr`
+      `${process.env.URL_BE}/api/image/upload/${authUser.id}?role=hr`
     );
     if (res.success === 1) {
       toast.success("Đã Upload Ảnh ");
