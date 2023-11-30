@@ -46,7 +46,7 @@ const Register = () => {
 
   const handlerLogin = async () => {
     form.validateFields();
-    const url = `${process.env.URL_BE}${
+    const url = `${process.env.REACT_APP_URL_BE}${
       role === 2 ? "/api/company/new" : "/api/user/new"
     }`;
 

@@ -109,10 +109,9 @@ const CV = () => {
   };
 
   const uploadImage = async (form) => {
-    console.log(process.env.URL_BE);
     const res = await singUpForm(
       form,
-      `${process.env.URL_BE}/api/image/upload/${authUser.id}?role=user`
+      `${process.env.REACT_APP_URL_BE}/api/image/upload/${authUser.id}?role=user`
     );
     if (res.success === 1) {
       toast.success("Đã Upload Ảnh ");
