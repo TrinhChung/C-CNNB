@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   mysql-db:
     image: mysql:8
@@ -12,7 +12,7 @@ services:
       timeout: 20s
       retries: 10
     ports:
-      - "3307:3306"
+      - "3307:3307"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -25,7 +25,7 @@ services:
     command:
       sh -c 'composer install --ignore-platform-reqs && php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8000'
     ports:
-      - "8000:8000"  # Update the port mapping
+      - "8000:8000" # Update the port mapping
     volumes:
       - mysql_data:/var/lib/mysql
     depends_on:

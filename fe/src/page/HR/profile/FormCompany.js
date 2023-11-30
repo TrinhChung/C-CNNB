@@ -17,7 +17,7 @@ const FormCompany = ({ onEdit = () => {}, image }) => {
   const uploadImage = async (form) => {
     const res = await singUpForm(
       form,
-      `http://localhost:8000/api/image/upload/${authUser.id}?role=company`
+      `${process.env.REACT_APP_URL_BE}/api/image/upload/${authUser.id}?role=company`
     );
     if (res.success === 1) {
       toast.success("Đã Upload Ảnh ");
