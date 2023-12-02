@@ -2,6 +2,9 @@ name: Deploy Docker to vps
 
 on:
   push:
+    paths:
+      - "be/**"
+      - ".github/workflows/**"
     branches: [main]
 
 jobs:

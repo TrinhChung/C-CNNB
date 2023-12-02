@@ -6,6 +6,7 @@ on:
       - "be/**"
       - ".github/workflows/**"
     branches: [main]
+  workflow_call:
 
 jobs:
   laravel-pint:
