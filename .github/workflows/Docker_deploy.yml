@@ -1,0 +1,27 @@
+name: Deploy Docker to vps
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-backend:
+    uses: TrinhChung/C-CNNB/.github/workflows/laravel_lint_and_test.yml@main
+    secrets: inherit
+  deploy-to-vps:
+    needs: [test-backend]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Pull latest code on VPS
+        run: |
+          sshpass -p "matKhau_1234f" ssh "root"@"159.223.56.70" "cd /root/C-CNNB && git pull origin main"
+
+      - name: Stop and remove old Docker containers, volumes, and images
+        run: |
+          sshpass -p "matKhau_1234f" ssh "root"@"159.223.56.70" "cd /root/C-CNNB && docker-compose down --volumes --rmi all"
+
+      - name: Start Docker Compose on VPS
+        run: |
+          sshpass -p "matKhau_1234f" ssh "root"@"159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
