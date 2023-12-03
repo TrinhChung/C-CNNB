@@ -1,4 +1,4 @@
-name: Deploy Docker to vps
+name: Deploy Docker to VPS
 
 on:
   push:
@@ -8,6 +8,7 @@ jobs:
   test-backend:
     uses: TrinhChung/C-CNNB/.github/workflows/laravel_lint_and_test.yml@main
     secrets: inherit
+
   deploy-to-vps:
     needs: [test-backend]
     runs-on: ubuntu-22.04
@@ -25,8 +26,9 @@ jobs:
       - name: Start Docker Compose on VPS
         run: |
           sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
+
   build-frontend:
-    secrets: inherit
+    needs: [test-backend]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
