@@ -33,6 +33,20 @@ services:
         condition: service_healthy
     networks:
       - recruit
+
+  # react-frontend:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: "./fe"
+  #   command:
+  #     sh -c 'REACT_APP_URL_BE=https://recruit_server.bachnguyencoder.id.vn npm start'
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - laravel-backend
+  #   networks:
+  #     - recruit
+
 volumes:
   mysql_data:
 
