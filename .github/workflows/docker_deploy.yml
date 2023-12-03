@@ -47,7 +47,7 @@ jobs:
 
       - name: Remove old build
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "rm -f /var/www/recruit_app/html/*"
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "rm -r -f /var/www/recruit_app/html/*"
       - name: Move build to VPS
         run: |
           sshpass -p "matKhau_1234f" scp -v -o StrictHostKeyChecking=no -r fe/build/* root@159.223.56.70:/var/www/recruit_app/html
