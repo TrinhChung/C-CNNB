@@ -43,7 +43,7 @@ jobs:
         run: |
           cd fe
           npm install
-          CI=false npm run build
+          CI=false REACT_APP_URL_BE=https://recruit_server.bachnguyencoder.id.vn npm run build
 
       - name: Move build to VPS
         run: |
