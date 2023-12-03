@@ -28,14 +28,23 @@ jobs:
           sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
 
   build-frontend:
-    needs: [test-backend]
+    needs: [deploy-to-vps]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Build in VPS
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "12"  # Choose the version you need
+
+      - name: Install dependencies and build frontend
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB/fe && npm run build"
-      - name: Move to react_app/html
+          cd fe
+          npm install
+          npm run build
+
+      - name: Move build to VPS
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "mv /root/C-CNNB/fe/build /var/www/recruit_app/html"
+          sshpass -p "matKhau_1234f" scp -v -o StrictHostKeyChecking=no -r fe/build root@159.223.56.70:/var/www/recruit_app/html"
