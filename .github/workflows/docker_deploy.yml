@@ -21,11 +21,11 @@ jobs:
 
       - name: Stop and remove old Docker containers, volumes, and images
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose down --volumes --rmi all"
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker compose down --volumes --rmi all"
 
       - name: Start Docker Compose on VPS
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker compose up -d"
 
   build-frontend:
     needs: [deploy-to-vps]
@@ -45,6 +45,9 @@ jobs:
           npm install
           CI=false REACT_APP_URL_BE=https://recruit_server.bachnguyencoder.id.vn npm run build
 
+      - name: Remove old build
+        run: |
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "rm -f /var/www/recruit_app/html/*"
       - name: Move build to VPS
         run: |
           sshpass -p "matKhau_1234f" scp -v -o StrictHostKeyChecking=no -r fe/build/* root@159.223.56.70:/var/www/recruit_app/html
