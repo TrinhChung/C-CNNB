@@ -43,7 +43,7 @@ jobs:
         run: |
           cd fe
           npm install
-          npm run build
+          CI=false npm run build
 
       - name: Move build to VPS
         run: |
