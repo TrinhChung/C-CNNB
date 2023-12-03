@@ -25,10 +25,10 @@ jobs:
       - name: Start Docker Compose on VPS
         run: |
           sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
-    build-frontend:
-      secrets: inherit
-      runs-on: ubuntu-22.04
-      steps:
+  build-frontend:
+    secrets: inherit
+    runs-on: ubuntu-22.04
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Build in VPS
