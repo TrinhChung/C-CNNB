@@ -2,9 +2,6 @@ name: Deploy Docker to vps
 
 on:
   push:
-    paths:
-      - "be/**"
-      - ".github/workflows/**"
     branches: [main]
 
 jobs:
@@ -28,3 +25,15 @@ jobs:
       - name: Start Docker Compose on VPS
         run: |
           sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker-compose up -d"
+    build-frontend:
+      secrets: inherit
+      runs-on: ubuntu-22.04
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build in VPS
+        run: |
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB/fe && npm run build"
+      - name: Move to react_app/html
+        run: |
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "mv /root/C-CNNB/fe/build /var/www/recruit_app/html"
