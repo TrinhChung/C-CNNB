@@ -21,9 +21,8 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        DB::beginTransaction();
-        try {
 
+        try {
             $request->validate([
                 'email' => 'email|required',
                 'password' => 'required',
@@ -31,6 +30,7 @@ class UserController extends Controller
 
             $data = $this->userRepository->createUser($request);
             if ($data && ! $data['error']) {
+                DB::beginTransaction();
                 Mail::to($data->email)->send(new DemoMail($data));
                 unset($data['token']);
 
@@ -41,6 +41,7 @@ class UserController extends Controller
                         'success' => 1,
                     ], 200
                 );
+                DB::commit();
             } elseif ($data['error']) {
                 throw new Exception($data['error']);
             } else {
@@ -56,7 +57,6 @@ class UserController extends Controller
                 ]
             );
         }
-        DB::commit();
     }
 
     public function apply(Request $request)
