@@ -13,6 +13,9 @@ class AddressSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Address::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/address.json'));
         foreach ($data as $element) {
             Address::create([

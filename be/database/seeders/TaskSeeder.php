@@ -17,6 +17,9 @@ class TaskSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Task::count() !== 0) {
+            return;
+        }
         $data = [
             'Tổ chức Giáo dục quốc tế Langmaster' => [
                 [

@@ -13,6 +13,9 @@ class ExpSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Exp::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/exp.json'));
         foreach ($data as $element) {
             Exp::create([

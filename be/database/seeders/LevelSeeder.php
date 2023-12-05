@@ -13,6 +13,9 @@ class LevelSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Level::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/levels.json'));
         foreach ($data as $element) {
             Level::create([

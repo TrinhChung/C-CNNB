@@ -18,6 +18,9 @@ class ApplierSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (User::where('role', '0')->count() !== 0) {
+            return;
+        }
         $dt = Carbon::now('Asia/Ho_Chi_Minh');
         for ($i = 1; $i <= 10; $i++) {
             $user = User::create(

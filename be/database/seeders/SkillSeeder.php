@@ -13,6 +13,9 @@ class SkillSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Skill::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/skills.json'));
         foreach ($data as $element) {
             Skill::create([
