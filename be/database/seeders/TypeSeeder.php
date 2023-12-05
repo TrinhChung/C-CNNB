@@ -13,6 +13,9 @@ class TypeSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (Type::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/types.json'));
         foreach ($data as $element) {
             Type::create([

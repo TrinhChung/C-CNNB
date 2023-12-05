@@ -21,7 +21,7 @@ jobs:
 
       - name: Stop and remove old Docker containers, volumes, and images
         run: |
-          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker compose down --volumes --rmi all"
+          sshpass -p "matKhau_1234f" ssh -v -o StrictHostKeyChecking=no "root@159.223.56.70" "cd /root/C-CNNB && docker compose down --rmi all"
 
       - name: Start Docker Compose on VPS
         run: |

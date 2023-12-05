@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Activation;
 use App\Models\Company;
 use App\Models\User;
-use Faker\Generator as Faker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -17,7 +16,9 @@ class CompanySeeder extends Seeder
     public static function run(): void
     {
         //
-        $fake = new Faker();
+        if (Company::count() !== 0) {
+            return;
+        }
         $data = [
             [
                 'name' => 'CÔNG TY CỔ PHẦN THẺ DU LỊCH CRYSTAL BAY',

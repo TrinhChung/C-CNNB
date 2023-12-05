@@ -13,6 +13,9 @@ class YearOfDateSeeder extends Seeder
     public static function run(): void
     {
         //
+        if (BirthYear::count() !== 0) {
+            return;
+        }
         $data = json_decode(file_get_contents(storage_path().'/jsonData/yearOfDate.json'));
         foreach ($data as $element) {
             BirthYear::create([
