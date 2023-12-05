@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
       context: "./be"
     command:
-      sh -c 'composer install --ignore-platform-reqs --optimize-autoloader && php artisan migrate --force && php artisan db:seed --force && php artisan route:cache && php artisan view:cache && php artisan optimize && php artisan serve --host=0.0.0.0 --port=8000'
+      sh -c 'composer install --ignore-platform-reqs --optimize-autoloader && php artisan migrate --force && php artisan db:seed --force && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=8000'
     ports:
       - "8000:8000" # Update the port mapping
     volumes:
