@@ -4,38 +4,53 @@ import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import dayjs from "dayjs";
-import { dataAnalysisApply } from "../../../service/Company/index";
+import {
+  dataAnalysisApply,
+  dataAnalysisTask,
+} from "../../../service/Company/index";
 Chart.register(CategoryScale);
 
 const AnalyticApply = () => {
   const [day, setDay] = useState(dayjs());
+  const [apply, setApply] = useState([]);
   const [job, setJob] = useState([]);
-  const [label, setLabel] = useState(
-    getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
-  );
+  const [label, setLabel] = useState(getDaysInMonth(dayjs()));
 
-  function getDaysInMonth(month, year) {
-    var date = new Date(year, month, 1);
+  function getDaysInMonth(day) {
+    let dayCount = day.daysInMonth();
     var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date).getDate());
-      date.setDate(date.getDate() + 1);
+    for (let i = 1; i <= dayCount; i++) {
+      days.push(i);
     }
     return days;
   }
 
   const fetchDataAnalysis = async (day) => {
+    day = day ? day : dayjs();
     const data = await dataAnalysisApply({
       month: day.month() + 1,
       year: day.year(),
     });
-    if (data.success === 1 && data.data) {
+    if (data.success === 1) {
+      setApply(data.data);
+    }
+  };
+
+  const fetchDataJobAnalysis = async (day) => {
+    day = day ? day : dayjs();
+
+    const data = await dataAnalysisTask({
+      month: day.month() + 1,
+      year: day.year(),
+    });
+    if (data.success === 1) {
       setJob(data.data);
     }
   };
 
   useEffect(() => {
     fetchDataAnalysis(day);
+    fetchDataJobAnalysis(day);
   }, [day]);
 
   const options = {
@@ -49,14 +64,23 @@ const AnalyticApply = () => {
     labels: label,
     datasets: [
       {
+        label: "Số ứng viên",
+        data: [...apply],
+        fill: false,
+        borderColor: "rgb(132, 32, 40)",
+        tension: 0.1,
+      },
+      {
         label: "Số Job",
-        data: job,
+        data: [...job],
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
       },
     ],
   };
+
+  console.log(data);
 
   return (
     <Row style={{ padding: "20px 15px" }}>
@@ -75,17 +99,12 @@ const AnalyticApply = () => {
           <Col>
             <DatePicker
               onChange={(date) => {
-                if (!date) {
-                  date = dayjs();
-                }
                 if (
                   date != null &&
                   date.month() != null &&
                   date.year() != null
                 ) {
-                  let month = date.month() + 1;
-                  let year = date.year();
-                  setLabel(getDaysInMonth(month, year));
+                  setLabel(getDaysInMonth(date));
                   setDay(date);
                 }
               }}

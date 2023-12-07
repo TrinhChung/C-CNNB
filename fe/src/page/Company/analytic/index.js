@@ -1,5 +1,5 @@
 import { Col, Row, DatePicker } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
@@ -10,27 +10,28 @@ Chart.register(CategoryScale);
 const Analytic = () => {
   const [day, setDay] = useState(dayjs());
   const [job, setJob] = useState([]);
-  const [label, setLabel] = useState(
-    getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
-  );
+  const [label, setLabel] = useState(getDaysInMonth(dayjs()));
 
-  function getDaysInMonth(month, year) {
-    var date = new Date(year, month, 1);
+  function getDaysInMonth(day) {
+    let dayCount = day.daysInMonth();
     var days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date).getDate());
-      date.setDate(date.getDate() + 1);
+    for (let i = 1; i <= dayCount; i++) {
+      days.push(i);
     }
     return days;
   }
 
   const fetchDataAnalysis = async (day) => {
-    const data = await dataAnalysisTask({
-      month: day.month() + 1,
-      year: day.year(),
-    });
-    if (data.success === 1 && data.data) {
-      setJob(data.data);
+    try {
+      const data = await dataAnalysisTask({
+        month: day.month() + 1,
+        year: day.year(),
+      });
+      if (data.success === 1 && data.data) {
+        setJob(data.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -50,13 +51,14 @@ const Analytic = () => {
     datasets: [
       {
         label: "Số Job",
-        data: job,
+        data: [...job],
         fill: false,
         borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
       },
     ],
   };
+
   return (
     <Row style={{ padding: "20px 15px" }}>
       <Col span={24}>
@@ -74,17 +76,12 @@ const Analytic = () => {
           <Col>
             <DatePicker
               onChange={(date) => {
-                if (!date) {
-                  date = dayjs();
-                }
                 if (
                   date != null &&
                   date.month() != null &&
                   date.year() != null
                 ) {
-                  let month = date.month() + 1;
-                  let year = date.year();
-                  setLabel(getDaysInMonth(month, year));
+                  setLabel(getDaysInMonth(date));
                   setDay(date);
                 }
               }}
