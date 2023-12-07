@@ -20,6 +20,7 @@ import { EyeOutlined } from "@ant-design/icons";
 import CVUser from "../../HR/candidate/CV/CVUser";
 import { singUpForm } from "../../../service/Auth/SignUpForm";
 import dayjs from "dayjs";
+import JobBookmark from "./JobBookmark";
 const { TextArea } = Input;
 
 const CV = () => {
@@ -363,6 +364,15 @@ const CV = () => {
           <Col>
             <Skill mySkills={user?.skills} edit={edit} />
           </Col>
+        </BoxCV>
+        <BoxCV
+          title={"Hồ sơ đã lưu"}
+          isEdit={true}
+          setEdit={setEdit}
+          edit={edit}
+          onSave={onSave}
+        >
+          <JobBookmark />
         </BoxCV>
       </Form>
       <Modal
